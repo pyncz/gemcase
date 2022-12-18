@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'themes';
+
+@layer base {
+  html {
+    font-size: 16px; // 1rem
+    @apply tw-font-sans tw-bg-base tw-text-base tw-leading-sm;
+  }
+  ::selection {
+    @apply tw-text-accent-primary tw-bg-accent-secondary;
+  }
+
+  /* themes */
+  :root {
+    /* COMMON PALETTE */
+    // base
+    --c-black: 0, 0, 0;
+    --c-white: 255, 255, 255;
+    // accent-primary
+    --c-accent-primary: 13, 66, 255;
+    --c-accent-primary-lighten: 46, 92, 255;
+    --c-accent-primary-darken: 0, 49, 224;
+    // accent-secondary
+    --c-accent-secondary: 181, 255, 61;
+    --c-accent-secondary-lighten: 201, 255, 112;
+    --c-accent-secondary-darken: 155, 250, 0;
+
+    // illustration
+    --c-i-base: 34, 83, 255;
+    --c-i-accent-1: 255, 77, 216;
+    --c-i-accent-2: 144, 134, 255;
+    --c-i-accent-3: 255, 136, 69;
+    --c-i-accent-4: 136, 219, 0;
+    --c-i-accent-5: 0, 197, 219;
+    --c-i-accent-6: 235, 199, 0;
+
+    // Default: light mode
+    @include light-mode;
+  }
+  .dark-mode {
+    @include dark-mode;
+  }
+  .black-mode {
+    @include black-mode;
+  }
+}

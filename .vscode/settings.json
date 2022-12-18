@@ -1,0 +1,42 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#24242c",
+    "titleBar.activeBackground": "#2a2c38",
+    "titleBar.activeForeground": "#e6e6e6"
+  },
+  "files.associations": {
+    ".env.template": "properties"
+  },
+  "i18n-ally.displayLanguage": "en-US",
+  "i18n-ally.enabledFrameworks": [
+    "i18next"
+  ],
+  "i18n-ally.localesPaths": "public/locales",
+  "i18n-ally.keysInUse": [
+    "pages.*.title",
+    "pages.*.description",
+  ],
+  "editor.tabSize": 2,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "scss.lint.unknownAtRules": "ignore",
+  "stylelint.configFile": ".stylelintrc",
+  "stylelint.snippet": [
+    "css",
+    "less",
+    "postcss",
+    "scss",
+    "sass",
+    "html"
+  ],
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "sass",
+    "scss",
+    "html"
+  ],
+  "tailwindCSS.experimental.configFile": "tailwind.config.cjs"
+}
