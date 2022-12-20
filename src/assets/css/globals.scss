@@ -39,6 +39,13 @@
 
     // Default: light mode
     @include light-mode;
+    @media (prefers-color-scheme: dark) {
+      @include dark-mode;
+    }
+  }
+
+  .light-mode {
+    @include light-mode;
   }
   .dark-mode {
     @include dark-mode;

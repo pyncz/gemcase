@@ -10,7 +10,7 @@ import type {
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { trpc } from '../utils/trpc'
+import { trpc } from '../utils'
 import { LocaleSwitcher, ThemeSwitcher } from '../components'
 import IconIceCream from '~icons/ion/ice-cream'
 

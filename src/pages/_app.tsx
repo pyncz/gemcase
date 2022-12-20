@@ -5,7 +5,9 @@ import localFont from '@next/font/local'
 
 import '../assets/css/globals.scss'
 
-import { trpc } from '../utils/trpc'
+import { trpc } from '../utils'
+import type { Theme } from '../contexts'
+import { ColorModeContextProvider } from '../contexts'
 
 // Optimize fonts
 
@@ -31,11 +33,17 @@ const Roboto = localFont({
 
 const fonts = [Mulish, Roboto]
 
-const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
+type PageProps = Record<string, any> & {
+  theme: Theme
+}
+
+const MyApp: AppType<PageProps> = ({ Component, pageProps }: AppProps<PageProps>) => {
   return (
-    <main className={`${fonts.map(font => font.variable).join(' ')} tw-font-sans`}>
-      <Component {...pageProps} />
-    </main>
+    <ColorModeContextProvider>
+      <main className={`${fonts.map(font => font.variable).join(' ')} tw-font-sans`}>
+        <Component {...pageProps} />
+      </main>
+    </ColorModeContextProvider>
   )
 }
 

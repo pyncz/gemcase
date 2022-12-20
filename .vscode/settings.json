@@ -15,6 +15,7 @@
   "i18n-ally.keysInUse": [
     "pages.*.title",
     "pages.*.description",
+    "theme.*"
   ],
   "editor.tabSize": 2,
   "css.validate": false,

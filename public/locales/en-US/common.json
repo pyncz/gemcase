@@ -5,5 +5,11 @@
       "description": "You NFT Portfolio. Any network, any chain."
     }
   },
-  "hi": "Hello"
+  "hi": "Hello",
+  "theme": {
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark",
+    "black": "Black"
+  }
 }
