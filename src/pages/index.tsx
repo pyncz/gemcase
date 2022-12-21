@@ -12,7 +12,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { trpc } from '../utils'
 import { LocaleSwitcher, ThemeSwitcher } from '../components'
-import IconIceCream from '~icons/ion/ice-cream'
+import { LayoutDefault } from '../layouts'
 
 interface Props {
   // Add custom props here
@@ -50,28 +50,33 @@ const Home: NextPage<InferGetServerSidePropsType<typeof getStaticProps>> = () =>
     <>
       <Head>
         <title>{i18n.t('pages.index.title')}</title>
-        <meta property="og:title" content={i18n.t('pages.index.title')} key="title" />
+        <meta property="og:title" content={`gemcase | ${i18n.t('pages.index.title')}`} key="title" />
         <meta name="description" content={i18n.t('pages.index.description')} key="description" />
       </Head>
 
-      <LocaleSwitcher />
-      <ThemeSwitcher />
+      <LayoutDefault
+        details={
+          <div>Some sidebar content</div>
+        }
+      >
+        <LocaleSwitcher />
+        <ThemeSwitcher />
 
-      <div>
-        {greeting}
-      </div>
-      <IconIceCream />
-      <div>
-        {count1}
-        {doubleCount1}
-        <button className="tw-p-4 tw-bg-accent-primary" onClick={() => setCount1(count1 + 1)}>Count1++</button>
-      </div>
+        <div>
+          {greeting}
+        </div>
+        <div>
+          {count1}
+          {doubleCount1}
+          <button className="tw-p-4 tw-bg-accent-primary" onClick={() => setCount1(count1 + 1)}>Count1++</button>
+        </div>
 
-      <div>
-        {count2}
-        {doubleCount2}
-        <button className="tw-p-4 tw-bg-accent-secondary" onClick={() => setCount2(count2 + 1)}>Count2++</button>
-      </div>
+        <div>
+          {count2}
+          {doubleCount2}
+          <button className="tw-p-4 tw-bg-accent-secondary" onClick={() => setCount2(count2 + 1)}>Count2++</button>
+        </div>
+      </LayoutDefault>
     </>
   )
 }

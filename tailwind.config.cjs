@@ -85,7 +85,7 @@ module.exports = {
       },
     },
     gridTemplateColumns: {
-      side: '3fr minmax(16rem, 1fr)',
+      side: '3fr minmax(20rem, 1fr)',
       cards: 'repeat(auto-fill, minmax(14rem, 1fr))',
     },
     colors: {
@@ -217,10 +217,6 @@ module.exports = {
       })
 
       addUtilities({
-        '.b': {
-          borderWidth: theme('borderWidth.DEFAULT'),
-          borderStyle: 'solid',
-        },
         '.article': {
           maxWidth: '40rem',
           marginLeft: 'auto',

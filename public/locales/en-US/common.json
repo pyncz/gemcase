@@ -1,15 +1,35 @@
 {
   "pages": {
     "index": {
-      "title": "gemcase | Home",
+      "title": "Home",
       "description": "You NFT Portfolio. Any network, any chain."
+    },
+    "about": {
+      "title": "About",
+      "description": "Why will gemcase make your life easier?"
     }
   },
   "hi": "Hello",
+  "logo": "{{name}} logo",
+  "madeBy": "Made by",
   "theme": {
     "system": "System",
     "light": "Light",
     "dark": "Dark",
     "black": "Black"
+  },
+  "promo": {
+    "networks": {
+      "title": "Any blockchain. Any network",
+      "description": "No jumping between wallets anymore"
+    },
+    "addresses": {
+      "title": "View the assets from all your addresses",
+      "description": "Keep your portfolio in one place"
+    },
+    "assets": {
+      "title": "Explore your favorite tokens",
+      "description": "From all over the world!"
+    }
   }
 }
