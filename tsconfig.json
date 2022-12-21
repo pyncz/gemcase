@@ -14,10 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUncheckedIndexedAccess": true,
-    "types": [
-      "unplugin-icons/types/react",
-    ]
+    "noUncheckedIndexedAccess": true
   },
   "include": [
     "next-env.d.ts",

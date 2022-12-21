@@ -1,11 +1,12 @@
 import type { FC, PropsWithChildren } from 'react'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import { Icon } from '@iconify-icon/react'
+import githubIcon from '@iconify-icons/ion/logo-github'
 import type { OptionalSlots } from '../models'
 import { LogoMain } from '../components'
 import { getYearsFrom } from '../utils'
 import { LayoutSide } from './LayoutSide'
-import GithubIcon from '~icons/ion/logo-github.jsx'
 
 type Props = OptionalSlots<'details'>
 
@@ -41,7 +42,7 @@ export const LayoutDefault: FC<PropsWithChildren<Props>> = ({ children, details 
                 target="_blank"
                 href="https://github.com/pyncz"
                 rel="noreferrer"
-              ><GithubIcon />
+              ><Icon icon={githubIcon} />
                 pyncz</a>
             </div>
           </footer>
