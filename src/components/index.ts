@@ -1,4 +1,5 @@
 export * from './logos'
+export * from './errors'
 
 export * from './promoCard'
 

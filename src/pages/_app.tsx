@@ -1,4 +1,3 @@
-import type { AppProps } from 'next/app'
 import { type AppType } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
 import localFont from '@next/font/local'
@@ -6,8 +5,10 @@ import localFont from '@next/font/local'
 import '../assets/css/globals.scss'
 
 import { trpc } from '../utils'
-import type { Theme } from '../contexts'
 import { ColorModeContextProvider } from '../contexts'
+import { ErrorBoundary } from '../components'
+import { LayoutBase } from '../layouts'
+import type { AppPropsWithLayout } from '../models'
 
 // Optimize fonts
 
@@ -33,17 +34,20 @@ const Roboto = localFont({
 
 const fonts = [Mulish, Roboto]
 
-type PageProps = Record<string, any> & {
-  theme: Theme
-}
+const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
+  // Get per-page layout or use a default one
+  const Layout = Component.Layout ?? LayoutBase
 
-const MyApp: AppType<PageProps> = ({ Component, pageProps }: AppProps<PageProps>) => {
   return (
-    <ColorModeContextProvider>
-      <main className={`${fonts.map(font => font.variable).join(' ')} tw-font-sans`}>
-        <Component {...pageProps} />
-      </main>
-    </ColorModeContextProvider>
+    <ErrorBoundary>{/* In case something happens above the Component's ErrorBoundary */}
+      <ColorModeContextProvider>
+        <main className={`${fonts.map(font => font.variable).join(' ')} tw-font-sans`}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </main>
+      </ColorModeContextProvider>
+    </ErrorBoundary>
   )
 }
 
