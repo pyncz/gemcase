@@ -8,7 +8,7 @@ import { LayoutBase } from './LayoutBase'
 export const PageLayoutMessage: FC<PropsWithChildren> = ({ children }) => {
   return (
     <LayoutBase>
-      <LayoutSide>
+      <LayoutSide className="tw-h-full">
         <div className="tw-h-full tw-flex tw-items-center">
           {children}
         </div>

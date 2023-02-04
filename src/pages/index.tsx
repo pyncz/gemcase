@@ -8,14 +8,15 @@ import type {
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import i18nextConfig from '../../next-i18next.config'
 import { trpc } from '../utils'
-import { NextPageWithLayout } from '../models'
+import type { NextPageWithLayout } from '../models'
 
 export const getStaticProps: GetStaticProps = async ({
   locale,
 }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'en-US', [
+    ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
       'common',
     ])),
   },
@@ -34,8 +35,10 @@ const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
         <meta name="description" content={i18n.t('pages.index.description')} key="description" />
       </Head>
 
-      {greeting}
-      <h1>Some kind of explore?</h1>
+      <div className="tw-px-container">
+        {greeting}
+        <h1>Some kind of explore?</h1>
+      </div>
     </>
   )
 }
