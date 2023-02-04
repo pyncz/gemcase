@@ -85,7 +85,6 @@ module.exports = {
       },
     },
     gridTemplateColumns: {
-      side: '3fr minmax(20rem, 1fr)',
       cards: 'repeat(auto-fill, minmax(14rem, 1fr))',
     },
     colors: {
@@ -190,6 +189,9 @@ module.exports = {
         '2xs': '320px',
         'xs': '400px',
       },
+      spacing: {
+        sidebar: '80px',
+      },
       height: {
         'logo-icon': '1.25em',
         'logo-xs': '1.5rem',
@@ -208,7 +210,7 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     plugin(require('./src/tailwind/headers.cjs')),
     plugin(require('./src/tailwind/layouts.cjs')),
-    ({ addUtilities, addComponents, addBase, theme }) => {
+    ({ addUtilities, matchUtilities, addComponents, addBase, theme }) => {
       addBase({
         hr: {
           width: '100%',
@@ -217,10 +219,20 @@ module.exports = {
       })
 
       addUtilities({
-        '.article': {
-          maxWidth: '40rem',
-          marginLeft: 'auto',
-          marginRight: 'auto',
+        '.py-section': {
+          'paddingTop': '5rem',
+          'paddingBottom': '4rem',
+          '@screen md': {
+            paddingTop: '6rem',
+          },
+        },
+        '.px-container': {
+          'paddingLeft': '1rem',
+          'paddingRight': '1rem',
+          '@screen sm': {
+            paddingLeft: '1.5rem',
+            paddingRight: '1.5rem',
+          },
         },
         '.navlink-bg': {
           background: 'radial-gradient(50% 50% at center, rgb(var(--c-navlink)), transparent)',
@@ -249,6 +261,23 @@ module.exports = {
         },
       })
 
+      const size = value => ({
+        height: value,
+        minHeight: value,
+        width: value,
+        minWidth: value,
+      })
+      matchUtilities(
+        {
+          size,
+          circle: value => ({
+            ...size(value),
+            borderRadius: theme('borderRadius.full'),
+          }),
+        },
+        { values: theme('height') },
+      )
+
       const buttonComponent = {
         'cursor': 'pointer',
         'gap': theme('gap.1'),
@@ -270,12 +299,17 @@ module.exports = {
         '.link-primary': {
           'cursor': 'pointer',
           'color': c('--c-link-primary'),
-          'fontWeight': theme('fontWeight.medium'),
+          // 'fontWeight': theme('fontWeight.medium'),
           'transitionDuration': theme('transitionDuration.normal'),
           '&:hover': {
             color: c('--c-link-primary-vivid'),
             transitionDuration: theme('transitionDuration.fast'),
           },
+        },
+        '.link-muted': {
+          'cursor': 'pointer',
+          'color': c('--c-text-primary'),
+
         },
         '.button': buttonComponent,
         '.button-primary': {
@@ -294,6 +328,14 @@ module.exports = {
           '&:hover': {
             ...buttonComponent['&:hover'],
             background: c('--c-button-secondary-bg-vivid'),
+          },
+        },
+        '.promo-card': {
+          '&::before': {
+            maskImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3), #fff, rgba(255, 255, 255, 0.3))',
+          },
+          'svg': {
+            maskImage: 'radial-gradient(50% 50% at center, #fff, transparent)',
           },
         },
       })
