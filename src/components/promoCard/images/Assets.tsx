@@ -92,5 +92,4 @@ export const PromoCardAssetsImage = (
       </clipPath>
     </defs>
   </svg>
-
 )

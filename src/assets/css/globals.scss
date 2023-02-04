@@ -4,6 +4,19 @@
 
 @import 'themes';
 
+@layer components {
+  .promo-card {
+    &::before {
+      mask-image: linear-gradient(to bottom, rgba(#fff, 0.3), #fff, rgba(#fff, 0.3));
+    }
+  }
+  .promo-card-image {
+    > * {
+      mask-image: radial-gradient(50% 50% at center, #fff, transparent);
+    }
+  }
+}
+
 @layer base {
   html {
     font-size: 16px; // 1rem
