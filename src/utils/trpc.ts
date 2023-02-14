@@ -4,9 +4,10 @@ import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
 import superjson from 'superjson'
 
 import { type AppRouter } from '../server/trpc/router/_app'
+import { isClientSide } from './isClientSide'
 
 const getBaseUrl = () => {
-  if (typeof window !== 'undefined') {
+  if (isClientSide()) {
     return ''
   } // browser should use relative url
   if (process.env.VERCEL_URL) {
