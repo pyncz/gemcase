@@ -7,7 +7,7 @@ export const LocaleSwitcher: FC = () => {
   const { i18n } = useTranslation()
   const { locales } = useRouter()
 
-  if (!locales || locales.length < 2) {
+  if (!locales) {
     return null
   }
 
