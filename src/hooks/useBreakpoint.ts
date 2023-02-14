@@ -1,34 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '../../tailwind.config.cjs'
+import { useMediaQuery } from './useMediaQuery'
 
 const fullConfig = resolveConfig(tailwindConfig)
 const screens = fullConfig.theme!.screens as Record<string, string>
 
 export const useBreakpoint = (breakpoint: string) => {
-  const [gteBreakpoint, setGteBreakpoint] = useState(false)
-
-  useEffect(() => {
+  const mediaQuery = useMemo(() => {
     const breakpointPx = screens[breakpoint]
     if (!breakpointPx) {
       throw new Error(`There's no '${breakpoint}' breakpoint in the tailwind config!`)
     }
 
-    const media = matchMedia(`(min-width: ${breakpointPx})`)
-    const updateMatch = () => {
-      setGteBreakpoint(media.matches)
-    }
-
-    // init value
-    updateMatch()
-
-    // subscribe on media query results' changes
-    media.addEventListener('change', updateMatch)
-    return () => {
-      media.removeEventListener('change', updateMatch)
-    }
+    return `(min-width: ${breakpointPx})`
   }, [breakpoint])
 
-  return gteBreakpoint
+  return useMediaQuery(mediaQuery)
 }
