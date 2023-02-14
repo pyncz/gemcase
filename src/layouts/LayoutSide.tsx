@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from 'react'
-import type { OptionalSlots, WithClass } from '../models'
+import type { WithClassName, WithOptionalSlots } from '../models'
 
-type Props = WithClass<OptionalSlots<'details'>>
+type Props = WithClassName<WithOptionalSlots<'details'>>
 
 /**
  * A **utility** layout splitting page on Main and Detail content.

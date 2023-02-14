@@ -4,14 +4,16 @@ import localFont from '@next/font/local'
 
 import '../assets/css/globals.scss'
 
+import { Provider } from 'react-redux'
 import { trpc } from '../utils'
 import { ColorModeContextProvider } from '../contexts'
 import { ErrorBoundary } from '../components'
 import { LayoutBase } from '../layouts'
 import type { AppPropsWithLayout } from '../models'
 
-// Optimize fonts
+import { store } from '../stores'
 
+// Optimize fonts
 const Mulish = localFont({
   variable: '--font-mulish',
   src: '../assets/fonts/Mulish/Mulish-VariableFont_wght.ttf',
@@ -41,11 +43,13 @@ const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
   return (
     <ErrorBoundary>{/* In case something happens above the Component's ErrorBoundary */}
       <ColorModeContextProvider>
-        <main className={`${fonts.map(font => font.variable).join(' ')} tw-font-sans`}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </main>
+        <Provider store={store}>
+          <main className={`${fonts.map(font => font.variable).join(' ')} tw-font-main`}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </main>
+        </Provider>
       </ColorModeContextProvider>
     </ErrorBoundary>
   )

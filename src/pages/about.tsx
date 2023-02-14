@@ -9,17 +9,13 @@ import { Icon } from '@iconify-icon/react'
 import githubIcon from '@iconify-icons/ion/logo-github-outline'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import { PromoCard } from '../components'
+import { ExternalLink, PromoCard } from '../components'
 import { PageLayoutDocs } from '../layouts'
 import type { NextPageWithLayout } from '../models'
 import { getYearsFrom } from '../utils'
 import i18nextConfig from '../../next-i18next.config'
 
-interface Props {
-  // Add custom props here
-}
-
-export const getStaticProps: GetStaticProps<Props> = async ({
+export const getStaticProps: GetStaticProps = async ({
   locale,
 }) => ({
   props: {
@@ -67,13 +63,10 @@ const About: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> 
         <div className="tw-text-xs tw-text-dim-3 tw-space-x-0.5">
           <span>{years}.</span>
           <span>{i18n.t('madeBy')}</span>
-          <a
-            className="tw-pb-0.5 tw-inline tw-duration-fast tw-text-dim-3 hover:tw-text-dim-2"
-            target="_blank"
+          <ExternalLink
             href="https://github.com/pyncz"
-            rel="noreferrer"
           ><Icon icon={githubIcon} className="tw-relative tw-top-0.5 tw-pr-px" />
-            pyncz</a>
+            pyncz</ExternalLink>
         </div>
       </div>
     </>

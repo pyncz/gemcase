@@ -1,14 +1,14 @@
 import type { FC, PropsWithChildren } from 'react'
+
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { Icon } from '@iconify-icon/react'
 import exploreIcon from '@iconify-icons/ion/compass-outline'
 import infoIcon from '@iconify-icons/ion/information-circle-outline'
 import settingsIcon from '@iconify-icons/ion/cog-outline'
-import { ErrorBoundary, LogoMain } from '../components'
-import { NavLink } from '../components/NavLink'
+import connectIcon from '@iconify-icons/ion/link-outline'
+import { ErrorBoundary, LogoMain, NavLink, Tooltip } from '../components'
 import { useBreakpoint } from '../hooks'
-import type { Direction } from '../models'
 
 /**
  * A **base** layout with nav bar, logo, etc.
@@ -16,7 +16,7 @@ import type { Direction } from '../models'
 export const LayoutBase: FC<PropsWithChildren> = ({ children }) => {
   const { i18n } = useTranslation()
   const gteSmScreen = useBreakpoint('sm')
-  const linksDir: Direction = gteSmScreen ? 'y' : 'x'
+  const tooltipPosition = gteSmScreen ? 'right' : 'top'
 
   return (
     <div className="tw-min-h-screen tw-grid tw-grid-cols-[minmax(0,1fr)]">
@@ -32,15 +32,26 @@ export const LayoutBase: FC<PropsWithChildren> = ({ children }) => {
           <LogoMain />
         </Link>
 
-        <NavLink href="/" tooltip={i18n.t('pages.index.title')} dir={linksDir}>
+        <NavLink href="/" tooltip={i18n.t('pages.index.title')} tooltipPosition={tooltipPosition}>
           <Icon icon={exploreIcon} />
         </NavLink>
-        <NavLink href="/about" tooltip={i18n.t('pages.about.title')} dir={linksDir}>
+        <NavLink href="/about" tooltip={i18n.t('pages.about.title')} tooltipPosition={tooltipPosition}>
           <Icon icon={infoIcon} />
         </NavLink>
-        <NavLink href="/settings" tooltip={i18n.t('pages.settings.title')} dir={linksDir}>
+        <NavLink href="/settings" tooltip={i18n.t('pages.settings.title')} tooltipPosition={tooltipPosition}>
           <Icon icon={settingsIcon} />
         </NavLink>
+
+        <Tooltip
+          position={tooltipPosition}
+          trigger={
+            <button className="tw-button-icon tw-button-primary tw-ml-auto sm:tw-ml-0 sm:tw-mt-auto tw-size-12">
+              <Icon icon={connectIcon} />
+            </button>
+          }
+        >
+          {i18n.t('connect')}
+        </Tooltip>
       </nav>
     </div>
   )
