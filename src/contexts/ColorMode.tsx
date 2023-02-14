@@ -1,53 +1,93 @@
+import type { Optional } from '@voire/type-utils'
 import type { FC, PropsWithChildren } from 'react'
-import React, { useEffect, useState } from 'react'
+import { createContext, useEffect, useMemo } from 'react'
+import { DEFAULT_THEME } from '../consts'
+import { useOnMounted, usePrefersDarkMode } from '../hooks'
+import * as storage from '../utils/localStorage'
 
 export const themes = ['light', 'dark', 'black'] as const
 export type Theme = typeof themes[number]
 
+export const colorModes = ['system', ...themes] as const
+export type ColorMode = typeof colorModes[number]
+export type ColorModeValue = Theme | null
+
 export const THEME_LOCAL_STORAGE_KEY = 'color-mode'
 
-export const ColorModeContext = React.createContext<{
-  colorMode: Theme | null
+interface ColorModeCtx {
+  /** Color mode selected */
+  colorMode: ColorModeValue
+
+  /** If the user prefers dark mode */
+  prefersDarkMode: Optional<boolean>
+
+  /** System preferred theme */
+  colorPreference: Optional<Theme>
+
+  /** Theme actually applied */
+  currentTheme: Theme
+
+  /** Theme applied if there's no theme specified */
+  fallbackTheme: Theme
+
   switchColorMode: (_theme: Theme | null) => void
-}>({
-      colorMode: null,
-      switchColorMode: () => {},
-    })
+}
+
+export const ColorModeContext = createContext<ColorModeCtx>({
+  colorMode: null,
+  colorPreference: undefined,
+  prefersDarkMode: undefined,
+  currentTheme: DEFAULT_THEME,
+  fallbackTheme: DEFAULT_THEME,
+  switchColorMode: () => {},
+})
 
 export const ColorModeContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [colorMode, setColorMode] = useState<Theme | null>(
-    null,
-  )
-
   // On mounted, populate color mode from localStorage
+  const [colorMode, setColorMode] = useOnMounted<ColorModeValue>(() => {
+    return storage.loadState<ColorModeValue>(THEME_LOCAL_STORAGE_KEY) ?? null
+  }, null)
+
+  const switchColorMode = (newColorMode: ColorModeValue) => {
+    setColorMode(newColorMode)
+
+    // Save to localStorage
+    storage.saveState(THEME_LOCAL_STORAGE_KEY, newColorMode)
+  }
+
+  const prefersDarkMode = usePrefersDarkMode()
+  const colorPreference = useMemo(() => {
+    return typeof prefersDarkMode === 'undefined'
+      ? undefined
+      : prefersDarkMode ? 'black' : 'light'
+  }, [prefersDarkMode])
+
+  const fallbackTheme = useMemo(() => {
+    return colorPreference ?? DEFAULT_THEME
+  }, [colorPreference])
+
+  const currentTheme = useMemo(() => {
+    return colorMode ?? fallbackTheme
+  }, [colorMode, fallbackTheme])
+
   useEffect(() => {
-    setColorMode(localStorage.getItem(THEME_LOCAL_STORAGE_KEY) as Theme | null)
-  }, [])
-
-  const switchColorMode = (theme: Theme | null) => {
-    setColorMode(theme)
-
-    // save to localStorage
-    if (theme) {
-      localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme)
-    } else {
-      localStorage.removeItem(THEME_LOCAL_STORAGE_KEY)
-    }
-
-    // update <html> classes
+    // Update <html> classes
     const root = document.getElementsByTagName('html')[0]!
 
-    // Clear classes and add the corresponding theme-class if specified
+    // Clear the previous theme classes
     root.classList.remove(...themes.map(theme => `${theme}-mode`))
-    if (theme) {
-      root.classList.add(`${theme}-mode`)
-    }
-  }
+    // Add the corresponding theme class
+    root.classList.add(`${currentTheme}-mode`)
+  }, [currentTheme])
 
   return (
     <ColorModeContext.Provider
       value={{
-        colorMode,
+        colorMode: colorMode!,
+        prefersDarkMode,
+        colorPreference,
+        currentTheme,
+        fallbackTheme,
         switchColorMode,
       }}
     >

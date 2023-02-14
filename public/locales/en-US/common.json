@@ -1,35 +1,49 @@
 {
-  "pages": {
-    "index": {
-      "title": "Home",
-      "description": "You NFT viewer. Any network, any chain."
-    },
-    "about": {
-      "title": "About",
-      "description": "Why will gemcase make your life easier?"
-    }
+  "connect": "Connect",
+  "errors": {
+    "notFound": "Not Found",
+    "serverError": "Internal Server Error",
+    "unexpected": "Unexpected error has occured"
   },
   "hi": "Hello",
+  "locale": {
+    "_": "Language"
+  },
   "logo": "{{name}} logo",
   "madeBy": "Made by",
-  "theme": {
-    "system": "System",
-    "light": "Light",
-    "dark": "Dark",
-    "black": "Black"
+  "pages": {
+    "about": {
+      "description": "Why will gemcase make your life easier?",
+      "title": "About"
+    },
+    "index": {
+      "description": "You NFT viewer. Any network, any chain.",
+      "title": "Home"
+    },
+    "settings": {
+      "description": "Explore the gems the way you prefer",
+      "title": "Settings"
+    }
   },
   "promo": {
-    "networks": {
-      "title": "Any blockchain. Any network",
-      "description": "No jumping between wallets anymore"
-    },
     "addresses": {
-      "title": "View the assets from all your addresses",
-      "description": "Keep your portfolio in one place"
+      "description": "Keep your portfolio in one place",
+      "title": "View the assets from all your addresses"
     },
     "assets": {
-      "title": "Explore your favorite tokens",
-      "description": "From all over the world!"
+      "description": "From all over the world!",
+      "title": "Explore your favorite tokens"
+    },
+    "networks": {
+      "description": "No jumping between wallets anymore",
+      "title": "Any blockchain. Any network"
     }
+  },
+  "theme": {
+    "_": "Color mode",
+    "black": "Black",
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
   }
 }
