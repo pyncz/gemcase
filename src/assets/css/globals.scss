@@ -20,7 +20,7 @@
 @layer base {
   html {
     font-size: 16px; // 1rem
-    @apply tw-font-sans tw-bg-base tw-text-base tw-leading-sm;
+    @apply tw-font-main tw-bg-base tw-text-base tw-leading-sm;
   }
   body {
     @apply tw-overscroll-none;
