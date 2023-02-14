@@ -12,6 +12,20 @@ function co(color) {
   return ({ opacityValue }) => c(color, opacityValue)
 }
 
+function slideKeyframes(offset, axis) {
+  const transform = `translate${axis}`
+  return {
+    '0%': {
+      opacity: 0,
+      transform: `scale(0.5) ${transform}(${offset}px)`,
+    },
+    '100%': {
+      opacity: 1,
+      transform: `scale(1) ${transform}(0)`,
+    },
+  }
+}
+
 // fill values for enumerable props
 function fill(
   size,
@@ -64,6 +78,9 @@ module.exports = {
   theme: {
     // structure
     fontSize: {
+      'unset': 'unset',
+      'inherit': 'inherit',
+      // Absolute
       '2xs': ['0.675rem', { lineHeight: '0.675rem', letterSpacing: '.05em' }],
       'xs': '0.75rem',
       'sm': '0.875rem',
@@ -73,8 +90,14 @@ module.exports = {
       '2xl': '1.5rem',
       '3xl': '1.875rem',
       '4xl': '2.25rem',
-      'unset': 'unset',
-      'inherit': 'inherit',
+      // Relative
+      '1/2': '0.5em',
+      '5/8': '0.625em',
+      '3/4': '0.75em',
+      '7/8': '0.875em',
+      '9/8': '1.125em',
+      '5/4': '1.25em',
+      '3/2': '1.5em',
     },
     container: {
       center: true,
@@ -96,11 +119,12 @@ module.exports = {
       },
     },
     fontFamily: {
-      header: ['var(--font-mulish)', ...sansSerif],
-      sans: ['var(--font-roboto)', ...sansSerif],
+      sans: sansSerif, // without any loaded font
+      header: ['var(--font-mulish)', 'Mulish', ...sansSerif],
+      main: ['var(--font-roboto)', 'Roboto', ...sansSerif],
     },
     lineHeight: {
-      none: 1,
+      1: 1,
       xs: 1.1,
       sm: 1.15,
     },
@@ -108,6 +132,7 @@ module.exports = {
     textColor: theme => ({
       ...theme('colors'),
       ...textColors,
+      transparent: 'transparent',
     }),
     backgroundColor: theme => ({
       ...theme('colors'),
@@ -191,6 +216,7 @@ module.exports = {
       },
       spacing: {
         sidebar: '80px',
+        list: '1.25rem',
       },
       height: {
         'logo-icon': '1.25em',
@@ -203,6 +229,21 @@ module.exports = {
       minWidth: theme => ({
         radio: theme('space.20'),
       }),
+      transitionTimingFunction: {
+        bezier: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+      keyframes: {
+        slideDown: slideKeyframes(-10, 'Y'),
+        slideUp: slideKeyframes(10, 'Y'),
+        slideLeft: slideKeyframes(10, 'Y'),
+        slideRight: slideKeyframes(-10, 'Y'),
+      },
+      animation: theme => ({
+        slideDown: `slideDown ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
+        slideUp: `slideUp ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
+        slideLeft: `slideLeft ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
+        slideRight: `slideRight ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
+      }),
     },
   },
   plugins: [
@@ -210,6 +251,7 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     plugin(require('./src/tailwind/headers.cjs')),
     plugin(require('./src/tailwind/layouts.cjs')),
+    plugin(require('./src/tailwind/maskImage.cjs')),
     ({ addUtilities, matchUtilities, addComponents, addBase, theme }) => {
       addBase({
         hr: {
@@ -243,10 +285,6 @@ module.exports = {
         '.transition-nobg-normal': {
           transition: 'all 300ms, background 0s',
         },
-        '.section': {
-          paddingTop: '6rem',
-          paddingBottom: '6rem',
-        },
         '.bg-accent': {
           backgroundImage: 'linear-gradient(135deg, #56FF47 8%, #00FFE0 88%)',
         },
@@ -278,6 +316,30 @@ module.exports = {
         { values: theme('height') },
       )
 
+      // Links
+      addComponents({
+        '.link-primary': {
+          'cursor': 'pointer',
+          'color': c('--c-link-primary'),
+          // 'fontWeight': theme('fontWeight.medium'),
+          'transitionDuration': theme('transitionDuration.normal'),
+          '&:hover': {
+            color: c('--c-link-primary-vivid'),
+            transitionDuration: theme('transitionDuration.fast'),
+          },
+        },
+        '.link-muted': {
+          'cursor': 'pointer',
+          'color': c('--c-color-dim-3'),
+          'transitionDuration': theme('transitionDuration.normal'),
+          '&:hover': {
+            color: c('--c-color-dim-2'),
+            transitionDuration: theme('transitionDuration.fast'),
+          },
+        },
+      })
+
+      // Buttons
       const buttonComponent = {
         'cursor': 'pointer',
         'gap': theme('gap.1'),
@@ -295,41 +357,32 @@ module.exports = {
           transform: `scale(${theme('scale.click')})`,
         },
       }
+      const buttonComponentIcon = {
+        ...buttonComponent,
+        padding: `${theme('padding.2')}`,
+        borderRadius: theme('borderRadius.full'),
+        fontSize: theme('fontSize.5/4'),
+      }
       addComponents({
-        '.link-primary': {
-          'cursor': 'pointer',
-          'color': c('--c-link-primary'),
-          // 'fontWeight': theme('fontWeight.medium'),
-          'transitionDuration': theme('transitionDuration.normal'),
-          '&:hover': {
-            color: c('--c-link-primary-vivid'),
-            transitionDuration: theme('transitionDuration.fast'),
-          },
-        },
-        '.link-muted': {
-          'cursor': 'pointer',
-          'color': c('--c-text-primary'),
-
-        },
         '.button': buttonComponent,
+        '.button-icon': buttonComponentIcon,
         '.button-primary': {
-          ...buttonComponent,
           'color': c('--c-button-primary-color'),
           'background': c('--c-button-primary-bg'),
           '&:hover': {
-            ...buttonComponent['&:hover'],
             background: c('--c-button-primary-bg-vivid'),
           },
         },
         '.button-secondary': {
-          ...buttonComponent,
           'color': c('--c-button-secondary-color'),
           'background': c('--c-button-secondary-bg'),
           '&:hover': {
-            ...buttonComponent['&:hover'],
             background: c('--c-button-secondary-bg-vivid'),
           },
         },
+      })
+
+      addComponents({
         '.promo-card': {
           '&::before': {
             maskImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3), #fff, rgba(255, 255, 255, 0.3))',
