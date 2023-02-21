@@ -3,8 +3,9 @@
 import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import { useContext } from 'react'
-import type { ColorMode } from '../contexts'
-import { ColorModeContext, colorModes } from '../contexts'
+import { colorModes } from '../consts'
+import { ColorModeContext } from '../contexts'
+import type { ColorMode } from '../models'
 import { getColorModeValue } from '../utils'
 import { RadioGroup } from './ui'
 

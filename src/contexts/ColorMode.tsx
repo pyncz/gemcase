@@ -1,20 +1,12 @@
 import type { Optional } from '@voire/type-utils'
 import type { FC, PropsWithChildren } from 'react'
 import { createContext, useEffect, useMemo } from 'react'
-import { DEFAULT_THEME } from '../consts'
+import { DEFAULT_THEME, THEME_LOCAL_STORAGE_KEY, themes } from '../consts'
 import { useOnMounted, usePrefersDarkMode } from '../hooks'
+import type { ColorModeValue, Theme } from '../models'
 import * as storage from '../utils/localStorage'
 
-export const themes = ['light', 'dark', 'black'] as const
-export type Theme = typeof themes[number]
-
-export const colorModes = ['system', ...themes] as const
-export type ColorMode = typeof colorModes[number]
-export type ColorModeValue = Theme | null
-
-export const THEME_LOCAL_STORAGE_KEY = 'color-mode'
-
-interface ColorModeCtx {
+interface ColorModeContextType {
   /** Color mode selected */
   colorMode: ColorModeValue
 
@@ -33,7 +25,7 @@ interface ColorModeCtx {
   switchColorMode: (_theme: Theme | null) => void
 }
 
-export const ColorModeContext = createContext<ColorModeCtx>({
+export const ColorModeContext = createContext<ColorModeContextType>({
   colorMode: null,
   colorPreference: undefined,
   prefersDarkMode: undefined,
