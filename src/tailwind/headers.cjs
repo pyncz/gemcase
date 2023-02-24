@@ -52,6 +52,9 @@ module.exports = ({ addBase, theme, addUtilities }) => {
   // create .h# utils (e.g. `tw-h6` etc)
   addUtilities(Object.entries(headers).reduce((utils, [tag, styles]) => ({
     ...utils,
-    [`.${tag}`]: styles,
+    [`.${tag}`]: {
+      ...styles,
+      marginBottom: undefined,
+    },
   }), {}))
 }

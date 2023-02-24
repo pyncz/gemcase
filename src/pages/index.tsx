@@ -14,13 +14,15 @@ import type { NextPageWithLayout } from '../models'
 
 export const getStaticProps: GetStaticProps = async ({
   locale,
-}) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
-      'common',
-    ])),
-  },
-})
+}) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
+        'common',
+      ])),
+    },
+  }
+}
 
 const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = () => {
   const { i18n } = useTranslation()

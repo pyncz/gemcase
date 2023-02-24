@@ -12,13 +12,15 @@ import { GroupContainer, LocaleRadio, ThemeRadio } from '../components'
 
 export const getStaticProps: GetStaticProps = async ({
   locale,
-}) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
-      'common',
-    ])),
-  },
-})
+}) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
+        'common',
+      ])),
+    },
+  }
+}
 
 const Settings: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = () => {
   const { i18n } = useTranslation()

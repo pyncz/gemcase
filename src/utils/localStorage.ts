@@ -1,4 +1,5 @@
 import type { Optional } from '@voire/type-utils'
+import { stringify } from './stringify'
 
 export const loadState = <T = string>(key: string): Optional<T> => {
   try {
@@ -16,6 +17,6 @@ export const saveState = <T = string>(key: string, value: T): void => {
       return
     }
 
-    localStorage.setItem(key, JSON.stringify(value))
+    localStorage.setItem(key, stringify(value))
   } catch (e) {}
 }

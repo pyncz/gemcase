@@ -1,5 +1,6 @@
 {
   "connect": "Connect",
+  "submit": "Submit",
   "errors": {
     "notFound": "Not Found",
     "serverError": "Internal Server Error",

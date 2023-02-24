@@ -5,6 +5,7 @@
     "titleBar.activeForeground": "#e6e6e6"
   },
   "files.associations": {
+    ".env.local": "properties",
     ".env.template": "properties"
   },
   "i18n-ally.displayLanguage": "en-US",

@@ -10,13 +10,15 @@ import i18nextConfig from '../../next-i18next.config'
 
 export const getStaticProps: GetStaticProps = async ({
   locale,
-}) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
-      'common',
-    ])),
-  },
-})
+}) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
+        'common',
+      ])),
+    },
+  }
+}
 
 const InternalServerError: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = () => {
   return (
