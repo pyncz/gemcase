@@ -88,17 +88,19 @@ const ViewAddress: NextPageWithLayout<InferGetServerSidePropsType<typeof getServ
 
   if (isContract) {
     if (isNFT) {
-      <div>
-        <h1>An NFT address</h1>
-        {isCollectibleNFT ? <small>collectible</small> : null}
-        <AddressRepresentation {...props} />
+      return (
         <div>
-          Metadata:
-          <code>
-            {metadata}
-          </code>
+          <h1>An NFT address</h1>
+          {isCollectibleNFT ? <small>collectible</small> : null}
+          <AddressRepresentation {...props} />
+          <div>
+            Metadata:
+            <code>
+              {metadata}
+            </code>
+          </div>
         </div>
-      </div>
+      )
     }
 
     // A coin contract
