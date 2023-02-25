@@ -29,12 +29,12 @@ export const adapter = createAdapter({
         }
       },
       async getContractMetadata(chainId, domain, address): Promise<Nullable<Record<string, any>>> {
-        const { metadata } = await getMetadata(address, getEvmProvider(chainId, domain))
-        return metadata
+        const { metadata } = await getMetadata(address, getEvmProvider(chainId, domain)) ?? {}
+        return metadata ?? null
       },
       async getTokenMetadata(chainId, domain, address, tokenId): Promise<Nullable<Record<string, any>>> {
-        const { metadata } = await getTokenMetadata(address, getEvmProvider(chainId, domain), tokenId)
-        return metadata
+        const { metadata } = await getTokenMetadata(address, getEvmProvider(chainId, domain), tokenId) ?? {}
+        return metadata ?? null
       },
     } satisfies Methods<EvmAddress>,
     {

@@ -14,8 +14,6 @@ export const getServerSideProps: GetServerSideProps<ChainConfig, ChainParams> = 
   const i18nBasePath = locale ? `/${locale}` : ''
   const { blockchain, chain } = params ?? {}
 
-  console.log(blockchain, chain)
-
   if (blockchain && chain) {
     const [bcKey, bcConfig] = adapter.findBlockchain(blockchain) ?? []
 
@@ -40,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<ChainConfig, ChainParams> = 
       return {
         redirect: {
           statusCode: 307,
-          // TODO: Check if i18n fills the base Url
+          // TODO: i18n: Check if i18n fills the base Url
           destination: `${i18nBasePath}/view/${blockchain}`,
         },
       }
