@@ -1,10 +1,18 @@
-import type { Nullable } from '@voire/type-utils'
-import { checkInterfaces, getMetadata, getTokenMetadata } from '@wiiib/check-evm-address'
-import type { ChainID, EvmAddress } from '../../models'
+import type { Optional } from '@voire/type-utils'
+import { checkInterfaces } from '@wiiib/check-evm-address'
+import Moralis from 'moralis'
+import type { ChainID, CoinContractMetadata, EvmAddress, NftContractMetadata, NftTokenMetadata } from '../../models'
 import { JsonRpcProvider } from '../../models'
 import { createAdapter, createBlockchainAdapter, isEvmAddress } from '../../utils'
 import type { Methods } from './methods.types'
 
+const startMoralis = async () => {
+  if (!Moralis.Core.isStarted) {
+    await Moralis.start({
+      apiKey: process.env.MORALIS_API_KEY,
+    })
+  }
+}
 const getEvmProvider = (chainId: ChainID, domain: string) => {
   // TODO: Check if env vars are imported by dotenv under the hood
   return new JsonRpcProvider(
@@ -106,20 +114,76 @@ export const adapter = createAdapter({
           isCollectibleNFT: isIERC1155,
         }
       },
-      async getContractMetadata(chainId, domain, address): Promise<Nullable<Record<string, any>>> {
-        const { metadata } = await getMetadata(address, getEvmProvider(chainId, domain)) ?? {}
-        return metadata ?? null
+
+      async getNftContractMetadata(chainId, address) {
+        await startMoralis()
+        const result = await Moralis.EvmApi.nft.getNFTContractMetadata({
+          chain: chainId,
+          address,
+        })
+        const data = result?.toJSON() ?? null
+        return data
+          ? {
+            symbol: data.symbol,
+            name: data.name,
+          } satisfies NftContractMetadata
+          : null
       },
-      async getTokenMetadata(chainId, domain, address, tokenId): Promise<Nullable<Record<string, any>>> {
-        const { metadata } = await getTokenMetadata(address, getEvmProvider(chainId, domain), +tokenId) ?? {}
-        return metadata ?? null
+      async getNftTokenMetadata(chainId, address, tokenId) {
+        await startMoralis()
+        const result = await Moralis.EvmApi.nft.getNFTMetadata({
+          chain: chainId,
+          address,
+          tokenId: tokenId.toString(),
+        })
+        const data = result?.toJSON() ?? null
+        const metadata = data?.metadata ? JSON.parse(data.metadata) : undefined
+
+        console.log(data?.metadata)
+
+        return data
+          ? {
+            symbol: data.symbol,
+            name: data.name,
+            amount: data.amount ? +data.amount : 1,
+            tokenUri: data.token_uri,
+            metadata: data.metadata
+              ? {
+                  name: metadata.name as string,
+                  description: metadata.description as Optional<string>,
+                  image: metadata.image as string,
+                  animationUrl: metadata.animation_url as Optional<string>,
+                  externalUrl: metadata.external_url as Optional<string>,
+                  attributes: metadata.attributes,
+                }
+              : undefined,
+          } satisfies NftTokenMetadata
+          : null
       },
+      async getCoinContractMetadata(chainId, address) {
+        await startMoralis()
+        const result = await Moralis.EvmApi.token.getTokenMetadata({
+          chain: chainId,
+          addresses: [address],
+        })
+        const data = result?.toJSON()[0] ?? null
+        return data
+          ? {
+            name: data.name,
+            symbol: data.symbol,
+            decimals: +data.decimals,
+            logo: data.logo,
+            thumbnail: data.thumbnail,
+          } satisfies CoinContractMetadata
+          : null
+      },
+
       findChainById(chainId) {
         return Object.entries(evmChains).find(([_, nwConfig]) => {
           return chainId === nwConfig.id
         }) ?? null
       },
-      validateChainById(chainId) {
+      validateChainById(chainId): chainId is ChainID {
         const [_, nwConfig] = this.findChainById(chainId) ?? []
         return !!nwConfig
       },

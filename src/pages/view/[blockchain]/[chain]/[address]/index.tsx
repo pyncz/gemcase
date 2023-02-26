@@ -1,10 +1,9 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import nextI18nextConfig from '../../../../../../next-i18next.config'
-import { AddressRepresentation } from '../../../../../components/AddressRepresentation'
+import { ViewAccount, ViewCoinContract, ViewNftContract } from '../../../../../components'
 import type { AddressConfig, AddressMetadata, InDict, NextPageWithLayout } from '../../../../../models'
 import { adapter } from '../../../../../services'
-import { stringify, trpc } from '../../../../../utils'
 
 type AddressParams = InDict<{
   chain: string
@@ -12,9 +11,7 @@ type AddressParams = InDict<{
   address: string
 }>
 
-interface Props extends AddressConfig, AddressMetadata {
-  address: string
-}
+type Props = AddressConfig & AddressMetadata
 
 export const getServerSideProps: GetServerSideProps<Props, AddressParams> = async ({ params, locale }) => {
   const i18nBasePath = locale ? `/${locale}` : ''
@@ -68,56 +65,18 @@ export const getServerSideProps: GetServerSideProps<Props, AddressParams> = asyn
 
 const ViewAddress: NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>> = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const {
-    isCollectibleNFT,
     isContract,
     isNFT,
   } = props
 
-  const {
-    isLoading,
-    data: metadata,
-  } = trpc.metadata.getContractMetadata.useQuery(props)
-
-  const metadataBlock = (
-    <div>
-      Metadata:
-      {
-        isLoading
-          ? <div>Loading...</div>
-          : metadata ? <code>{stringify(metadata)}</code> : null
-      }
-    </div>
-  )
-
   if (isContract) {
-    if (isNFT) {
-      return (
-        <div>
-          <h1>An NFT address</h1>
-          {isCollectibleNFT ? <small>collectible</small> : null}
-          <AddressRepresentation {...props} />
-          {metadataBlock}
-        </div>
-      )
-    }
-
-    // A coin contract
-    return (
-      <div>
-        <h1>A coin address</h1>
-        <AddressRepresentation {...props} />
-        {metadataBlock}
-      </div>
-    )
+    return isNFT
+      ? <ViewNftContract {...props} />
+      : <ViewCoinContract {...props} />
   }
 
-  return (
-    <div>
-      <h1>Just a regular address</h1>
-      <AddressRepresentation {...props} />
-      {/* TODO: Show related NFT owned by the address? */}
-    </div>
-  )
+  // Just a regular address
+  return <ViewAccount {...props} />
 }
 
 export default ViewAddress

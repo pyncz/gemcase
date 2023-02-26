@@ -30,6 +30,7 @@
     "@wiiib/check-evm-address": "^1.0.1",
     "ethers": "^6.0.3",
     "i18next": "^22.4.5",
+    "moralis": "^2.14.3",
     "next": "^13.0.7",
     "next-i18next": "^13.0.2",
     "react": "18.2.0",
