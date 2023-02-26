@@ -1,4 +1,4 @@
-import type { Flags } from '../../models'
+import type { Flags } from '../utils'
 import type { HexString } from '../hex'
 
 export type AddressMetadata = Flags<

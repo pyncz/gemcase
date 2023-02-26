@@ -9,7 +9,6 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import i18nextConfig from '../../next-i18next.config'
-import { trpc } from '../utils'
 import type { NextPageWithLayout } from '../models'
 
 export const getStaticProps: GetStaticProps = async ({
@@ -27,8 +26,6 @@ export const getStaticProps: GetStaticProps = async ({
 const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = () => {
   const { i18n } = useTranslation()
 
-  const greeting = trpc.example.hello.useQuery({ text: 'fsdf' }).data?.greeting ?? ''
-
   return (
     <>
       <Head>
@@ -38,7 +35,6 @@ const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
       </Head>
 
       <div className="tw-px-container">
-        {greeting}
         <h1>Some kind of explore?</h1>
       </div>
     </>

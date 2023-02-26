@@ -1,11 +1,10 @@
-import type { Nullable } from '@voire/type-utils'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import nextI18nextConfig from '../../../../../../next-i18next.config'
 import { AddressRepresentation } from '../../../../../components/AddressRepresentation'
 import type { AddressConfig, AddressMetadata, InDict, NextPageWithLayout } from '../../../../../models'
 import { adapter } from '../../../../../services'
-import { stringify } from '../../../../../utils'
+import { stringify, trpc } from '../../../../../utils'
 
 type AddressParams = InDict<{
   chain: string
@@ -14,7 +13,6 @@ type AddressParams = InDict<{
 }>
 
 interface Props extends AddressConfig, AddressMetadata {
-  metadata: Nullable<string> // Serialized metadata
   address: string
 }
 
@@ -31,15 +29,7 @@ export const getServerSideProps: GetServerSideProps<Props, AddressParams> = asyn
 
       if (nwConfig && bcConfig.validateAddress(address)) {
         // chain and address are valid
-        const addressMetadata = await bcConfig.check(nwConfig.id, nwConfig.infuraDomain, address)
-
-        const contractMetadata = addressMetadata.isContract
-          ? await bcConfig.getContractMetadata(
-            nwConfig.id,
-            nwConfig.infuraDomain,
-            address,
-          )
-          : null
+        const addressMetadata = await bcConfig.check(nwConfig.id, nwConfig.rpcDomain, address)
 
         return {
           props: {
@@ -47,7 +37,6 @@ export const getServerSideProps: GetServerSideProps<Props, AddressParams> = asyn
             chainId: nwConfig.id,
             address,
             ...addressMetadata,
-            metadata: stringify(contractMetadata),
 
             ...(await serverSideTranslations(locale ?? nextI18nextConfig.i18n.defaultLocale, [
               'common',
@@ -82,9 +71,23 @@ const ViewAddress: NextPageWithLayout<InferGetServerSidePropsType<typeof getServ
     isCollectibleNFT,
     isContract,
     isNFT,
-
-    metadata,
   } = props
+
+  const {
+    isLoading,
+    data: metadata,
+  } = trpc.metadata.getContractMetadata.useQuery(props)
+
+  const metadataBlock = (
+    <div>
+      Metadata:
+      {
+        isLoading
+          ? <div>Loading...</div>
+          : metadata ? <code>{stringify(metadata)}</code> : null
+      }
+    </div>
+  )
 
   if (isContract) {
     if (isNFT) {
@@ -93,12 +96,7 @@ const ViewAddress: NextPageWithLayout<InferGetServerSidePropsType<typeof getServ
           <h1>An NFT address</h1>
           {isCollectibleNFT ? <small>collectible</small> : null}
           <AddressRepresentation {...props} />
-          <div>
-            Metadata:
-            <code>
-              {metadata}
-            </code>
-          </div>
+          {metadataBlock}
         </div>
       )
     }
@@ -108,12 +106,7 @@ const ViewAddress: NextPageWithLayout<InferGetServerSidePropsType<typeof getServ
       <div>
         <h1>A coin address</h1>
         <AddressRepresentation {...props} />
-        <div>
-          Metadata:
-          <code>
-            {metadata}
-          </code>
-        </div>
+        {metadataBlock}
       </div>
     )
   }
@@ -122,6 +115,7 @@ const ViewAddress: NextPageWithLayout<InferGetServerSidePropsType<typeof getServ
     <div>
       <h1>Just a regular address</h1>
       <AddressRepresentation {...props} />
+      {/* TODO: Show related NFT owned by the address? */}
     </div>
   )
 }
