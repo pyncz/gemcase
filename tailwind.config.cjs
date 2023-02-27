@@ -217,6 +217,7 @@ module.exports = {
       spacing: {
         sidebar: '80px',
         list: '1.25rem',
+        title: '2.5rem',
       },
       height: {
         'logo-icon': '1.25em',
@@ -229,6 +230,11 @@ module.exports = {
       minWidth: theme => ({
         radio: theme('space.20'),
       }),
+      backgroundSize: {
+        full: '100%',
+        x2: '200%',
+        x4: '400%',
+      },
       transitionTimingFunction: {
         bezier: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },

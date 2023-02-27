@@ -43,7 +43,7 @@ const About: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> 
         {i18n.t('pages.about.title')}
       </h1>
 
-      <div className="tw-space-y-6">
+      <div className="tw-space-y-list">
         <div className="tw-w-full tw-grid tw-gap-6 tw-grid-cols-[minmax(0,1fr)] lg:tw-grid-cols-[repeat(3,minmax(0,1fr))]">
           <PromoCard
             image="networks"

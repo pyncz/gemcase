@@ -29,7 +29,7 @@ export const PromoCard: FC<Props> = (props) => {
       <div className="tw-opacity-muted tw-w-[8%] tw-h-20 xs:tw-opacity-full xs:tw-w-20 sm:tw-w-auto sm:tw-h-auto tw-grid tw-items-center tw-justify-center tw-duration-normal group-hover/card:tw-scale-[1.05]">
         {imageComponent}
       </div>
-      <div className="tw-relative tw-flex tw-flex-col tw-justify-center md:tw-items-center lg:tw-items-start lg:tw-text-start tw-px-5">
+      <div className="tw-relative tw-flex tw-flex-col tw-justify-center md:tw-items-center md:tw-text-center lg:tw-items-start lg:tw-text-start tw-px-5">
         <h4>{title}</h4>
         {description
           ? <p className="tw-text-sm tw-text-dim-1">{description}</p>
