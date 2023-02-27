@@ -1,5 +1,5 @@
 import type { HexString } from './hex'
 
-export type StringNumber = `${number}`
+export type StringifiedNumber = `${number}`
 
-export type NumberLike = number | StringNumber | HexString
+export type NumberLike = number | StringifiedNumber | HexString

@@ -24,37 +24,40 @@ export const getServerSideProps: GetServerSideProps<Props, AddressParams> = asyn
       // blockchain is valid
       const [_, nwConfig] = bcConfig.findChain(chain) ?? []
 
-      if (nwConfig && bcConfig.validateAddress(address)) {
-        // chain and address are valid
-        const addressMetadata = await bcConfig.check(nwConfig.id, nwConfig.rpcDomain, address)
+      if (nwConfig) {
+        // chain is valid
+        if (bcConfig.validateAddress(address)) {
+          // address is valid
+          const addressMetadata = await bcConfig.check(nwConfig.id, nwConfig.rpcDomain, address)
+
+          return {
+            props: {
+              blockchain: bcKey,
+              chainId: nwConfig.id,
+              address,
+              ...addressMetadata,
+
+              ...(await serverSideTranslations(locale ?? nextI18nextConfig.i18n.defaultLocale, [
+                'common',
+              ])),
+            } satisfies Props,
+          }
+        }
 
         return {
-          props: {
-            blockchain: bcKey,
-            chainId: nwConfig.id,
-            address,
-            ...addressMetadata,
-
-            ...(await serverSideTranslations(locale ?? nextI18nextConfig.i18n.defaultLocale, [
-              'common',
-            ])),
-          } satisfies Props,
+          redirect: {
+            statusCode: 307,
+            destination: `${i18nBasePath}/view/${blockchain}/${chain}`,
+          },
         }
       }
 
       return {
         redirect: {
           statusCode: 307,
-          destination: `/view/${blockchain}/${chain}`,
+          destination: `${i18nBasePath}/view/${blockchain}`,
         },
       }
-    }
-
-    return {
-      redirect: {
-        statusCode: 307,
-        destination: `${i18nBasePath}/view/${blockchain}`,
-      },
     }
   }
 

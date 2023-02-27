@@ -1,4 +1,4 @@
-import { isHexString } from 'ethers'
+import { isHexString } from '../isHexString'
 import truncate from 'smart-truncate'
 
 export function formatAddress(address: string) {
