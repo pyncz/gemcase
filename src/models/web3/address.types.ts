@@ -6,7 +6,9 @@ export type AddressMetadata = Flags<
   | 'isCoin'
   | 'isNFT'
   | 'isCollectibleNFT'
->
+> & {
+  standard?: string
+}
 
 export type HexAddress = HexString
 

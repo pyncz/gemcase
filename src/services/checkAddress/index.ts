@@ -106,12 +106,13 @@ export const adapter = createAdapter({
     {
       validateAddress: isEvmAddress,
       async check(chainId, domain, address) {
-        const { isContract, isIERC1155, isIERC20, isIERC721 } = await checkInterfaces(address, getEvmProvider(chainId, domain))
+        const { isContract, isIERC1155, isIERC20, isIERC721, type } = await checkInterfaces(address, getEvmProvider(chainId, domain))
         return {
           isContract,
           isCoin: isIERC20,
           isNFT: isIERC721 || isIERC1155,
           isCollectibleNFT: isIERC1155,
+          standard: type ? type as string : undefined,
         }
       },
 
@@ -172,6 +173,7 @@ export const adapter = createAdapter({
             decimals: +data.decimals,
             logo: data.logo,
             thumbnail: data.thumbnail,
+            // TODO: Add market data
           }) satisfies CoinContractMetadata
           : null
       },
