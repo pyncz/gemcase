@@ -1,5 +1,5 @@
 import type { Optional } from '@voire/type-utils'
-import { checkInterfaces } from '@wiiib/check-evm-address'
+import { checkInterfaces, resolveIpfs } from '@wiiib/check-evm-address'
 import Moralis from 'moralis'
 import type { ChainID, CoinContractMetadata, EvmAddress, NftContractMetadata, NftTokenMetadata } from '../../models'
 import { JsonRpcProvider } from '../../models'
@@ -123,10 +123,10 @@ export const adapter = createAdapter({
         })
         const data = result?.toJSON() ?? null
         return data
-          ? {
+          ? resolveIpfs({
             symbol: data.symbol,
             name: data.name,
-          } satisfies NftContractMetadata
+          }) satisfies NftContractMetadata
           : null
       },
       async getNftTokenMetadata(chainId, address, tokenId) {
@@ -139,10 +139,8 @@ export const adapter = createAdapter({
         const data = result?.toJSON() ?? null
         const metadata = data?.metadata ? JSON.parse(data.metadata) : undefined
 
-        console.log(data?.metadata)
-
         return data
-          ? {
+          ? resolveIpfs({
             symbol: data.symbol,
             name: data.name,
             amount: data.amount ? +data.amount : 1,
@@ -157,7 +155,7 @@ export const adapter = createAdapter({
                   attributes: metadata.attributes,
                 }
               : undefined,
-          } satisfies NftTokenMetadata
+          }) satisfies NftTokenMetadata
           : null
       },
       async getCoinContractMetadata(chainId, address) {
@@ -168,13 +166,13 @@ export const adapter = createAdapter({
         })
         const data = result?.toJSON()[0] ?? null
         return data
-          ? {
+          ? resolveIpfs({
             name: data.name,
             symbol: data.symbol,
             decimals: +data.decimals,
             logo: data.logo,
             thumbnail: data.thumbnail,
-          } satisfies CoinContractMetadata
+          }) satisfies CoinContractMetadata
           : null
       },
 
