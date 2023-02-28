@@ -1,9 +1,12 @@
 import type { FC, PropsWithChildren } from 'react'
+import type { WithClassName } from '../../models'
 
-export const Tag: FC<PropsWithChildren> = ({ children }) => {
+export const Tag: FC<PropsWithChildren<WithClassName>> = (props) => {
+  const { children, className } = props
+
   return (
-    <small className="tw-text-3/4 tw-rounded tw-bg-dim-2 tw-text-dim-2 tw-px-[0.25em] tw-py-[0.0625em]">
+    <span className={`tw-rounded tw-bg-dim-2 tw-text-dim-2 tw-px-[0.25em] tw-py-[0.0625em] ${className}`}>
       {children}
-    </small>
+    </span>
   )
 }

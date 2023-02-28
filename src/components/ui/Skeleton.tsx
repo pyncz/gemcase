@@ -1,5 +1,6 @@
 import type { FC, PropsWithChildren } from 'react'
 import { createContext, useContext } from 'react'
+import type { WithClassName } from '../../models'
 
 interface SkeletonContextType {
   loaded: boolean
@@ -17,23 +18,24 @@ const SkeletonContext = createContext<SkeletonContextType>({
   loaded: false,
 })
 
-const Element: FC<PropsWithChildren<SkeletonElementProps>> = (props) => {
+const Element: FC<PropsWithChildren<WithClassName<SkeletonElementProps>>> = (props) => {
   const {
     as: Wrapper = 'span',
     height = '1em',
     width = '100%',
     children,
+    className,
   } = props
 
   const { loaded } = useContext(SkeletonContext)
 
   if (loaded) {
-    return <Wrapper>{children}</Wrapper>
+    return <Wrapper className={className}>{children}</Wrapper>
   }
 
   return (
     <Wrapper
-      className="tw-animate-pulse tw-inline-flex tw-rounded tw-bg-dim-2"
+      className={`tw-animate-pulse tw-inline-flex tw-rounded tw-bg-dim-2 ${className}`}
       style={{ width, height }}
     />
   )
