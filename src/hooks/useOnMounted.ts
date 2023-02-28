@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 
-export const useOnMounted = <TValue>(
-  initialize: () => TValue,
-  initValue: TValue,
+export const useOnMounted = <T>(
+  initialize: () => T,
+  initValue: T | (() => T),
 ) => {
-  const [value, setValue] = useState<TValue>(initValue)
+  const [value, setValue] = useState<T>(initValue)
 
   useEffect(() => {
     setValue(initialize())
   }, [initialize])
 
-  return [value, setValue] as ReturnType<typeof useState<TValue>>
+  return [value, setValue] as ReturnType<typeof useState<T>>
 }
