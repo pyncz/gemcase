@@ -1,5 +1,3 @@
-import Head from 'next/head'
-
 import type {
   GetStaticProps,
   InferGetStaticPropsType,
@@ -9,7 +7,7 @@ import { Icon } from '@iconify-icon/react'
 import githubIcon from '@iconify-icons/ion/logo-github-outline'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import { ExternalLink, PromoCard } from '../components'
+import { ExternalLink, HeadMeta, PromoCard } from '../components'
 import { PageLayoutDocs } from '../layouts'
 import type { NextPageWithLayout } from '../models'
 import { getYearsFrom } from '../utils'
@@ -33,11 +31,10 @@ const About: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> 
 
   return (
     <>
-      <Head>
-        <title>{i18n.t('pages.about.title')}</title>
-        <meta property="og:title" content={`gemcase | ${i18n.t('pages.about.title')}`} key="title" />
-        <meta name="description" content={i18n.t('pages.about.description')} key="description" />
-      </Head>
+      <HeadMeta
+        title={i18n.t('pages.about.title')}
+        description={i18n.t('pages.about.description')}
+      />
 
       <h1>
         {i18n.t('pages.about.title')}

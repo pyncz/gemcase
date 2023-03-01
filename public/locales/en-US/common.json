@@ -2,6 +2,7 @@
   "connect": "Connect",
   "submit": "Submit",
   "errors": {
+    "_": "{{error}} Error",
     "notFound": "Not Found",
     "serverError": "Internal Server Error",
     "unexpected": "Unexpected error has occured"
@@ -24,6 +25,14 @@
     "settings": {
       "description": "Explore the gems the way you prefer",
       "title": "Settings"
+    },
+    "viewCoinContract": {
+      "description": "View {{name}} coin on gamecase",
+      "title": "{{name}}"
+    },
+    "viewAccount": {
+      "description": "View {{address}} blockchain address on {{chain}} chain",
+      "title": "{{address}} on {{chain}}"
     }
   },
   "promo": {

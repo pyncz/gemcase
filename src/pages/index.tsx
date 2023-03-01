@@ -1,15 +1,11 @@
-import Head from 'next/head'
-
-import type {
-  GetStaticProps,
-  InferGetStaticPropsType,
-} from 'next'
+import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import i18nextConfig from '../../next-i18next.config'
 import type { NextPageWithLayout } from '../models'
+import { HeadMeta } from '../components'
 
 export const getStaticProps: GetStaticProps = async ({
   locale,
@@ -28,11 +24,10 @@ const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
 
   return (
     <>
-      <Head>
-        <title>{i18n.t('pages.index.title')}</title>
-        <meta property="og:title" content={`gemcase | ${i18n.t('pages.index.title')}`} key="title" />
-        <meta name="description" content={i18n.t('pages.index.description')} key="description" />
-      </Head>
+      <HeadMeta
+        title={i18n.t('pages.index.title')}
+        description={i18n.t('pages.index.description')}
+      />
 
       <div className="tw-px-container">
         <h1>Some kind of explore?</h1>

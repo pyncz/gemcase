@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import type {
   GetStaticProps,
   InferGetStaticPropsType,
@@ -8,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import type { NextPageWithLayout } from '../models'
 import { PageLayoutDocs } from '../layouts'
 import i18nextConfig from '../../next-i18next.config'
-import { GroupContainer, LocaleRadio, ThemeRadio } from '../components'
+import { GroupContainer, HeadMeta, LocaleRadio, ThemeRadio } from '../components'
 
 export const getStaticProps: GetStaticProps = async ({
   locale,
@@ -27,11 +26,10 @@ const Settings: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps
 
   return (
     <>
-      <Head>
-        <title>{i18n.t('pages.about.title')}</title>
-        <meta property="og:title" content={`gemcase | ${i18n.t('pages.settings.title')}`} key="title" />
-        <meta name="description" content={i18n.t('pages.settings.description')} key="description" />
-      </Head>
+      <HeadMeta
+        title={i18n.t('pages.settings.title')}
+        description={i18n.t('pages.settings.description')}
+      />
 
       <h1>
         {i18n.t('pages.settings.title')}

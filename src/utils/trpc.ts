@@ -4,22 +4,7 @@ import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
 import superjson from 'superjson'
 
 import { type AppRouter } from '../server/trpc/router/_app'
-import { isClientSide } from './isClientSide'
-
-const getBaseUrl = () => {
-  // browser should use relative url
-  if (isClientSide()) {
-    return ''
-  }
-
-  // SSR should use vercel url
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`
-  }
-
-  // dev SSR should use localhost
-  return `http://localhost:${process.env.PORT ?? 3000}`
-}
+import { getBaseUrl } from './getBaseUrl'
 
 export const trpc = createTRPCNext<AppRouter>({
   config() {

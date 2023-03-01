@@ -1,15 +1,28 @@
+import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import type { AddressInfo } from '../models'
 import { AddressRepresentation } from './AddressRepresentation'
+import { HeadMeta } from './HeadMeta'
 
 type Props = AddressInfo
 
 export const ViewAccount: FC<Props> = (props) => {
+  const { address, chainMetadata } = props
+
+  const { i18n } = useTranslation()
+
   return (
-    <div>
-      <h1>Just a regular address</h1>
-      <AddressRepresentation {...props} />
-      {/* TODO: Show related NFT owned by the address? */}
-    </div>
+    <>
+      <HeadMeta
+        title={i18n.t('pages.viewAccount.title', { address, chain: chainMetadata.label })}
+        description={i18n.t('pages.viewAccount.description', { address, chain: chainMetadata.label })}
+      />
+
+      <div>
+        <h1>Just a regular address</h1>
+        <AddressRepresentation {...props} />
+        {/* TODO: Show related NFT owned by the address? */}
+      </div>
+    </>
   )
 }

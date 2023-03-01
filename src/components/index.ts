@@ -2,6 +2,8 @@ export * from './logos'
 export * from './errors'
 export * from './ui'
 
+export * from './HeadMeta'
+
 export * from './promoCard'
 
 export * from './ViewNftContract'
