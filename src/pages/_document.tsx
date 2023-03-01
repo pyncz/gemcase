@@ -24,6 +24,7 @@ class MyDocument extends Document<Props> {
         <Head>
           <meta property="og:site_name" content="gemcase" key="og-site_name" />
           <meta property="og:image" content={ogImage} key="og-image" />
+          <meta property="twitter:image" content={ogImage} key="twitter-image" />
         </Head>
 
         <body>

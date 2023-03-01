@@ -10,6 +10,8 @@ interface Props {
   description?: string
   type?: string
   image?: string
+  summary?: 'summary' | 'summary_large_image'
+  creator?: `@${string}`
 }
 
 export const HeadMeta: FC<PropsWithChildren<Props>> = (props) => {
@@ -19,6 +21,8 @@ export const HeadMeta: FC<PropsWithChildren<Props>> = (props) => {
     description,
     type = 'website',
     image,
+    summary = 'summary',
+    creator,
 
     children,
   } = props
@@ -33,12 +37,22 @@ export const HeadMeta: FC<PropsWithChildren<Props>> = (props) => {
       <title>{pageTitle}</title>
       <meta name="description" content={description} key="description" />
 
+      {/* opengraph meta */}
       <meta property="og:title" content={title} key="og-title" />
       <meta property="og:description" content={description} key="og-description" />
       <meta property="og:site_name" content="gemcase" key="og-site_name" />
       <meta property="og:url" content={href} key="og-url" />
       <meta property="og:type" content={type} key="og-type" />
       {image ? <meta property="og:image" content={image} key="og-image" /> : null}
+
+      {/* twitter meta */}
+      <meta property="twitter:card" content={summary} key="twitter-card" />
+      <meta property="twitter:title" content={title} key="twitter-title" />
+      <meta property="twitter:description" content={description} key="twitter-description" />
+      <meta property="twitter:url" content={href} key="twitter-url" />
+      <meta property="twitter:site" content="@iampyncz" key="twitter-site" />
+      {creator ? <meta property="twitter:creator" content={creator} key="twitter-creator" /> : null}
+      {image ? <meta property="twitter:image" content={image} key="twitter-image" /> : null}
 
       {children}
     </Head>
