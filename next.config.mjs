@@ -13,5 +13,14 @@ const config = {
   reactStrictMode: true,
   swcMinify: true,
   i18n,
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.moralis.io',
+      },
+    ],
+  },
 }
 export default config

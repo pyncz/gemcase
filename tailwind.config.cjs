@@ -122,6 +122,7 @@ module.exports = {
       sans: sansSerif, // without any loaded font
       header: ['var(--font-mulish)', 'Mulish', ...sansSerif],
       main: ['var(--font-roboto)', 'Roboto', ...sansSerif],
+      mono: ['monospace'],
     },
     lineHeight: {
       1: 1,
@@ -215,9 +216,14 @@ module.exports = {
         'xs': '400px',
       },
       spacing: {
+        // for height / width
         sidebar: '80px',
+        // for spacing
         list: '1.25rem',
         title: '2.5rem',
+        // for offset
+        ch: '1ch',
+        em: '1em',
       },
       height: {
         'logo-icon': '1.25em',
@@ -335,10 +341,15 @@ module.exports = {
           },
         },
         '.link-muted': {
+          // tw-pb-0.5 tw-inline tw-border-b tw-border-separator hover:tw-border-separator-vivid tw-border-dashed
+          'paddingBottom': '0.125em',
+          'display': 'inline',
           'cursor': 'pointer',
+          'border-bottom': `${theme('borderWidth.DEFAULT')} dashed ${theme('borderColor.separator.DEFAULT')}`,
           'color': c('--c-color-dim-3'),
           'transitionDuration': theme('transitionDuration.normal'),
           '&:hover': {
+            borderColor: theme('borderColor.separator.vivid'),
             color: c('--c-color-dim-2'),
             transitionDuration: theme('transitionDuration.fast'),
           },

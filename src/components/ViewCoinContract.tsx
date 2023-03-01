@@ -1,12 +1,12 @@
 import type { FC } from 'react'
 import Image from 'next/image'
 import { LayoutSide } from '../layouts'
-import type { AddressConfig } from '../models'
-import { stringify, trpc } from '../utils'
+import type { AddressInfo } from '../models'
+import { trpc } from '../utils'
 import { AddressRepresentation } from './AddressRepresentation'
 import { Skeleton, Tag } from './ui'
 
-interface Props extends AddressConfig {
+interface Props extends AddressInfo {
   standard?: string
 }
 
@@ -23,28 +23,49 @@ export const ViewCoinContract: FC<Props> = (props) => {
     data: metadata,
   } = trpc.metadata.getCoinContractMetadata.useQuery({ blockchain, chainId, address })
 
+  const logoSize = 64
+
   return (
     <LayoutSide>
-      <section className="tw-px-container tw-py-section">
-        <h1>
-          <Skeleton.Root isLoading={isLoading} width="4ch">{metadata?.name}</Skeleton.Root>
-          {standard ? <Tag>{standard}</Tag> : null}
-        </h1>
-        <AddressRepresentation {...props} />
+      <Skeleton.Root loaded={!isLoading}>
+        <section className="tw-px-container tw-py-section tw-space-y-title">
+          <div className="tw-space-y-2">
+            <h1 className="tw-mb-1 tw-relative tw-top-2">
+              <Skeleton.Element width="4ch">
+                <span className="tw-relative tw--top-2 tw-inline-flex tw-pb-1">{metadata?.name}</span>
+              </Skeleton.Element>
+              {standard
+                ? <Tag className="tw-text-3/4 tw-relative tw--top-2 tw-left-[0.75ch]">{standard}</Tag>
+                : null
+              }
+            </h1>
+            <div>
+              <AddressRepresentation {...props} />
+            </div>
+          </div>
 
-        {isLoading
-          ? <div>Loading...</div>
-          : metadata
-            ? (
-            <>
-              {metadata.logo ? <Image src={metadata.logo} alt={metadata.name} width={100} height={100} /> : null}
-              {metadata.thumbnail ? <Image src={metadata.thumbnail} alt={metadata.name} width={100} height={100} /> : null}
-              <code>{stringify(metadata)}</code>
-            </>
-              )
-            : null
-        }
-      </section>
+          <div className="tw-text-dim-1 tw-flex tw-gap-4 tw-items-center tw-pb-4 tw-border-b tw-border-separator-muted">
+            <div className="tw-rounded-full tw-overflow-hidden tw-inline-flex tw--mx-1">
+              <Skeleton.Element width={logoSize} height={logoSize}>
+                {metadata?.logo ? <Image src={metadata.logo} alt={metadata.name} width={logoSize} height={logoSize} /> : null}
+              </Skeleton.Element>
+            </div>
+
+            <div className="tw-flex-1">
+              <h3 className="tw-mb-0 tw-flex">
+                <Skeleton.Element width={120}>
+                  {metadata?.symbol}
+                </Skeleton.Element>
+              </h3>
+              <small className="tw-text-dim-2">
+                <Skeleton.Element width={100}>
+                  {'usd rate?'}
+                </Skeleton.Element>
+              </small>
+            </div>
+          </div>
+        </section>
+      </Skeleton.Root>
     </LayoutSide>
   )
 }

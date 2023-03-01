@@ -1,9 +1,9 @@
 import type { FC } from 'react'
-import type { AddressConfig } from '../models'
+import type { AddressInfo } from '../models'
 import { stringify, trpc } from '../utils'
 import { AddressRepresentation } from './AddressRepresentation'
 
-interface Props extends AddressConfig {
+interface Props extends AddressInfo {
   isCollectibleNFT: boolean
 }
 

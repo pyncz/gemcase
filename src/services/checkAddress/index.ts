@@ -1,8 +1,9 @@
 import type { Optional } from '@voire/type-utils'
 import { checkInterfaces, resolveIpfs } from '@wiiib/check-evm-address'
 import Moralis from 'moralis'
-import type { ChainID, CoinContractMetadata, EvmAddress, NftContractMetadata, NftTokenMetadata } from '../../models'
+import type { BlockchainMetadata, ChainID, CoinContractMetadata, EvmAddress, NftContractMetadata, NftTokenMetadata } from '../../models'
 import { JsonRpcProvider } from '../../models'
+import type { WithAliases } from '../../utils'
 import { createAdapter, createBlockchainAdapter, isEvmAddress } from '../../utils'
 import type { Methods } from './methods.types'
 
@@ -27,12 +28,14 @@ const evmChains = {
     label: 'Ethereum Mainnet',
     rpcDomain: 'mainnet',
     aliases: ['0x1', 'ethereum', 'mainnet', 'ethereum-mainnet', 1] as const,
+    logo: '/img/chains/ethereum-eth-logo.png',
   },
   goerli: {
     id: 5 as ChainID,
     label: 'Goerli Testnet',
     rpcDomain: 'goerli',
     aliases: ['0x5', 'testnet', 'goerli-testnet', 5] as const,
+    logo: '/img/chains/ethereum-eth-logo.png',
     test: true,
   },
   sepolia: {
@@ -40,6 +43,7 @@ const evmChains = {
     label: 'Sepolia Testnet',
     rpcDomain: 'sepolia',
     aliases: ['0xaa36a7', 'sepolia-testnet', 11155111] as const,
+    logo: '/img/chains/ethereum-eth-logo.png',
     test: true,
   },
   polygon: {
@@ -47,12 +51,14 @@ const evmChains = {
     label: 'Polygon',
     rpcDomain: 'polygon-mainnet',
     aliases: ['0x89', 'matic', 'polygon-mainnet', 'matic-mainnet', 137] as const,
+    logo: '/img/chains/polygon-matic-logo.png',
   },
   mumbai: {
     id: 80001 as ChainID,
     label: 'Matic Mumbai Testnet',
     rpcDomain: 'polygon-mumbai',
     aliases: ['0x13881', 'polygon-mumbai', 80001] as const,
+    logo: '/img/chains/polygon-matic-logo.png',
     test: true,
   },
   avalanche: {
@@ -60,12 +66,14 @@ const evmChains = {
     label: 'Avalanche C-Chain',
     rpcDomain: 'avalanche-mainnet',
     aliases: ['0xa86a', 'avalanche-mainnet', 43114] as const,
+    logo: '/img/chains/avalanche-avax-logo.png',
   },
   avalancheTestnet: {
     id: 43113 as ChainID,
     label: 'Avalanche Fuji Testnet',
     rpcDomain: 'avalanche-fuji',
     aliases: ['0xa869', 'avalanche-fuji', 'fuji', 43113] as const,
+    logo: '/img/chains/avalanche-avax-logo.png',
     test: true,
   },
   palm: {
@@ -73,12 +81,14 @@ const evmChains = {
     label: 'Palm',
     rpcDomain: 'palm-mainnet',
     aliases: ['0x2a15c308d', 'palm-mainnet', 11297108109] as const,
+    logo: '/img/chains/palm-logo.png',
   },
   arbitrum: {
     id: 42161 as ChainID,
     label: 'Arbitrum One',
     rpcDomain: 'arbitrum-mainnet',
     aliases: ['0xa4b1', 'arbitrum-mainnet', 42161] as const,
+    logo: '/img/chains/arbitrum-logo.png',
   },
 
   // TODO: Add networks?
@@ -104,6 +114,11 @@ const evmChains = {
 export const adapter = createAdapter({
   evm: createBlockchainAdapter(
     {
+      label: 'EVM',
+      logo: undefined,
+      aliases: ['eip155'] as const,
+
+      // methods
       validateAddress: isEvmAddress,
       async check(chainId, domain, address) {
         const { isContract, isIERC1155, isIERC20, isIERC721, type } = await checkInterfaces(address, getEvmProvider(chainId, domain))
@@ -187,11 +202,8 @@ export const adapter = createAdapter({
         const [_, nwConfig] = this.findChainById(chainId) ?? []
         return !!nwConfig
       },
-    } satisfies Methods<EvmAddress, ChainID>,
+    } satisfies WithAliases<string> & BlockchainMetadata & Methods<EvmAddress, ChainID>,
     evmChains,
-    {
-      aliases: ['eip155'] as const,
-    },
   ),
 
   // TODO: Add blockchains?

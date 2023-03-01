@@ -1,9 +1,9 @@
 import type { FC } from 'react'
-import type { TokenConfig } from '../models'
+import type { TokenInfo } from '../models'
 import { stringify, trpc } from '../utils'
 import { AddressRepresentation } from './AddressRepresentation'
 
-interface Props extends TokenConfig {
+interface Props extends TokenInfo {
   isCollectibleNFT: boolean
 }
 

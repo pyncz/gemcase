@@ -36,21 +36,18 @@ export const findByIdOrAlias = <
 }
 
 export const createBlockchainAdapter = <
-  Interfaces extends Record<string, any>,
+  Interfaces extends WithAliases<string> & Record<string, any>,
   ChainConfig extends WithAliases<string | number> & Record<string, any>,
   ChainKey extends string | number = never,
-  BlockchainAlias extends string = never,
 >(
     interfaces: Interfaces,
     chains: Record<ChainKey, ChainConfig>,
-    options?: WithAliases<BlockchainAlias>,
-  ): BaseBlockchainConfig<typeof chains> & Interfaces & WithAliases<BlockchainAlias> => {
+  ): BaseBlockchainConfig<typeof chains> & Interfaces => {
   const findChain = (chainSlug: string | number) => findByIdOrAlias(chains, chainSlug)
 
   return {
     chains,
     ...interfaces,
-    ...options,
     findChain,
     validateChain: (nw): nw is InferSlug<typeof chains> => {
       return !!findChain(nw)

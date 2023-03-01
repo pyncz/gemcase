@@ -1,5 +1,7 @@
 import type { Flags } from '../utils'
 import type { HexString } from '../hex'
+import type { AddressConfig } from '../schemas'
+import type { ChainInfo } from './chain.types'
 
 export type AddressMetadata = Flags<
   | 'isContract'
@@ -18,3 +20,5 @@ type TLD = string
 
 export type EnsAddress = `${string}.${TLD}`
 export type EvmAddress = HexAddress | EnsAddress
+
+export type AddressInfo = AddressConfig & ChainInfo

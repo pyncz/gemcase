@@ -1,8 +1,8 @@
 import type { FC } from 'react'
-import type { AddressConfig } from '../models'
+import type { AddressInfo } from '../models'
 import { AddressRepresentation } from './AddressRepresentation'
 
-type Props = AddressConfig
+type Props = AddressInfo
 
 export const ViewAccount: FC<Props> = (props) => {
   return (
