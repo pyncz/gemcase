@@ -2,7 +2,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import nextI18nextConfig from '../../../../../next-i18next.config'
 import { ExploreForm } from '../../../../components'
-import type { ChainConfig, InDict, NextPageWithLayout } from '../../../../models'
+import type { ChainInfo, InDict, NextPageWithLayout } from '../../../../models'
 import { adapter } from '../../../../services'
 
 type ChainParams = InDict<{
@@ -10,7 +10,7 @@ type ChainParams = InDict<{
   blockchain: string
 }>
 
-export const getServerSideProps: GetServerSideProps<ChainConfig, ChainParams> = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps<ChainInfo, ChainParams> = async ({ params, locale }) => {
   const i18nBasePath = locale ? `/${locale}` : ''
   const { blockchain, chain } = params ?? {}
 
@@ -26,7 +26,15 @@ export const getServerSideProps: GetServerSideProps<ChainConfig, ChainParams> = 
         return {
           props: {
             blockchain: bcKey,
+            blockchainMetadata: {
+              label: bcConfig.label,
+              logo: bcConfig.logo ?? null,
+            },
             chainId: nwConfig?.id,
+            chainMetadata: {
+              label: nwConfig.label,
+              logo: nwConfig.logo ?? null,
+            },
 
             ...(await serverSideTranslations(locale ?? nextI18nextConfig.i18n.defaultLocale, [
               'common',

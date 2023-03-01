@@ -181,16 +181,37 @@ export const adapter = createAdapter({
           addresses: [address],
         })
         const data = result?.toJSON()[0] ?? null
-        return data
-          ? resolveIpfs({
+
+        if (data) {
+          const marketResult = await Moralis.EvmApi.token.getTokenPrice({
+            chain: chainId,
+            address,
+          })
+          const marketData = marketResult?.toJSON() ?? null
+
+          return resolveIpfs({
             name: data.name,
             symbol: data.symbol,
             decimals: +data.decimals,
             logo: data.logo,
             thumbnail: data.thumbnail,
             // TODO: Add market data
+            marketData: {
+              usdPrice: marketData.usdPrice,
+              exchangeName: marketData.exchangeName,
+              nativePrice: marketData.nativePrice
+                ? {
+                    value: BigInt(marketData.nativePrice.value),
+                    name: marketData.nativePrice.name,
+                    symbol: marketData.nativePrice.symbol,
+                    decimals: marketData.nativePrice.decimals,
+                  }
+                : undefined,
+            },
           }) satisfies CoinContractMetadata
-          : null
+        }
+
+        return null
       },
 
       findChainById(chainId) {

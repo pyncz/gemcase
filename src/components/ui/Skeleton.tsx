@@ -30,7 +30,7 @@ const Element: FC<PropsWithChildren<WithClassName<SkeletonElementProps>>> = (pro
   const { loaded } = useContext(SkeletonContext)
 
   if (loaded) {
-    return <Wrapper className={className}>{children}</Wrapper>
+    return <>{children}</>
   }
 
   return (

@@ -2,7 +2,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import nextI18nextConfig from '../../../../../../next-i18next.config'
 import { ViewNftToken } from '../../../../../components'
-import type { AddressMetadata, InDict, NextPageWithLayout, TokenConfig } from '../../../../../models'
+import type { AddressMetadata, InDict, NextPageWithLayout, TokenInfo } from '../../../../../models'
 import { adapter } from '../../../../../services'
 import { isNumberLike } from '../../../../../utils'
 
@@ -13,7 +13,7 @@ type TokenParams = InDict<{
   tokenId: string
 }>
 
-type Props = TokenConfig & AddressMetadata
+type Props = TokenInfo & AddressMetadata
 
 export const getServerSideProps: GetServerSideProps<Props, TokenParams> = async ({ params, locale }) => {
   const i18nBasePath = locale ? `/${locale}` : ''
@@ -37,7 +37,15 @@ export const getServerSideProps: GetServerSideProps<Props, TokenParams> = async 
             return {
               props: {
                 blockchain: bcKey,
+                blockchainMetadata: {
+                  label: bcConfig.label,
+                  logo: bcConfig.logo ?? null,
+                },
                 chainId: nwConfig.id,
+                chainMetadata: {
+                  label: nwConfig.label,
+                  logo: nwConfig.logo ?? null,
+                },
                 address,
                 tokenId,
                 ...addressMetadata,

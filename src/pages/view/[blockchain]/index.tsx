@@ -1,7 +1,7 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ExploreForm } from '../../../components'
-import type { BlockchainConfig, InDict, NextPageWithLayout } from '../../../models'
+import type { BlockchainInfo, InDict, NextPageWithLayout } from '../../../models'
 import { adapter } from '../../../services'
 import i18nextConfig from '../../../../next-i18next.config'
 
@@ -9,19 +9,27 @@ type BlockchainParams = InDict<{
   blockchain: string
 }>
 
-export const getServerSideProps: GetServerSideProps<BlockchainConfig, BlockchainParams> = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps<BlockchainInfo, BlockchainParams> = async ({ params, locale }) => {
   const { blockchain } = params ?? {}
 
-  if (blockchain && adapter.validateBlockchain(blockchain)) {
-    // blockchain is valid
-    return {
-      props: {
-        blockchain,
+  if (blockchain) {
+    const [bcKey, bcConfig] = adapter.findBlockchain(blockchain) ?? []
 
-        ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
-          'common',
-        ])),
-      },
+    if (bcKey && bcConfig) {
+    // blockchain is valid
+      return {
+        props: {
+          blockchain: bcKey,
+          blockchainMetadata: {
+            label: bcConfig.label,
+            logo: bcConfig.logo ?? null,
+          },
+
+          ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
+            'common',
+          ])),
+        },
+      }
     }
   }
 

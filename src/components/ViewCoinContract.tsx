@@ -5,6 +5,7 @@ import type { AddressInfo } from '../models'
 import { trpc } from '../utils'
 import { AddressRepresentation } from './AddressRepresentation'
 import { Skeleton, Tag } from './ui'
+import { Price } from './Price'
 
 interface Props extends AddressInfo {
   standard?: string
@@ -57,11 +58,12 @@ export const ViewCoinContract: FC<Props> = (props) => {
                   {metadata?.symbol}
                 </Skeleton.Element>
               </h3>
-              <small className="tw-text-dim-2">
-                <Skeleton.Element width={100}>
-                  {'usd rate?'}
-                </Skeleton.Element>
-              </small>
+              <Skeleton.Element width={100} className="tw-text-sm tw-mt-1">
+                {metadata?.marketData
+                  ? <small className="tw-text-dim-2"><Price value={metadata.marketData.usdPrice} symbol="USD" /></small>
+                  : null
+                }
+              </Skeleton.Element>
             </div>
           </div>
         </section>

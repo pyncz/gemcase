@@ -2,7 +2,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import nextI18nextConfig from '../../../../../../next-i18next.config'
 import { ViewAccount, ViewCoinContract, ViewNftContract } from '../../../../../components'
-import type { AddressConfig, AddressMetadata, InDict, NextPageWithLayout } from '../../../../../models'
+import type { AddressInfo, AddressMetadata, InDict, NextPageWithLayout } from '../../../../../models'
 import { adapter } from '../../../../../services'
 
 type AddressParams = InDict<{
@@ -11,7 +11,7 @@ type AddressParams = InDict<{
   address: string
 }>
 
-type Props = AddressConfig & AddressMetadata
+type Props = AddressInfo & AddressMetadata
 
 export const getServerSideProps: GetServerSideProps<Props, AddressParams> = async ({ params, locale }) => {
   const i18nBasePath = locale ? `/${locale}` : ''
@@ -33,7 +33,15 @@ export const getServerSideProps: GetServerSideProps<Props, AddressParams> = asyn
           return {
             props: {
               blockchain: bcKey,
+              blockchainMetadata: {
+                label: bcConfig.label,
+                logo: bcConfig.logo ?? null,
+              },
               chainId: nwConfig.id,
+              chainMetadata: {
+                label: nwConfig.label,
+                logo: nwConfig.logo ?? null,
+              },
               address,
               ...addressMetadata,
 
