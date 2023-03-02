@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<ChainInfo, ChainParams> = as
               label: bcConfig.label,
               logo: bcConfig.logo ?? null,
             },
-            chainId: nwConfig?.id,
+            chainId: nwConfig.id,
             chainMetadata: {
               label: nwConfig.label,
               logo: nwConfig.logo ?? null,

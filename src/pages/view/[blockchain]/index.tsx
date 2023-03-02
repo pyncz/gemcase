@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps<BlockchainInfo, BlockchainPa
     const [bcKey, bcConfig] = adapter.findBlockchain(blockchain) ?? []
 
     if (bcKey && bcConfig) {
-    // blockchain is valid
+      // blockchain is valid
       return {
         props: {
           blockchain: bcKey,
