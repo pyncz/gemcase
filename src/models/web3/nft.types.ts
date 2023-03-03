@@ -1,6 +1,6 @@
 import type { Nullable } from '@voire/type-utils'
-import type { TokenConfig } from '../schemas'
-import type { ChainInfo } from './chain.types'
+import type { NumberLike } from '../number'
+import type { AddressConfig, AddressInfo } from './address.types'
 
 // Contract
 export interface NftContractMetadata {
@@ -31,4 +31,8 @@ export interface NftTokenMetadata extends NftContractMetadata {
   }
 }
 
-export type TokenInfo = TokenConfig & ChainInfo
+export interface TokenConfig extends AddressConfig {
+  tokenId: NumberLike
+}
+
+export type TokenInfo = TokenConfig & AddressInfo

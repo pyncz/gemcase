@@ -3,7 +3,7 @@ import type { WithClassName } from '../../models'
 
 const Root: FC<PropsWithChildren<WithClassName>> = ({ children, className }) => {
   return (
-    <span className={`tw-font-mono ${className}`}>
+    <span className={`tw-text-dim-1 tw-font-mono ${className}`}>
       {children}
     </span>
   )

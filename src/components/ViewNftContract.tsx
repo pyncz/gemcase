@@ -3,9 +3,7 @@ import type { AddressInfo } from '../models'
 import { stringify, trpc } from '../utils'
 import { AddressRepresentation } from './AddressRepresentation'
 
-interface Props extends AddressInfo {
-  isCollectibleNFT: boolean
-}
+type Props = AddressInfo
 
 export const ViewNftContract: FC<Props> = (props) => {
   const {

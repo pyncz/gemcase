@@ -3,9 +3,7 @@ import type { TokenInfo } from '../models'
 import { stringify, trpc } from '../utils'
 import { AddressRepresentation } from './AddressRepresentation'
 
-interface Props extends TokenInfo {
-  isCollectibleNFT: boolean
-}
+type Props = TokenInfo
 
 export const ViewNftToken: FC<Props> = (props) => {
   const {

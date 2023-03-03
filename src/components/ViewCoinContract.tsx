@@ -9,9 +9,7 @@ import { AddressRepresentation } from './AddressRepresentation'
 import { Skeleton, Tag } from './ui'
 import { Price } from './Price'
 
-interface Props extends AddressInfo {
-  standard?: string
-}
+type Props = AddressInfo
 
 export const ViewCoinContract: FC<Props> = (props) => {
   const {

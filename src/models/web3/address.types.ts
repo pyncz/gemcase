@@ -1,7 +1,7 @@
+import type { Nullable } from '@voire/type-utils'
 import type { Flags } from '../utils'
 import type { HexString } from '../hex'
-import type { AddressConfig } from '../schemas'
-import type { ChainInfo } from './chain.types'
+import type { ChainConfig, ChainInfo } from './chain.types'
 
 export type AddressMetadata = Flags<
   | 'isContract'
@@ -9,7 +9,7 @@ export type AddressMetadata = Flags<
   | 'isNFT'
   | 'isCollectibleNFT'
 > & {
-  standard?: string
+  standard: Nullable<string>
 }
 
 export type HexAddress = HexString
@@ -21,4 +21,8 @@ type TLD = string
 export type EnsAddress = `${string}.${TLD}`
 export type EvmAddress = HexAddress | EnsAddress
 
-export type AddressInfo = AddressConfig & ChainInfo
+export interface AddressConfig extends ChainConfig {
+  address: string
+}
+
+export type AddressInfo = AddressConfig & ChainInfo & AddressMetadata
