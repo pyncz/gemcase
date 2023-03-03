@@ -16,11 +16,20 @@ const getOgpengraphImageByConfig = async (config: any): Promise<Nullable<Buffer>
         tokenId,
       )
       if (metadata) {
-        // TODO: meta: Add `metadata.metadata?.image` to the og image
+        // Show the NFT image as the og-image for this token
+        if (metadata.metadata) {
+          // A big file may be stored on ipfs (or anywhere)
+          // so we'll generate just a regular preview as a fallback
+          try {
+            const tokenImageRes = await fetch(metadata.metadata.image)
+            const tokenImage = await tokenImageRes.arrayBuffer()
+            return Buffer.from(tokenImage)
+          } catch (e) {}
+        }
+
         return await generateOpengraphImage({
           title: metadata.name,
-          description:
-            metadata.metadata?.description ?? `View ${metadata.symbol} #${+tokenId} on gemcase`,
+          description: `View ${metadata.symbol} #${+tokenId} on gemcase`,
         })
       }
     }
