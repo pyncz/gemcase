@@ -16,20 +16,20 @@ import { store } from '../stores'
 // Optimize fonts
 const Mulish = localFont({
   variable: '--font-mulish',
-  src: '../assets/fonts/Mulish/Mulish-VariableFont_wght.ttf',
+  src: '../assets/fonts/Mulish/Mulish-Bold.ttf',
+  weight: '700',
 })
 const Roboto = localFont({
   variable: '--font-roboto',
+  style: 'normal',
   src: [
     {
       path: '../assets/fonts/Roboto/Roboto-Regular.ttf',
       weight: '400',
-      style: 'normal',
     },
     {
       path: '../assets/fonts/Roboto/Roboto-Black.ttf',
       weight: '700',
-      style: 'normal',
     },
   ],
 })
