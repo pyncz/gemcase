@@ -19,20 +19,28 @@
       "title": "About"
     },
     "index": {
-      "description": "You NFT viewer. Any network, any chain.",
+      "description": "Your NFT viewer. Any network, any chain.",
       "title": "Home"
     },
     "settings": {
       "description": "Explore the gems the way you prefer",
       "title": "Settings"
     },
-    "viewCoinContract": {
-      "description": "View {{name}} coin on gamecase",
-      "title": "{{name}}"
-    },
     "viewAccount": {
       "description": "View {{address}} blockchain address on {{chain}} chain",
       "title": "{{address}} on {{chain}}"
+    },
+    "viewCoinContract": {
+      "description": "View {{name}} coin contract on {{chain}} chain",
+      "title": "{{name}}"
+    },
+    "viewNftContract": {
+      "description": "View {{name}} NFT token contract on {{chain}} chain",
+      "title": "{{name}}"
+    },
+    "viewNftToken": {
+      "description": "View {{name}} NFT token #{{tokenId}} on {{chain}} chain",
+      "title": "{{name}}"
     }
   },
   "promo": {

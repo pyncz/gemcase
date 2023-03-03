@@ -111,7 +111,7 @@ const evmChains = {
   //   1313161555: Aurora Testnet
 }
 
-export const adapter = createAdapter({
+const config = {
   evm: createBlockchainAdapter(
     {
       label: 'EVM',
@@ -127,7 +127,7 @@ export const adapter = createAdapter({
           isCoin: isIERC20,
           isNFT: isIERC721 || isIERC1155,
           isCollectibleNFT: isIERC1155,
-          standard: type ? type as string : undefined,
+          standard: type ? type as string : null,
         }
       },
 
@@ -231,4 +231,8 @@ export const adapter = createAdapter({
   // - NEAR (maybe via Infura)
   // - Solana (maybe via Moralis)
   // - Aptos (maybe via Moralis)
-})
+}
+
+export const adapter = createAdapter(config)
+
+export type Web3Config = typeof config

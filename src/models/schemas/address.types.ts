@@ -19,5 +19,3 @@ export const addressSchema = z.object({
   chainId: z.union([z.number().positive(), z.string()]),
   address: z.string(),
 })
-
-export type AddressConfig = z.infer<typeof addressSchema>

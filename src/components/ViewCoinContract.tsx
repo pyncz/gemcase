@@ -3,20 +3,20 @@ import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { LayoutSide } from '../layouts'
 import type { AddressInfo } from '../models'
-import { trpc } from '../utils'
+import { getAbsoluteBaseUrl, trpc } from '../utils'
 import { HeadMeta } from './HeadMeta'
 import { AddressRepresentation } from './AddressRepresentation'
 import { Skeleton, Tag } from './ui'
 import { Price } from './Price'
 
-interface Props extends AddressInfo {
-  standard?: string
-}
+type Props = AddressInfo
 
 export const ViewCoinContract: FC<Props> = (props) => {
   const {
     blockchain,
+    chain,
     chainId,
+    chainMetadata,
     address,
     standard,
   } = props
@@ -28,17 +28,20 @@ export const ViewCoinContract: FC<Props> = (props) => {
     data: metadata,
   } = trpc.metadata.getCoinContractMetadata.useQuery({ blockchain, chainId, address })
 
-  const pageTitle = i18n.t('pages.viewCoinContract.title', {
-    name: metadata ? `${metadata.name} - ${standard}` : standard,
-  })
-
   const logoSize = 64
+  const ogImage = `${getAbsoluteBaseUrl()}/api/og/${blockchain}/${chain}/${address}`
 
   return (
     <>
       <HeadMeta
-        title={pageTitle}
-        description={i18n.t('pages.index.description', { name: metadata ? `${standard} ${metadata.name}` : standard })}
+        title={i18n.t('pages.viewCoinContract.title', {
+          name: metadata ? `${metadata.name} - ${standard}` : standard,
+        })}
+        description={i18n.t('pages.viewCoinContract.description', {
+          name: metadata ? `${metadata.symbol} ${standard}` : standard,
+          chain: chainMetadata.label,
+        })}
+        image={ogImage}
       />
 
       <LayoutSide>
