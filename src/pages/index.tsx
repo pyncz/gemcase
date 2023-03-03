@@ -5,7 +5,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import i18nextConfig from '../../next-i18next.config'
 import type { NextPageWithLayout } from '../models'
-import { HeadMeta } from '../components'
+import { ExploreForm, HeadMeta } from '../components'
+import { PageLayoutMessage } from '../layouts'
 
 export const getStaticProps: GetStaticProps = async ({
   locale,
@@ -29,11 +30,17 @@ const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
         description={i18n.t('pages.index.description')}
       />
 
-      <div className="tw-px-container">
-        <h1>Some kind of explore?</h1>
-      </div>
+      <section className="tw-space-y-title">
+        <h1 className="tw-mb-0">
+          {i18n.t('index.title')}
+        </h1>
+
+        <ExploreForm />
+      </section>
     </>
   )
 }
+
+Home.Layout = PageLayoutMessage
 
 export default Home

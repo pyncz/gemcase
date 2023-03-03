@@ -274,10 +274,11 @@ module.exports = {
 
       addUtilities({
         '.py-section': {
-          'paddingTop': '5rem',
+          'paddingTop': '6rem',
           'paddingBottom': '4rem',
           '@screen md': {
-            paddingTop: '6rem',
+            paddingTop: '5rem',
+            paddingBottom: '6rem',
           },
         },
         '.px-container': {

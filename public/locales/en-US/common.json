@@ -1,6 +1,5 @@
 {
   "connect": "Connect",
-  "submit": "Submit",
   "errors": {
     "_": "{{error}} Error",
     "notFound": "Not Found",
@@ -8,6 +7,9 @@
     "unexpected": "Unexpected error has occured"
   },
   "hi": "Hello",
+  "index": {
+    "title": "Explore web3 world"
+  },
   "locale": {
     "_": "Language"
   },
@@ -57,6 +59,7 @@
       "title": "Any blockchain. Any network"
     }
   },
+  "submit": "Submit",
   "theme": {
     "_": "Color mode",
     "black": "Black",
