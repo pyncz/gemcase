@@ -12,7 +12,7 @@ const fetchBuffer = async (filepath: string) => {
 
 export const generateOpengraphImage = async (config: {
   title: string
-  description: string
+  description?: string
 }): Promise<Buffer> => {
   const { title, description } = config
 
@@ -39,23 +39,25 @@ export const generateOpengraphImage = async (config: {
           marginBottom: '2px',
           fontFamily: 'Mulish, Helvetica, "sans-serif"',
         }}>{title}</h1>
-        <p style={{
-          opacity: '0.7',
-          fontSize: '32px',
-          paddingLeft: '12px',
-          lineHeight: '40px',
-          fontFamily: 'Roboto, Helvetica, "sans-serif"',
-        }}>{description}</p>
+        {description
+          ? <p style={{
+            opacity: '0.7',
+            fontSize: '32px',
+            paddingLeft: '12px',
+            lineHeight: '40px',
+            fontFamily: 'Roboto, Helvetica, "sans-serif"',
+          }}>{description}</p>
+          : null}
       </div>
 
       <small style={{
         position: 'absolute',
-        color: '#00FFE0',
+        color: '#FFFFFF',
         top: '64px',
         left: '980px',
         fontFamily: 'Mulish, Helvetica, "sans-serif"',
         fontWeight: 700,
-        fontSize: '32px',
+        fontSize: '36px',
         zIndex: '0',
       }}>gemcase</small>
     </div>,

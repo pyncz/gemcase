@@ -13,7 +13,7 @@ export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web
     if (bcKey && bcConfig) {
       // blockchain is valid
       if (chain) {
-        const [_, nwConfig] = bcConfig.findChain(chain) ?? []
+        const [nwKey, nwConfig] = bcConfig.findChain(chain) ?? []
 
         if (nwConfig) {
           // chain is valid
@@ -29,6 +29,7 @@ export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web
                   label: bcConfig.label,
                   logo: bcConfig.logo ?? null,
                 },
+                chain: nwKey,
                 chainId: nwConfig.id,
                 chainMetadata: {
                   label: nwConfig.label,
@@ -46,6 +47,7 @@ export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web
                 label: bcConfig.label,
                 logo: bcConfig.logo ?? null,
               },
+              chain: nwKey,
               chainId: nwConfig.id,
               chainMetadata: {
                 label: nwConfig.label,
@@ -62,6 +64,7 @@ export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web
               label: bcConfig.label,
               logo: bcConfig.logo ?? null,
             },
+            chain: nwKey,
             chainId: nwConfig.id,
             chainMetadata: {
               label: nwConfig.label,

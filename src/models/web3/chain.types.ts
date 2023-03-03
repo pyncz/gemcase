@@ -11,6 +11,7 @@ export type ChainKey = InferKey<InferValue<Web3Config>['chains']>
 
 export interface ChainConfig extends BlockchainConfig {
   chainId: ChainID
+  chain: ChainKey
 }
 
 export interface ChainMetadata {

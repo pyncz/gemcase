@@ -36,13 +36,13 @@ const View: NextPageWithLayout<Props> = (props) => {
 
   // NFT
   if (config.tokenId) {
-    const tokenConfig = props as TokenInfo
+    const tokenConfig = config as TokenInfo
     return <ViewNftToken {...tokenConfig} />
   }
 
   // Address
   if (config.address) {
-    const addressConfig = props as AddressInfo
+    const addressConfig = config as AddressInfo
     const {
       isContract,
       isNFT,
