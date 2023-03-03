@@ -1,5 +1,5 @@
 import type { Entry, Nullable } from '@voire/type-utils'
-import type { InferSlug, InferValue } from '../../models'
+import type { InferKey, InferSlug, InferValue } from '../../models'
 
 export interface WithAliases<T extends string | number> {
   aliases?: Readonly<T[]>
@@ -8,11 +8,11 @@ export interface WithAliases<T extends string | number> {
 type BaseConfig<
   T extends Record<string, Record<string, any>>,
 > = T & {
-  blockchains: string[]
+  blockchains: InferSlug<T, string>[]
   validateBlockchain(bc: string): bc is InferSlug<T, string>
-  findBlockchain(bc: string): Nullable<Entry<keyof T, InferValue<T>>>
-  validateChain(bc: InferSlug<T, string>, nw: string | number): nw is InferSlug<InferChainsFromConfig<T>>
-  findChain(bc: InferSlug<T, string>, nw: string | number): Nullable<Entry<InferChainKey<T>, InferChainConfig<T>>>
+  findBlockchain(bc: string): Nullable<Entry<InferKey<T>, InferValue<T>>>
+  validateChain(bc: InferSlug<T, string>, nw: string | number): nw is InferSlug<InferValue<T>['chains']>
+  findChain(bc: InferSlug<T, string>, nw: string | number): Nullable<Entry<InferKey<InferValue<T>['chains']>, InferValue<InferValue<T>['chains']>>>
 }
 
 interface BaseBlockchainConfig<
@@ -20,13 +20,13 @@ interface BaseBlockchainConfig<
 > {
   chains: ChainsConfig
   validateChain(nw: string | number): nw is InferSlug<ChainsConfig>
-  findChain(nw: string | number): Nullable<Entry<keyof ChainsConfig, InferValue<ChainsConfig>>>
+  findChain(nw: string | number): Nullable<Entry<InferKey<ChainsConfig>, InferValue<ChainsConfig>>>
 }
 
 export const findByIdOrAlias = <
   Data extends Record<string | number, WithAliases<Slug> & any>,
   Slug extends string | number = string | number,
->(data: Data, keyOrAlias: Slug, strict = false): Nullable<Entry<keyof Data, InferValue<Data>>> => {
+>(data: Data, keyOrAlias: Slug, strict = false): Nullable<Entry<InferKey<Data>, InferValue<Data>>> => {
   return Object.entries(data).find(([key, config]) => {
     const slug = keyOrAlias.toString()
     return key === slug || config.aliases?.some((alias: string | number) => {
@@ -55,15 +55,6 @@ export const createBlockchainAdapter = <
   }
 }
 
-type InferChainsFromConfig<Config> = Config extends Record<string, infer BlockchainConfig>
-  ? BlockchainConfig extends {
-    chains: infer ChainsConfig
-  } ? ChainsConfig : never
-  : never
-
-type InferChainConfig<Config> = InferValue<InferChainsFromConfig<Config>>
-type InferChainKey<Config> = keyof InferChainsFromConfig<Config>
-
 export const createAdapter = <
   T extends Record<string, BaseBlockchainConfig<Record<string | number, any>>>,
 >(
@@ -73,12 +64,12 @@ export const createAdapter = <
 
   return {
     ...config,
-    blockchains: Object.keys(config),
+    blockchains: Object.keys(config) as InferSlug<T, string>[],
     findBlockchain,
     validateBlockchain: (bc): bc is InferSlug<T, string> => {
       return !!findBlockchain(bc)
     },
-    validateChain: (bc, nw): nw is InferSlug<InferChainsFromConfig<T>> => {
+    validateChain: (bc, nw): nw is InferSlug<InferValue<T>['chains']> => {
       const [_, bcConfig] = findBlockchain(bc) ?? []
       return bcConfig?.validateChain(nw) ?? false
     },
