@@ -289,6 +289,10 @@ module.exports = {
             paddingLeft: '1.5rem',
             paddingRight: '1.5rem',
           },
+          '@screen md': {
+            paddingLeft: '2rem',
+            paddingRight: '2rem',
+          },
         },
         '.navlink-bg': {
           background: 'radial-gradient(50% 50% at center, rgb(var(--c-navlink)), transparent)',
