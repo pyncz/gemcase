@@ -200,6 +200,7 @@ module.exports = {
     },
     dropShadow: {
       title: 'var(--s-title)',
+      glow: `0 0 0.0625em ${c('--c-color-base', 'var(--o-glow)')}`,
     },
     transitionDuration: {
       fast: '150ms',

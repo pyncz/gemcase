@@ -5,6 +5,8 @@
   --c-color-dim-2: 143, 154, 163;
   --c-color-dim-3: 199, 205, 209;
 
+  --c-emphasize: var(--c-accent-primary);
+
   /* bg */
   --c-bg-base: 249, 249, 255;
   --c-bg-dim-1: 240, 245, 252;
@@ -46,6 +48,8 @@
 
   /* opacities */
   --o-modal-overlay: 0.5;
+  --o-glow: 0;
+  --o-rainbows: 0.5;
 
   /* radiuses */
   --r-sm: 0.125rem;
