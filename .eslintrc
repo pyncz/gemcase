@@ -47,61 +47,23 @@
         "asyncArrow": "always"
       }
     ],
-
-    "vue/component-tags-order": ["error", {
-      "order": [ "template", "script", "style" ]
+    "react/jsx-max-props-per-line": ["error", {
+      "maximum": { "single": 3, "multi": 1 }
     }],
-    "vue/custom-event-name-casing": ["error", "kebab-case"],
-    "vue/no-deprecated-v-on-native-modifier": "off",
-    "vue/no-deprecated-dollar-listeners-api": "off",
-    "vue/no-deprecated-v-bind-sync": "off",
-    "vue/no-deprecated-dollar-scopedslots-api": "off",
-    "vue/no-deprecated-filter": "off",
-    "vue/require-explicit-emits": "off",
-    "vue/no-deprecated-destroyed-lifecycle": "off",
-    "vue/component-name-in-template-casing": ["error", "kebab-case"],
-    "vue/singleline-html-element-content-newline": ["error", {
-      "ignores": [
-        "pre",
-        "textarea",
-        "a",
-        "abbr",
-        "audio",
-        "b",
-        "bdi",
-        "bdo",
-        "canvas",
-        "cite",
-        "code",
-        "data",
-        "del",
-        "dfn",
-        "em",
-        "i",
-        "iframe",
-        "ins",
-        "kbd",
-        "label",
-        "map",
-        "mark",
-        "noscript",
-        "object",
-        "output",
-        "picture",
-        "q",
-        "ruby",
-        "s",
-        "samp",
-        "small",
-        "span",
-        "strong",
-        "sub",
-        "sup",
-        "svg",
-        "time",
-        "u",
-        "var",
-        "video"
+    "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
+    "react/jsx-closing-bracket-location": ["error", "tag-aligned"],
+    "react/jsx-indent": [
+      "error", 
+      2,
+      {"indentLogicalExpressions": true}
+    ],
+    "react/jsx-indent-props": ["error", 2],
+    "react/sort-comp": ["error", {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "everything-else",
+        "render"
       ]
     }]
   }
