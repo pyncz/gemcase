@@ -38,7 +38,10 @@
       "error",
       "all"
     ],
+    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
     "@typescript-eslint/space-before-function-paren": "off",
+    "comma-dangle": ["error", "always-multiline"],
+    "@typescript-eslint/comma-dangle": ["error", "always-multiline"],
     "space-before-function-paren": [
       "error",
       {

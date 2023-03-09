@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import { LayoutSide } from '../layouts'
 import type { TokenInfo } from '../models'
 import { getAbsoluteBaseUrl, stringify, trpc } from '../utils'
-import { AddressRepresentation } from './AddressRepresentation'
+import { AddressPathRepresentation } from './AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
 
 type Props = TokenInfo
@@ -49,7 +49,7 @@ export const ViewNftToken: FC<Props> = (props) => {
         <h1>An NFT address</h1>
         <h2>Token ID #{tokenId}</h2>
         {isCollectibleNFT ? <small>collectible</small> : null}
-        <AddressRepresentation {...props} />
+        <AddressPathRepresentation {...props} />
 
         {isLoading
           ? <div>Loading...</div>

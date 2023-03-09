@@ -1,6 +1,6 @@
 import type { Nullable } from '@voire/type-utils'
 import type { NumberLike } from '../number'
-import type { AddressConfig, AddressInfo } from './address.types'
+import type { AddressConfig, AddressInfo } from './address'
 
 // Contract
 export interface NftContractMetadata {

@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import type { AddressInfo } from '../models'
 import { getAbsoluteBaseUrl } from '../utils'
-import { AddressRepresentation } from './AddressRepresentation'
+import { AddressPathRepresentation } from './AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
 
 type Props = AddressInfo
@@ -35,7 +35,7 @@ export const ViewAccount: FC<Props> = (props) => {
 
       <div>
         <h1>Just a regular address</h1>
-        <AddressRepresentation {...props} />
+        <AddressPathRepresentation {...props} />
         {/* TODO: Show related NFT owned by the address? */}
       </div>
     </>

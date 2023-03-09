@@ -5,7 +5,7 @@ import { LayoutSide } from '../layouts'
 import type { AddressInfo } from '../models'
 import { getAbsoluteBaseUrl, trpc } from '../utils'
 import { HeadMeta } from './HeadMeta'
-import { AddressRepresentation } from './AddressRepresentation'
+import { AddressPathRepresentation } from './AddressPathRepresentation'
 import { Skeleton, Tag } from './ui'
 import { Price } from './Price'
 
@@ -53,19 +53,26 @@ export const ViewCoinContract: FC<Props> = (props) => {
                   <span className="tw-relative tw--top-2 tw-inline-flex tw-pb-1">{metadata?.name}</span>
                 </Skeleton.Element>
                 {standard
-                  ? <Tag className="tw-text-3/4 tw-relative tw--top-2 tw-left-[0.75ch]">{standard}</Tag>
+                  ? (<>{' '}<Tag className="tw-text-3/4 tw-relative tw--top-2">{standard}</Tag></>)
                   : null
                 }
               </h1>
               <div>
-                <AddressRepresentation {...props} />
+                <AddressPathRepresentation {...props} />
               </div>
             </div>
 
             <div className="tw-text-dim-1 tw-flex tw-gap-4 tw-items-center tw-pb-4 tw-border-b tw-border-separator-muted">
               <div className="tw-rounded-full tw-overflow-hidden tw-inline-flex tw--mx-1">
                 <Skeleton.Element width={logoSize} height={logoSize}>
-                  {metadata?.logo ? <Image src={metadata.logo} alt={metadata.name} width={logoSize} height={logoSize} /> : null}
+                  {metadata?.logo
+                    ? <Image
+                        src={metadata.logo}
+                        alt={metadata.name}
+                        width={logoSize}
+                        height={logoSize}
+                      />
+                    : null}
                 </Skeleton.Element>
               </div>
 

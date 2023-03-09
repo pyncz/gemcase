@@ -11,15 +11,11 @@ export const LocaleRadio: FC = () => {
     return null
   }
 
-  const disabled = router.locales.length < 2
-
   return (
-    <RadioGroup<string, string>
+    <RadioGroup
       defaultValue={i18n.language}
       options={router.locales}
-      disabled={disabled}
-      getValue={option => option}
-      onValueChange={(locale) => {
+      onChange={(locale) => {
         const { pathname, asPath, query } = router
         router.push({ pathname, query }, asPath, { locale })
       }}

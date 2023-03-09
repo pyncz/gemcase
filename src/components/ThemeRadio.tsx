@@ -2,28 +2,27 @@
 
 import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
-import { useContext } from 'react'
 import { colorModes } from '../consts'
-import { ColorModeContext } from '../contexts'
+import { useColorMode } from '../hooks'
 import type { ColorMode } from '../models'
 import { getColorModeValue } from '../utils'
 import { RadioGroup } from './ui'
 
 export const ThemeRadio: FC = () => {
-  const { switchColorMode, colorMode, fallbackTheme } = useContext(ColorModeContext)
+  const { switchColorMode, colorMode, fallbackTheme } = useColorMode()
   const { i18n } = useTranslation()
 
   return (
-    <RadioGroup<ColorMode, ColorMode>
+    <RadioGroup
       value={colorMode ?? 'system'}
       options={colorModes.map(x => x)}
-      getValue={option => option}
-      onValueChange={(colorMode) => {
-        switchColorMode(getColorModeValue(colorMode))
+      onChange={(colorMode) => {
+        switchColorMode(getColorModeValue(colorMode as ColorMode))
       }}
-      renderOption={(colorMode, { id }) => {
+      renderOption={(option) => {
+        const colorMode = option as ColorMode
         return (
-          <label htmlFor={id} className="tw-relative">
+          <span className="tw-relative">
             <span className="tw-font-medium tw-block">
               {i18n.t(`theme.${colorMode}`)}
             </span>
@@ -37,7 +36,7 @@ export const ThemeRadio: FC = () => {
                   )
                 : null
             }
-          </label>
+          </span>
         )
       }}
     />

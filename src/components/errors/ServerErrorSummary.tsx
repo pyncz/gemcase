@@ -21,7 +21,7 @@ export const ServerErrorSummary: FC<PropsWithChildren<Props>> = ({ code, childre
         <h2 className="tw-mb-2">
           {
             code
-              ? <span className="tw-h1 tw-mr-2 tw-mask-linear tw-mask-dir-to-b tw-mask-from-full tw-mask-to-muted tw-drop-shadow-title tw-text-accent-primary">{code}</span>
+              ? (<><span className="tw-h1 tw-mask-linear tw-mask-dir-to-b tw-mask-from-full tw-mask-to-muted tw-drop-shadow-title tw-text-accent-primary">{code}</span>{' '}</>)
               : null
           }
           {errorTitle}

@@ -9,10 +9,15 @@
   --c-emphasize-bg: var(--c-color-base);
   --o-emphasize-bg: 0;
 
+  // state
+  --c-state-error: 255, 119, 123;
+  --c-state-warning: 255, 160, 36;
+
   /* bg */
   --c-bg-base: 18, 30, 49;
   --c-bg-dim-1: 19, 32, 52;
   --c-bg-dim-2: 22, 37, 60;
+  --c-bg-dim-3: 27, 44, 70;
   
   --c-bg-card: var(--c-bg-base);
   
@@ -26,7 +31,7 @@
   --c-separator-muted: 30, 45, 68;
   // link
   --c-link-primary: var(--c-accent-secondary);
-  --c-link-vivid: var(--c-accent-secondary-lighten);
+  --c-link-primary-vivid: var(--c-accent-secondary-lighten);
   // navlink
   --c-navlink: var(--c-accent-primary);
   --c-navlink-color: var(--c-accent-primary);
@@ -34,8 +39,8 @@
   --c-button-primary-bg: var(--c-accent-primary);
   --c-button-primary-bg-vivid: var(--c-accent-primary-lighten);
   --c-button-primary-color: var(--c-white);
-  --c-button-secondary-bg: 22, 37, 60;
-  --c-button-secondary-bg-vivid: 27, 44, 70;
+  --c-button-secondary-bg: var(--c-bg-dim-2);
+  --c-button-secondary-bg-vivid: var(--c-bg-dim-3);
   --c-button-secondary-color: var(--c-white);
   // radio
   --c-radio-bg: var(--c-bg-dim-2);
@@ -51,11 +56,4 @@
   --o-modal-overlay: 0.75;
   --o-glow: 0.5;
   --o-rainbows: 1;
-
-  /* radius */
-  --r-sm: 0.125rem;
-  --r-DEFAULT: 0.25rem;
-  --r-lg: 0.5rem;
-  --r-xl: 0.75rem;
-  --r-navlink: var(--r-lg);
 }

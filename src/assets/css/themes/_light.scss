@@ -9,14 +9,18 @@
   --c-emphasize-bg: var(--c-white);
   --o-emphasize-bg: 1;
 
+  // state
+  --c-state-error: 255, 62, 80;
+  --c-state-warning: 255, 160, 36;
+
   /* bg */
   --c-bg-base: 249, 249, 255;
   --c-bg-dim-1: 240, 245, 252;
   --c-bg-dim-2: 231, 241, 249;
+  --c-bg-dim-3: 231, 241, 249;
 
   --c-bg-card: var(--c-white);
 
-  
   /* elements */
   // illustration
   --c-illustration-el: var(--c-bg-base);
@@ -27,7 +31,7 @@
   --c-separator-muted: 236, 240, 246;
   // link
   --c-link-primary: var(--c-accent-primary);
-  --c-link-vivid: var(--c-accent-secondary-darken);
+  --c-link-primary-vivid: var(--c-accent-primary-darken);
   // navlink
   --c-navlink: var(--c-accent-primary);
   --c-navlink-color: var(--c-accent-primary);
@@ -52,11 +56,4 @@
   --o-modal-overlay: 0.5;
   --o-glow: 0.05;
   --o-rainbows: 0.5;
-
-  /* radiuses */
-  --r-sm: 0.125rem;
-  --r-DEFAULT: 0.25rem;
-  --r-lg: 0.5rem;
-  --r-xl: 0.75rem;
-  --r-navlink: var(--r-lg);
 }

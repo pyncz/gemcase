@@ -6,6 +6,25 @@
     "serverError": "Internal Server Error",
     "unexpected": "Unexpected error has occured"
   },
+  "exploreForm": {
+    "address": {
+      "label": "Address",
+      "placeholder": "Address",
+      "placeholder_chain": "Address on {{chain}}"
+    },
+    "blockchain": {
+      "label": "Blockchain",
+      "placeholder": "Blockchain"
+    },
+    "chainId": {
+      "label": "Chain",
+      "placeholder": "Chain"
+    },
+    "tokenId": {
+      "label": "Token ID",
+      "placeholder": "Token ID"
+    }
+  },
   "hi": "Hello",
   "index": {
     "title": "Explore <0>web3</0> world"
@@ -30,7 +49,7 @@
     },
     "viewAccount": {
       "description": "View {{address}} blockchain address on {{chain}} chain",
-      "title": "{{address}} on {{chain}}"
+      "title": "{{address}} in {{chain}}"
     },
     "viewCoinContract": {
       "description": "View {{name}} coin contract on {{chain}} chain",

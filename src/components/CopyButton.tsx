@@ -3,14 +3,16 @@ import { useMemo } from 'react'
 import { Icon } from '@iconify-icon/react'
 import copyIcon from '@iconify-icons/ion/copy-outline'
 import successIcon from '@iconify-icons/ion/checkmark-outline'
+import classNames from 'classnames'
 import { useCopyToClipboard } from '../hooks'
+import type { WithClassName } from '../models'
 
 interface Props {
   value: string
 }
 
-export const CopyButton: FC<PropsWithChildren<Props>> = (props) => {
-  const { children, value } = props
+export const CopyButton: FC<PropsWithChildren<WithClassName<Props>>> = (props) => {
+  const { children, value, className } = props
 
   const { copy, justCopied } = useCopyToClipboard(value)
 
@@ -18,7 +20,7 @@ export const CopyButton: FC<PropsWithChildren<Props>> = (props) => {
 
   return (
     <a
-      className="tw-link-muted"
+      className={classNames('tw-link tw-link-muted', className)}
       role="button"
       onClick={copy}
       title={value}

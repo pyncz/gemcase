@@ -1,16 +1,16 @@
-import type { AddressInfo } from './address.types'
-import type { BlockchainInfo } from './blockchain.types'
-import type { ChainInfo } from './chain.types'
-import type { TokenInfo } from './nft.types'
+import type { AddressInfo } from './address'
+import type { BlockchainInfo } from './blockchain'
+import type { ChainInfo } from './chain'
+import type { TokenInfo } from './token'
 
-export * from './provider.types'
+export * from './provider'
 
-export * from './blockchain.types'
-export * from './chain.types'
-export * from './address.types'
+export * from './blockchain'
+export * from './chain'
+export * from './address'
 
-export * from './coin.types'
-export * from './nft.types'
+export * from './coin'
+export * from './token'
 
 export type Web3Params =
   | BlockchainInfo | ChainInfo | AddressInfo | TokenInfo

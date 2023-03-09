@@ -4,14 +4,15 @@ import localFont from '@next/font/local'
 
 import '../assets/css/globals.scss'
 
-import { Provider } from 'react-redux'
+import { Provider as ReduxProvider } from 'react-redux'
 import { trpc } from '../utils'
-import { ColorModeContextProvider } from '../contexts'
+import { ColorModeProvider, ScaleUiProvider } from '../contexts'
 import { ErrorBoundary } from '../components'
 import { LayoutBase } from '../layouts'
-import type { AppPropsWithLayout } from '../models'
+import type { AppPropsWithLayout, Size } from '../models'
 
 import { store } from '../stores'
+import { useBreakpoint } from '../hooks'
 
 // Optimize fonts
 const Mulish = localFont({
@@ -23,6 +24,10 @@ const Roboto = localFont({
   variable: '--font-roboto',
   style: 'normal',
   src: [
+    {
+      path: '../assets/fonts/Roboto/Roboto-Light.ttf',
+      weight: '300',
+    },
     {
       path: '../assets/fonts/Roboto/Roboto-Regular.ttf',
       weight: '400',
@@ -40,17 +45,22 @@ const MyApp: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
   // Get per-page layout or use a default one
   const Layout = Component.Layout ?? LayoutBase
 
+  const gteXsScreen = useBreakpoint('xs')
+  const scale: Size = gteXsScreen ? 'md' : 'lg'
+
   return (
     <ErrorBoundary>{/* In case something happens above the Component's ErrorBoundary */}
-      <ColorModeContextProvider>
-        <Provider store={store}>
-          <main className={`${fonts.map(font => font.variable).join(' ')} tw-font-main`}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </main>
-        </Provider>
-      </ColorModeContextProvider>
+      <ColorModeProvider>
+        <ScaleUiProvider size={scale}>
+          <ReduxProvider store={store}>
+            <main className={`${fonts.map(font => font.variable).join(' ')} tw-font-main`}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </main>
+          </ReduxProvider>
+        </ScaleUiProvider>
+      </ColorModeProvider>
     </ErrorBoundary>
   )
 }

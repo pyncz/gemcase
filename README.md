@@ -7,6 +7,8 @@
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-%23242431.svg?logo=next.js&logoColor=white" />
   <img alt="React" src="https://img.shields.io/badge/React-%236bb9e6.svg?logo=react&logoColor=white" />
   <img alt="radix" src="https://img.shields.io/badge/Radix-%23242431.svg" />
+  <img alt="react-hook-form" src="https://img.shields.io/badge/react--hook--form-%23ec5990.svg" />
+  <img alt="zod" src="https://img.shields.io/badge/Zod-%233068b7.svg?logo=zod" />
 </div>
 
 ###### web3
@@ -35,6 +37,6 @@
   <img alt="SQLite" src="https://img.shields.io/badge/SQLite-%23034a64.svg?logo=sqlite&logoColor=white" />
 </div><!-- TODO: Use mongo? -->
 
-<br />
+### etc
 
 > Credit to [create-t3-app](https://github.com/t3-oss/create-t3-app) for the boilerplate.

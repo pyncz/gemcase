@@ -1,7 +1,7 @@
 import type { Nullable } from '@voire/type-utils'
 import type { Flags } from '../utils'
 import type { HexString } from '../hex'
-import type { ChainConfig, ChainInfo } from './chain.types'
+import type { ChainConfig, ChainInfo } from './chain'
 
 export type AddressMetadata = Flags<
   | 'isContract'

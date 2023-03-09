@@ -1,26 +1,11 @@
-import Image from 'next/image'
 import type { FC } from 'react'
-import type { ChainInfo } from '../models'
-import { BlockchainRepresentation } from './BlockchainRepresentation'
-import { Breadcrumps } from './ui'
+import type { ChainMetadata } from '../models'
+import { Representation } from './base'
 
-export const ChainRepresentation: FC<ChainInfo> = (props) => {
-  const { chainMetadata } = props
-  const { label, logo } = chainMetadata
-
-  const logoSize = 20
+export const ChainRepresentation: FC<ChainMetadata> = (props) => {
+  const { label, logo } = props
 
   return (
-    <>
-      <BlockchainRepresentation {...props} />
-      <Breadcrumps.Root>
-        <Breadcrumps.Divider />
-        {logo
-          ? <Image className="tw-inline-block" src={logo} alt={label} width={logoSize} height={logoSize} />
-          : null
-        }
-        {chainMetadata.label}
-      </Breadcrumps.Root>
-    </>
+    <Representation className="tw-font-mono" label={label} image={logo} />
   )
 }

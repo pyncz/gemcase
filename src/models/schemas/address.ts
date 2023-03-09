@@ -1,9 +1,9 @@
 import { z } from 'zod'
+import { positiveNumberLike } from './rules'
 
 /**
- * NOTE: Additional in-schema validation via `.refine` is disabled
- * since validation methods are run in the procidore itself anyway
- * in order to ensure the types are suitable.
+ * NOTE: Additional in-schema validation of chain / address' compatibility via `.refine`
+ * is disabled since validation methods are run in the procedure itself anyway.
  *
  * ```ts
  * addressSchema.refine(({ blockchain, chainId, address }) => {
@@ -16,6 +16,6 @@ import { z } from 'zod'
  */
 export const addressSchema = z.object({
   blockchain: z.string(),
-  chainId: z.union([z.number().positive(), z.string()]),
+  chainId: z.union([positiveNumberLike, z.string()]),
   address: z.string(),
 })

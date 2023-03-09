@@ -59,9 +59,9 @@ const About: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> 
           />
         </div>
 
-        <div className="tw-text-xs tw-text-dim-3 tw-space-x-0.5">
-          <span>{years}.</span>
-          <span>{i18n.t('madeBy')}</span>
+        <div className="tw-text-xs tw-text-dim-3">
+          <span>{years}.</span>{' '}
+          <span>{i18n.t('madeBy')}</span>{' '}
           <ExternalLink
             href="https://github.com/pyncz"
           ><Icon icon={githubIcon} className="tw-relative tw-top-0.5 tw-pr-px" />

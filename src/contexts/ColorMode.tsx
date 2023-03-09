@@ -34,7 +34,7 @@ export const ColorModeContext = createContext<ColorModeContextType>({
   switchColorMode: () => {},
 })
 
-export const ColorModeContextProvider: FC<PropsWithChildren> = ({ children }) => {
+export const ColorModeProvider: FC<PropsWithChildren> = ({ children }) => {
   // On mounted, populate color mode from localStorage
   const [colorMode, setColorMode] = useOnMounted<ColorModeValue>(() => {
     return storage.loadState<ColorModeValue>(THEME_LOCAL_STORAGE_KEY) ?? null

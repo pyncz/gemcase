@@ -53,6 +53,19 @@
     --c-i-accent-5: 0, 197, 219;
     --c-i-accent-6: 235, 199, 0;
 
+    /* sizes */
+    --ui-base-size: 2.25rem;
+    --ui-base-py: 0.5rem;
+    --ui-base-px: 0.75rem;
+    --ui-scale: 1;
+
+    /* radiuses */
+    --r-sm: 0.25rem;
+    --r-DEFAULT: 0.375rem;
+    --r-lg: 0.5rem;
+    --r-xl: 0.75rem;
+    --r-navlink: var(--r-lg);
+
     // Default: light mode
     @include light-mode;
     @media (prefers-color-scheme: dark) {

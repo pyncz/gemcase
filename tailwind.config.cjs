@@ -1,16 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const plugin = require('tailwindcss/plugin')
 
-function c(color, opacityValue) {
-  return opacityValue === undefined
-    ? `rgb(var(${color}))`
-    : `rgba(var(${color}), ${opacityValue})`
-}
-
-// return color with concomitant opacity
-function co(color) {
-  return ({ opacityValue }) => c(color, opacityValue)
-}
+const { c, co } = require('./src/tailwind/helpers/color.cjs')
+const { fill } = require('./src/tailwind/helpers/fill.cjs')
 
 function slideKeyframes(offset, axis) {
   const transform = `translate${axis}`
@@ -24,20 +16,6 @@ function slideKeyframes(offset, axis) {
       transform: `scale(1) ${transform}(0)`,
     },
   }
-}
-
-// fill values for enumerable props
-function fill(
-  size,
-  valueFormer,
-  start = 1,
-  keyFormer = i => i,
-) {
-  const config = {}
-  for (let i = start; i <= start + size - 1; i++) {
-    config[keyFormer(i)] = valueFormer(i)
-  }
-  return config
 }
 
 const sansSerif = [
@@ -73,7 +51,8 @@ module.exports = {
     'light-mode',
     'dark-mode',
     'black-mode',
-    { pattern: /^tw-h-logo-.+$/ },
+    { pattern: /^tw-ui-.+$/ },
+    { pattern: /^tw-logo-.+$/ },
   ],
   theme: {
     // structure
@@ -117,6 +96,10 @@ module.exports = {
         primary: co('--c-accent-primary'),
         secondary: co('--c-accent-secondary'),
       },
+      state: {
+        error: co('--c-state-error'),
+        warning: co('--c-state-warning'),
+      },
     },
     fontFamily: {
       sans: sansSerif, // without any loaded font
@@ -147,7 +130,7 @@ module.exports = {
       'illustration-el': co('--c-illustration-el'),
       'illustration-bg': co('--c-illustration-bg'),
       'card': co('--c-bg-card'),
-      'dim': fill(2, i => co(`--c-bg-dim-${i}`)),
+      'dim': fill(3, i => co(`--c-bg-dim-${i}`)),
       'text': textColors,
       'navlink': co('--c-navlink'),
     }),
@@ -222,17 +205,12 @@ module.exports = {
         // for spacing
         list: '1.25rem',
         title: '2.5rem',
+        field: '0.25rem',
+        fields: '0.75rem',
+        form: '1.5rem',
         // for offset
         ch: '1ch',
         em: '1em',
-      },
-      height: {
-        'logo-icon': '1.25em',
-        'logo-xs': '1.5rem',
-        'logo-sm': '2.25rem',
-        'logo-md': '3rem',
-        'logo-lg': '3.75rem',
-        'logo-xl': '4.5rem',
       },
       minWidth: theme => ({
         radio: theme('space.20'),
@@ -252,6 +230,7 @@ module.exports = {
         slideRight: slideKeyframes(-10, 'Y'),
       },
       animation: theme => ({
+        damping: 'tw-pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         slideDown: `slideDown ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
         slideUp: `slideUp ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
         slideLeft: `slideLeft ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
@@ -262,9 +241,15 @@ module.exports = {
   plugins: [
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/aspect-ratio'),
+    // Utils
     plugin(require('./src/tailwind/headers.cjs')),
-    plugin(require('./src/tailwind/layouts.cjs')),
-    plugin(require('./src/tailwind/maskImage.cjs')),
+    plugin(require('./src/tailwind/utils/layouts.cjs')),
+    plugin(require('./src/tailwind/utils/maskImage.cjs')),
+    // Components
+    plugin(require('./src/tailwind/components/link.cjs')),
+    plugin(require('./src/tailwind/components/button.cjs')),
+    plugin(require('./src/tailwind/components/input.cjs')),
+
     ({ addUtilities, matchUtilities, addComponents, addBase, theme }) => {
       addBase({
         hr: {
@@ -297,10 +282,10 @@ module.exports = {
         '.navlink-bg': {
           background: 'radial-gradient(50% 50% at center, rgb(var(--c-navlink)), transparent)',
         },
-        '.transition-nobg-fast': {
+        '.duration-nobg-fast': {
           transition: 'all 150ms, background 0s',
         },
-        '.transition-nobg-normal': {
+        '.duration-nobg-normal': {
           transition: 'all 300ms, background 0s',
         },
         '.bg-accent': {
@@ -323,6 +308,7 @@ module.exports = {
         width: value,
         minWidth: value,
       })
+
       matchUtilities(
         {
           size,
@@ -334,74 +320,45 @@ module.exports = {
         { values: theme('height') },
       )
 
-      // Links
-      addComponents({
-        '.link-primary': {
-          'cursor': 'pointer',
-          'color': c('--c-link-primary'),
-          // 'fontWeight': theme('fontWeight.medium'),
-          'transitionDuration': theme('transitionDuration.normal'),
-          '&:hover': {
-            color: c('--c-link-primary-vivid'),
-            transitionDuration: theme('transitionDuration.fast'),
+      matchUtilities(
+        { logo: size },
+        {
+          values: {
+            icon: '1.25em',
+            xs: '1.5rem',
+            sm: '2.25rem',
+            md: '3rem',
+            lg: '3.75rem',
+            xl: '4.5rem',
           },
         },
-        '.link-muted': {
-          // tw-pb-0.5 tw-inline tw-border-b tw-border-separator hover:tw-border-separator-vivid tw-border-dashed
-          'paddingBottom': '0.125em',
-          'display': 'inline',
-          'cursor': 'pointer',
-          'border-bottom': `${theme('borderWidth.DEFAULT')} dashed ${theme('borderColor.separator.DEFAULT')}`,
-          'color': c('--c-color-dim-3'),
-          'transitionDuration': theme('transitionDuration.normal'),
-          '&:hover': {
-            borderColor: theme('borderColor.separator.vivid'),
-            color: c('--c-color-dim-2'),
-            transitionDuration: theme('transitionDuration.fast'),
-          },
-        },
-      })
+      )
 
-      // Buttons
-      const buttonComponent = {
-        'cursor': 'pointer',
-        'gap': theme('gap.1'),
-        'display': 'inline-flex',
-        'justifyContent': 'center',
-        'alignItems': 'center',
-        'padding': `${theme('padding.2')} ${theme('padding.3')}`,
-        'fontWeight': theme('fontWeight.medium'),
-        'transitionDuration': theme('transitionDuration.normal'),
-        'borderRadius': theme('borderRadius.DEFAULT'),
-        '&:hover': {
-          transitionDuration: theme('transitionDuration.fast'),
+      matchUtilities(
+        {
+          ui: value => ({
+            '--ui-scale': value,
+          }),
         },
-        '&:active': {
-          transform: `scale(${theme('scale.click')})`,
-        },
-      }
-      const buttonComponentIcon = {
-        ...buttonComponent,
-        padding: `${theme('padding.2')}`,
-        borderRadius: theme('borderRadius.full'),
-        fontSize: theme('fontSize.5/4'),
-      }
-      addComponents({
-        '.button': buttonComponent,
-        '.button-icon': buttonComponentIcon,
-        '.button-primary': {
-          'color': c('--c-button-primary-color'),
-          'background': c('--c-button-primary-bg'),
-          '&:hover': {
-            background: c('--c-button-primary-bg-vivid'),
+        {
+          values: {
+            xs: '0.75',
+            sm: '0.875',
+            md: '1',
+            lg: '1.125',
+            xl: '1.25',
           },
         },
-        '.button-secondary': {
-          'color': c('--c-button-secondary-color'),
-          'background': c('--c-button-secondary-bg'),
-          '&:hover': {
-            background: c('--c-button-secondary-bg-vivid'),
-          },
+      )
+
+      addUtilities({
+        '.mirror-x': {
+          '--tw-scale-x': '-1',
+          'transform': 'translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))',
+        },
+        '.mirror-y': {
+          '--tw-scale-y': '-1',
+          'transform': 'translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))',
         },
       })
 

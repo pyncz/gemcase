@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import { LayoutSide } from '../layouts'
 import type { AddressInfo } from '../models'
 import { getAbsoluteBaseUrl, stringify, trpc } from '../utils'
-import { AddressRepresentation } from './AddressRepresentation'
+import { AddressPathRepresentation } from './AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
 
 type Props = AddressInfo
@@ -44,7 +44,7 @@ export const ViewNftContract: FC<Props> = (props) => {
       <LayoutSide>
         <h1>An NFT address</h1>
         {isCollectibleNFT ? <small>collectible</small> : null}
-        <AddressRepresentation {...props} />
+        <AddressPathRepresentation {...props} />
 
         {isLoading
           ? <div>Loading...</div>

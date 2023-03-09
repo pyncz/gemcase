@@ -9,7 +9,7 @@ interface Props {
 export const ExternalLink: FC<PropsWithChildren<Props>> = ({ children, href }) => {
   return (
     <a
-      className="tw-link-muted"
+      className="tw-link tw-link-muted"
       target="_blank"
       href={href}
       rel="noreferrer"

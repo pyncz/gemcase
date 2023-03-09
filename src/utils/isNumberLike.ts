@@ -2,7 +2,9 @@ import type { NumberLike, StringifiedNumber } from '../models'
 import { isHexString } from './isHexString'
 
 export const isStringifiedNumber = (value: any): value is StringifiedNumber => {
-  return typeof value === 'string' ? !isNaN(+value) : false
+  return typeof value === 'string'
+    ? !isNaN(Number(value))
+    : false
 }
 
 export const isNumberLike = (value: any): value is NumberLike => {

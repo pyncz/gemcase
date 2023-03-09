@@ -14,10 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUncheckedIndexedAccess": true,
-    "types": [
-      "@types/uuid"
-    ]
+    "noUncheckedIndexedAccess": true
   },
   "include": [
     "next-env.d.ts",

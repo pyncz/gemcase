@@ -13,7 +13,7 @@ export const LayoutSide: FC<PropsWithChildren<Props>> = ({ children, details, cl
         {details ?? null}
       </aside>
 
-      <div className="tw-overflow-y-auto tw-col-[1] tw-row-[1]">
+      <div className="tw-overflow-y-auto tw-overflow-x-hidden tw-col-[1] tw-row-[1]">
         {children ?? null}
       </div>
     </div>

@@ -7,7 +7,7 @@ import exploreIcon from '@iconify-icons/ion/compass-outline'
 import infoIcon from '@iconify-icons/ion/information-circle-outline'
 import settingsIcon from '@iconify-icons/ion/cog-outline'
 import connectIcon from '@iconify-icons/ion/link-outline'
-import { ErrorBoundary, LogoMain, NavLink, Tooltip } from '../components'
+import { Button, ErrorBoundary, LogoMain, NavLink, Tooltip } from '../components'
 import { useBreakpoint } from '../hooks'
 
 /**
@@ -45,9 +45,11 @@ export const LayoutBase: FC<PropsWithChildren> = ({ children }) => {
         <Tooltip
           position={tooltipPosition}
           trigger={
-            <button className="tw-button-icon tw-button-primary tw-ml-auto sm:tw-ml-0 sm:tw-mt-auto tw-size-12">
-              <Icon icon={connectIcon} />
-            </button>
+            <Button
+              icon={<Icon icon={connectIcon} />}
+              appearance="primary"
+              className="tw-ml-auto sm:tw-ml-0 sm:tw-mt-auto"
+            />
           }
         >
           {i18n.t('connect')}
