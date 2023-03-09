@@ -1,5 +1,6 @@
 import type { FC, PropsWithChildren } from 'react'
 import * as RadixTooltip from '@radix-ui/react-tooltip'
+import classNames from 'classnames'
 import type { Position, WithSlots } from '../../models'
 
 type Props = WithSlots<'trigger'> & {
@@ -27,7 +28,10 @@ export const Tooltip: FC<PropsWithChildren<Props>> = (props) => {
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
-            className={`tw-bg-dim-2 tw-font-sans tw-select-none tw-leading-1 tw-whitespace-nowrap tw-cursor-auto tw-text-dim-2 tw-shadow-separator-muted tw-text-xs tw-py-1.5 tw-px-2 tw-rounded-lg ${transitionClasses}`}
+            className={classNames(
+              'tw-bg-dim-2 tw-select-none tw-leading-1 tw-whitespace-nowrap tw-cursor-auto tw-text-dim-2 tw-shadow-separator-muted tw-text-xs tw-py-1.5 tw-px-2 tw-rounded-lg',
+              transitionClasses,
+            )}
             sideOffset={5}
             side={position}
           >
