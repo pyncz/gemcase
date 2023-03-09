@@ -220,6 +220,10 @@ module.exports = {
         x2: '200%',
         x4: '400%',
       },
+      rotate: {
+        30: '30deg',
+        60: '60deg',
+      },
       transitionTimingFunction: {
         bezier: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
@@ -228,14 +232,38 @@ module.exports = {
         slideUp: slideKeyframes(10, 'Y'),
         slideLeft: slideKeyframes(10, 'Y'),
         slideRight: slideKeyframes(-10, 'Y'),
+
+        shake: {
+          '26%, 74%': { transform: 'rotate(0) scale(1)' },
+          '32%, 68%': { transform: 'rotate(4deg) scale(1)' },
+          '38%, 62%': { transform: 'rotate(-12deg) scale(0.975)' },
+          '44%, 56%': { transform: 'rotate(12deg) scale(1.025)' },
+          '50%': { transform: 'rotate(-20deg) scale(1.05)' },
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
       },
       animation: theme => ({
+        // slow fading out and in, e.g. gradient lights on the home page
         damping: 'tw-pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+
+        // e.g. tooltips animations
         slideDown: `slideDown ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
         slideUp: `slideUp ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
         slideLeft: `slideLeft ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
         slideRight: `slideRight ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
+
+        // e.g. connect button on hover
+        shake: 'shake 1.5s ease-in-out infinite',
+        wiggle: 'wiggle 1s ease-in-out infinite',
       }),
+    },
+  },
+  variants: {
+    extend: {
+      animation: ['hover'],
     },
   },
   plugins: [

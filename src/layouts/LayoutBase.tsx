@@ -45,11 +45,13 @@ export const LayoutBase: FC<PropsWithChildren> = ({ children }) => {
         <Tooltip
           position={tooltipPosition}
           trigger={
-            <Button
-              icon={<Icon icon={connectIcon} />}
-              appearance="primary"
-              className="tw-ml-auto sm:tw-ml-0 sm:tw-mt-auto"
-            />
+            <span className="tw-duration-normal tw-ml-auto sm:tw-ml-0 sm:tw-mt-auto tw-inline-flex tw-rounded-full hover:tw-scale-[1.1]">
+              <Button
+                icon={<Icon className="tw--rotate-30" icon={connectIcon} />}
+                appearance="primary"
+                className="hover:motion-safe:tw-animate-shake"
+              />
+            </span>
           }
         >
           {i18n.t('connect')}
