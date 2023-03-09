@@ -27,6 +27,7 @@
   }
   ::selection {
     @apply tw-text-accent-primary tw-bg-accent-secondary;
+    -webkit-text-stroke-color: rgb(var(--c-accent-primary));
   }
 
   /* themes */
