@@ -1,14 +1,15 @@
-module.exports = ({ theme, matchUtilities }) => {
+module.exports = ({ theme, addUtilities, matchUtilities }) => {
   // Add utils for setting of the `mask-image` prop
   matchUtilities({
     mask: value => ({
       'maskImage': value,
       // default vars
       '--tw-mask-direction': 'to bottom',
-      '--tw-mask-shape': 'circle',
+      '--tw-mask-shape': '',
+      '--tw-mask-size': 'closest-side',
       '--tw-mask-at': 'center',
-      '--tw-mask-position': 'var(--tw-mask-shape) at var(--tw-mask-at)',
-      '--tw-mask-from-opacity': '0',
+      '--tw-mask-position': 'var(--tw-mask-shape) var(--tw-mask-size) at var(--tw-mask-at)',
+      '--tw-mask-from-opacity': '1',
       '--tw-mask-from': 'rgba(var(--c-black), var(--tw-mask-from-opacity))',
       '--tw-mask-to-opacity': '0',
       '--tw-mask-to': 'rgba(var(--c-black), var(--tw-mask-to-opacity))',
@@ -34,14 +35,24 @@ module.exports = ({ theme, matchUtilities }) => {
     },
   })
   // - shape
+  addUtilities({
+    'mask-shape-circle': {
+      '--tw-mask-shape': 'circle',
+    },
+    'mask-shape-ellipse': {
+      '--tw-mask-shape': 'ellipse',
+    },
+  })
+  // - size
   matchUtilities({
-    'mask-shape': value => ({
-      '--tw-mask-shape': value,
+    'mask-size': value => ({
+      '--tw-mask-size': value,
     }),
-  }, {
-    values: {
-      circle: 'circle',
-      ellipse: 'ellipse',
+    'values': {
+      cover: 'farthest-corner',
+      contain: 'closest-side',
+      corner: 'closest-corner',
+      stick: 'farthest-side',
     },
   })
   // - position

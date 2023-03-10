@@ -29,7 +29,7 @@ const InternalServerError: NextPageWithLayout<InferGetStaticPropsType<typeof get
       <HeadMeta pageTitle={i18n.t('errors.serverError')} />
 
       <ServerErrorSummary code={500}>
-        500 oops
+        {i18n.t('errors.serverErrorMessage')}
       </ServerErrorSummary>
     </>
   )

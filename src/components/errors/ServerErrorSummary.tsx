@@ -16,18 +16,20 @@ export const ServerErrorSummary: FC<PropsWithChildren<Props>> = ({ code, childre
       : i18n.t('errors.unexpected')
 
   return (
-    <div className="tw-pb-4">
+    <div className="tw-pb-4 tw-space-y-6">
       <div>
         <h2 className="tw-mb-2">
           {
             code
-              ? (<><span className="tw-h1 tw-mask-linear tw-mask-dir-to-b tw-mask-from-full tw-mask-to-muted tw-drop-shadow-title tw-text-accent-primary">{code}</span>{' '}</>)
+              ? (<><span className="tw-h1 tw-mask-linear tw-mask-dir-to-b tw-mask-to-muted tw-drop-shadow-title tw-text-accent-primary">{code}</span>{' '}</>)
               : null
           }
           {errorTitle}
         </h2>
 
-        {children ? <p>{children}</p> : null}
+        <div className="tw-text-dim-2 tw-max-w-sm">
+          {children ? <p>{children}</p> : null}
+        </div>
       </div>
 
       <ExploreForm />

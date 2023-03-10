@@ -28,12 +28,6 @@ const sansSerif = [
 const textColors = {
   base: co('--c-color-base'),
   dim: fill(3, i => co(`--c-color-dim-${i}`)),
-  navlink: co('--c-navlink-color'),
-  radio: {
-    option: {
-      active: co('--c-radio-option-checked-text'),
-    },
-  },
 }
 
 const illustrationColors = {
@@ -55,6 +49,12 @@ module.exports = {
     { pattern: /^tw-logo-.+$/ },
   ],
   theme: {
+    data: {
+      highlighted: 'highlighted',
+      disabled: 'disabled',
+      placeholder: 'placeholder',
+    },
+
     // structure
     fontSize: {
       'unset': 'unset',
@@ -93,8 +93,12 @@ module.exports = {
       black: co('--c-black'),
       white: co('--c-white'),
       accent: {
-        primary: co('--c-accent-primary'),
-        secondary: co('--c-accent-secondary'),
+        'primary': co('--c-accent-primary'),
+        'primary-lighten': co('--c-accent-primary-lighten'),
+        'primary-darken': co('--c-accent-primary-darken'),
+        'secondary': co('--c-accent-secondary'),
+        'secondary-lighten': co('--c-accent-secondary-lighten'),
+        'secondary-darken': co('--c-accent-secondary-darken'),
       },
       state: {
         error: co('--c-state-error'),
@@ -112,6 +116,7 @@ module.exports = {
       xs: 1.1,
       sm: 1.15,
     },
+
     // skins
     textColor: theme => ({
       ...theme('colors'),
@@ -121,18 +126,11 @@ module.exports = {
     backgroundColor: theme => ({
       ...theme('colors'),
       'base': co('--c-bg-base'),
-      'radio': {
-        group: co('--c-radio-bg'),
-        option: {
-          active: co('--c-radio-option-checked-bg'),
-        },
-      },
       'illustration-el': co('--c-illustration-el'),
       'illustration-bg': co('--c-illustration-bg'),
       'card': co('--c-bg-card'),
       'dim': fill(3, i => co(`--c-bg-dim-${i}`)),
       'text': textColors,
-      'navlink': co('--c-navlink'),
     }),
     borderColor: theme => ({
       ...theme('colors'),
@@ -141,12 +139,10 @@ module.exports = {
         muted: co('--c-separator-muted'),
         vivid: co('--c-separator-vivid'),
       },
-      navlink: co('--c-navlink'),
     }),
     borderRadius: {
       sm: 'var(--r-sm)',
       DEFAULT: 'var(--r-DEFAULT)',
-      navlink: 'var(--r-navlink)',
       lg: 'var(--r-lg)',
       xl: 'var(--r-xl)',
       full: '9999px',
@@ -175,11 +171,14 @@ module.exports = {
     },
     backgroundOpacity: theme => ({
       ...theme('opacity'),
-      'radio-option-active': 'var(--o-radio-option-checked-bg)',
-      'modal': 'var(--o-modal-overlay)',
+      modal: 'var(--o-modal-overlay)',
     }),
     boxShadow: {
       card: 'var(--s-card)',
+
+      // shadows for dialogs, popups etc
+      popup: '0 0.75rem 1.75rem -1.75rem rgba(var(--c-color-base), 0.5)',
+      modal: '0 0 2rem -1.75rem rgb(var(--c-color-base))',
     },
     dropShadow: {
       title: 'var(--s-title)',
@@ -212,9 +211,6 @@ module.exports = {
         ch: '1ch',
         em: '1em',
       },
-      minWidth: theme => ({
-        radio: theme('space.20'),
-      }),
       backgroundSize: {
         full: '100%',
         x2: '200%',
@@ -261,22 +257,21 @@ module.exports = {
       }),
     },
   },
-  variants: {
-    extend: {
-      animation: ['hover'],
-    },
-  },
   plugins: [
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/aspect-ratio'),
     // Utils
     plugin(require('./src/tailwind/headers.cjs')),
     plugin(require('./src/tailwind/utils/layouts.cjs')),
-    plugin(require('./src/tailwind/utils/maskImage.cjs')),
+    plugin(require('./src/tailwind/utils/mask.cjs')),
     // Components
     plugin(require('./src/tailwind/components/link.cjs')),
     plugin(require('./src/tailwind/components/button.cjs')),
     plugin(require('./src/tailwind/components/input.cjs')),
+
+    ({ addVariant }) => {
+      addVariant('checked', '&[data-state="checked"]')
+    },
 
     ({ addUtilities, matchUtilities, addComponents, addBase, theme }) => {
       addBase({
@@ -316,6 +311,8 @@ module.exports = {
         '.duration-nobg-normal': {
           transition: 'all 300ms, background 0s',
         },
+      })
+      addUtilities({
         '.bg-accent': {
           backgroundImage: 'linear-gradient(135deg, #56FF47 8%, #00FFE0 88%)',
         },
@@ -327,6 +324,15 @@ module.exports = {
         },
         '.shadow-separator-vivid': {
           boxShadow: `0 0 0 1px ${theme('borderColor.separator.vivid')}`,
+        },
+        '.border-container': {
+          '--tw-border-opacity': '1',
+          'border': `${theme('borderWidth.DEFAULT')} solid ${c('--c-separator-muted', 'var(--tw-border-opacity)')}`,
+          'transitionDuration': theme('transitionDuration.normal'),
+          '&:hover': {
+            borderColor: c('--c-separator', 'var(--tw-border-opacity)'),
+            transitionDuration: theme('transitionDuration.fast'),
+          },
         },
       })
 

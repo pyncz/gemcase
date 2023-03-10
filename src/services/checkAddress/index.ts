@@ -1,3 +1,5 @@
+'use server'
+
 import type { Optional } from '@voire/type-utils'
 import { checkInterfaces, resolveIpfs } from '@wiiib/check-evm-address'
 import Moralis from 'moralis'

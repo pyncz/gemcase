@@ -6,9 +6,9 @@ module.exports = ({ addComponents, addUtilities, theme }) => {
     '.link': {
       // defaults
       '--link-text': 'var(--c-color-dim-3)',
-      '--link-text-hover': 'var(--c-color-dim-2)',
+      '--link-text--hover': 'var(--c-color-dim-2)',
       '--link-border': 'var(--c-separator)',
-      '--link-border-hover': 'var(--c-separator-vivid)',
+      '--link-border--hover': 'var(--c-separator-vivid)',
       '--tw-text-opacity': '1',
       '--tw-border-opacity': '1',
 
@@ -24,8 +24,8 @@ module.exports = ({ addComponents, addUtilities, theme }) => {
       },
 
       '&:hover': {
-        color: c('--link-text-hover', 'var(--tw-text-opacity)'),
-        borderColor: c('--link-border-hover', 'var(--tw-border-opacity)'),
+        color: c('--link-text--hover', 'var(--tw-text-opacity)'),
+        borderColor: c('--link-border--hover', 'var(--tw-border-opacity)'),
         transitionDuration: theme('transitionDuration.fast'),
       },
     },
@@ -33,15 +33,15 @@ module.exports = ({ addComponents, addUtilities, theme }) => {
   addUtilities({
     '.link-primary': {
       '--link-text': 'var(--c-link-primary)',
-      '--link-text-hover': 'var(--c-link-primary-vivid)',
+      '--link-text--hover': 'var(--c-link-primary-vivid)',
       '--link-border': 'var(--c-link-primary)',
-      '--link-border-hover': 'var(--c-link-primary-vivid)',
+      '--link-border--hover': 'var(--c-link-primary-vivid)',
     },
     '.link-muted': {
       '--link-text': 'var(--c-color-dim-3)',
-      '--link-text-hover': 'var(--c-color-dim-2)',
+      '--link-text--hover': 'var(--c-color-dim-2)',
       '--link-border': 'var(--c-separator)',
-      '--link-border-hover': 'var(--c-separator-vivid)',
+      '--link-border--hover': 'var(--c-separator-vivid)',
     },
   })
 }

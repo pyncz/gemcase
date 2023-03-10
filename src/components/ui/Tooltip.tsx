@@ -15,10 +15,10 @@ export const Tooltip: FC<PropsWithChildren<Props>> = (props) => {
   } = props
 
   const transitionClasses = `
-    [&[data-side='top']]:tw-animate-slideUp
-    [&[data-side='bottom']]:tw-animate-slideDown
-    [&[data-side='left']]:tw-animate-slideLeft
-    [&[data-side='right']]:tw-animate-slideRight
+    data-[side=top]:tw-animate-slideUp
+    data-[side=bottom]:tw-animate-slideDown
+    data-[side=left]:tw-animate-slideLeft
+    data-[side=right]:tw-animate-slideRight
   `
   return (
     <RadixTooltip.Provider>

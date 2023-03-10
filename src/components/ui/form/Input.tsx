@@ -46,7 +46,6 @@ export const Input = forwardRef<HTMLInputElement, WithClassName<Props>>((props, 
         className={classNames(
           'tw-input',
           `tw-ui-${size}`,
-          'focus:tw-ring focus:tw-ring-accent-primary focus:tw-ring-opacity-muted',
           className,
         )}
       />

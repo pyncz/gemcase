@@ -1,5 +1,5 @@
 export * from './useBreakpoint'
-export * from './useOnMounted'
+export * from './useOnMountedState'
 export * from './usePrefersDarkMode'
 export * from './useMediaQuery'
 export * from './useCopyToClipboard'

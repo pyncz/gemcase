@@ -2,7 +2,7 @@ import type { Optional } from '@voire/type-utils'
 import type { FC, PropsWithChildren } from 'react'
 import { createContext, useEffect, useMemo } from 'react'
 import { DEFAULT_THEME, THEME_LOCAL_STORAGE_KEY, themes } from '../consts'
-import { useOnMounted, usePrefersDarkMode } from '../hooks'
+import { useOnMountedState, usePrefersDarkMode } from '../hooks'
 import type { ColorModeValue, Theme } from '../models'
 import * as storage from '../utils/localStorage'
 
@@ -36,7 +36,7 @@ export const ColorModeContext = createContext<ColorModeContextType>({
 
 export const ColorModeProvider: FC<PropsWithChildren> = ({ children }) => {
   // On mounted, populate color mode from localStorage
-  const [colorMode, setColorMode] = useOnMounted<ColorModeValue>(() => {
+  const [colorMode, setColorMode] = useOnMountedState<ColorModeValue>(() => {
     return storage.loadState<ColorModeValue>(THEME_LOCAL_STORAGE_KEY) ?? null
   }, null)
 

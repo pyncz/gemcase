@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import type { FC, PropsWithChildren } from 'react'
 import { createContext, useContext } from 'react'
 import type { WithClassName } from '../../models'
@@ -35,7 +36,7 @@ const Element: FC<PropsWithChildren<WithClassName<SkeletonElementProps>>> = (pro
 
   return (
     <Wrapper
-      className={`tw-animate-pulse tw-inline-flex tw-rounded tw-bg-dim-2 ${className}`}
+      className={classNames('tw-animate-pulse tw-inline-flex tw-rounded tw-bg-dim-2', className)}
       style={{ width, height }}
     />
   )

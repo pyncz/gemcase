@@ -37,7 +37,6 @@ export const Button = forwardRef<HTMLButtonElement, WithClassName<Props>>((props
       className={classNames(
         'tw-button',
         `tw-ui-${size}`,
-        'focus:tw-ring focus:tw-ring-accent-primary focus:tw-ring-opacity-muted',
         className,
         {
           'tw-button-icon': noContent,

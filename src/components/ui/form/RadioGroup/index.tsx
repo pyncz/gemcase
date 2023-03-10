@@ -46,7 +46,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, WithClassName<Props>>((prop
         value={localValue}
         disabled={disabled || options.length < 2}
         aria-label={ariaLabel}
-        className={classNames('tw-p-1 tw-rounded-xl tw-bg-radio-group tw-border tw-border-separator-muted tw-flex tw-flex-col sm:tw-flex-row tw-gap-1', className)}
+        className={classNames('tw-p-1 tw-rounded-xl tw-bg-[rgba(var(--c-radio-bg),_var(--tw-bg-opacity))] tw-duration-fast tw-border-container tw-flex tw-flex-col sm:tw-flex-row tw-gap-1', className)}
         onValueChange={(newValue) => {
           setLocalValue(newValue)
           onChange?.(newValue)

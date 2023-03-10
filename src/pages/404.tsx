@@ -29,7 +29,7 @@ const NotFound: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps
       <HeadMeta pageTitle={i18n.t('errors.notFound')} />
 
       <ServerErrorSummary code={404}>
-        404 heh
+        {i18n.t('errors.notFoundMessage')}
       </ServerErrorSummary>
     </>
   )

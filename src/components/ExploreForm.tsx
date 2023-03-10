@@ -8,7 +8,7 @@ import { Icon } from '@iconify-icon/react'
 import searchIcon from '@iconify-icons/ion/search-outline'
 import type { ChainConfig, ExploreFormInput } from '../models'
 import { exploreSchema } from '../models'
-import { Button, ControlledField, Error, Input, Select } from './ui'
+import { Button, ControlledField, ErrorMessage, Input, Select } from './ui'
 
 interface Props extends Partial<ChainConfig> {}
 
@@ -41,13 +41,11 @@ export const ExploreForm: FC<Props> = (props) => {
     : i18n.t('exploreForm.address.placeholder')
 
   const onSubmit: SubmitHandler<ExploreFormInput> = (data) => {
-    console.log(data)
+    console.log(data, chainId, blockchain)
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="tw-space-y-form">
-      <div>Blockchain: {blockchain}</div>
-      <div>ChainId: {chainId}</div>
       <div className="tw-flex tw-flex-col md:tw-flex-row tw-flex-wrap tw-gap-fields">
         <ControlledField<ExploreFormInput, 'blockchain'>
           name="blockchain"
@@ -59,7 +57,14 @@ export const ExploreForm: FC<Props> = (props) => {
               {...field}
               className={formElementClassName}
               placeholder={i18n.t('exploreForm.blockchain.placeholder')}
-              options={['evm', 'near']}
+              options={[
+                'evm',
+                'evm2',
+                'evm3',
+                'evm4',
+                'evm5',
+                'near',
+              ]}
             />
           )}
         />
@@ -105,7 +110,7 @@ export const ExploreForm: FC<Props> = (props) => {
         />
       </div>
 
-      <Error error={errors.root} />
+      <ErrorMessage error={errors.root} />
 
       <Button
         type="submit"

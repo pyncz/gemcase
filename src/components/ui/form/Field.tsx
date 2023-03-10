@@ -4,7 +4,7 @@ import * as Label from '@radix-ui/react-label'
 import type { FieldError } from 'react-hook-form'
 import classNames from 'classnames'
 import type { WithClassName } from '../../../models'
-import { Error } from './Error'
+import { ErrorMessage } from './ErrorMessage'
 
 interface Props {
   render: (id: string) => ReactNode
@@ -34,7 +34,7 @@ export const Field: FC<WithClassName<Props>> = (props) => {
 
       {render(id)}
 
-      <Error
+      <ErrorMessage
         className={contextClassNames}
         error={error}
       />

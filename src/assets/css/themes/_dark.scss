@@ -1,4 +1,7 @@
 @mixin dark-mode {
+  --c-accent-primary-vivid: var(--c-accent-primary-lighten);
+  --c-accent-secondary-vivid: var(--c-accent-secondary-lighten);
+
   /* text */
   --c-color-base: 255, 255, 255;
   --c-color-dim-1: 202, 217, 229;
@@ -31,22 +34,68 @@
   --c-separator-muted: 30, 45, 68;
   // link
   --c-link-primary: var(--c-accent-secondary);
-  --c-link-primary-vivid: var(--c-accent-secondary-lighten);
+  --c-link-primary-vivid: var(--c-accent-secondary-vivid);
   // navlink
   --c-navlink: var(--c-accent-primary);
-  --c-navlink-color: var(--c-accent-primary);
+  --c-navlink-color: var(--c-color-dim-2);
+  --c-navlink-color--hover: var(--c-color-dim-1);
+  --c-navlink-active-color: var(--c-accent-primary);
+  --c-navlink-active-color--hover: var(--c-accent-primary-vivid);
   // button
   --c-button-primary-bg: var(--c-accent-primary);
-  --c-button-primary-bg-vivid: var(--c-accent-primary-lighten);
+  --c-button-primary-bg-vivid: var(--c-accent-primary-vivid);
   --c-button-primary-color: var(--c-white);
   --c-button-secondary-bg: var(--c-bg-dim-2);
   --c-button-secondary-bg-vivid: var(--c-bg-dim-3);
   --c-button-secondary-color: var(--c-white);
   // radio
+  // - container
   --c-radio-bg: var(--c-bg-dim-2);
+  // - option
+  --c-radio-option-text: var(--c-color-dim-2);
+  --c-radio-option-text--hover: var(--c-color-dim-1);
+  --c-radio-option-bg: var(--c-bg-base);
+  --o-radio-option-bg: 0;
   --c-radio-option-checked-text: var(--c-color-base);
   --c-radio-option-checked-bg: var(--c-bg-base);
   --o-radio-option-checked-bg: 1;
+  // input
+  --c-input-bg: var(--c-bg-dim-2);
+  --c-input-text: var(--c-color-dim-1);
+  --c-input-border: var(--c-separator);
+  --c-input-border--hover: var(--c-separator-vivid);
+  --c-input-border--focus: var(--c-accent-primary);
+  --c-input-placeholder: var(--c-color-dim-2);
+  --c-input-readonly-text: var(--c-color-dim-2);
+  --c-input-disabled-bg: var(--c-bg-dim-1);
+  --c-input-disabled-text: var(--c-color-dim-2);
+  --c-input-disabled-border: var(--c-separator-muted);
+  --c-input-disabled-placeholder: var(--c-color-dim-3);
+  // select
+  // - trigger
+  --c-select-icon: var(--c-accent-primary);
+  // - container
+  --c-select-arrow: var(--c-color-dim-3);
+  --c-select-arrow--hover: var(--c-color-dim-2);
+  --c-select-content-bg: var(--c-bg-dim-2);
+  // - option
+  --c-select-accent: var(--c-accent-primary);
+  --c-select-accent--hover: var(--c-accent-primary-vivid);
+  --c-select-option-text: var(--c-color-dim-2);
+  --c-select-option-text--hover: var(--c-color-dim-1);
+  --c-select-option-text--highlighted: var(--c-color-dim-1);
+  --c-select-option-disabled-text: var(--c-color-dim-3);
+  --c-select-option-bg: var(--c-bg-dim-1);
+  --o-select-option-bg: 0;
+  --c-select-option-bg--hover: var(--c-bg-dim-1);
+  --o-select-option-bg--hover: 0.5;
+  --c-select-option-checked-text: var(--c-color-base);
+  --c-select-option-checked-text--hover: var(--c-color-base);
+  --c-select-option-checked-bg: var(--c-bg-base);
+  --o-select-option-checked-bg: 1;
+
+  --c-ring: var(--c-accent-primary);
+  --o-ring: 0.3;
 
   /* shadows */
   --s-card: 0 1rem 1rem rgba(var(--c-color-base), 0.25);

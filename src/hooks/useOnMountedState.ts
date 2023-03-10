@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const useOnMounted = <T>(
+export const useOnMountedState = <T>(
   initialize: () => T,
   initValue: T | (() => T),
 ) => {

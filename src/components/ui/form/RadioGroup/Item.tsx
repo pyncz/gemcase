@@ -26,15 +26,18 @@ export const RadioGroupItem = forwardRef<HTMLButtonElement, WithClassName<Props>
   } = props
   const { value, checked = false } = attributes
 
-  const checkedClass = checked
-    ? 'tw-text-radio-option-active before:tw-bg-radio-option-active before:tw-bg-opacity-radio-option-active before:tw-opacity-full before:tw-scale-normal'
-    : 'tw-text-dim-2 hover:tw-text-dim-1 before:tw-opacity-0 before:tw-scale-50'
-
   return (
     <RadixRadioGroup.Item
       ref={ref}
       {...attributes}
-      className={classNames(`tw-relative tw-p-1 tw-text-center tw-button tw-min-w-radio tw-h-12 before:tw-rounded-lg before:tw-absolute before:tw-inset-0 before:tw-duration-nobg-fast ${checkedClass} [&[data-disabled]]:tw-opacity-muted [&[data-disabled]]:tw-cursor-not-allowed`, className)}
+      className={classNames(
+        'tw-relative tw-p-1 tw-text-center tw-button tw-min-w-[5rem] tw-h-10 before:tw-rounded-lg before:tw-absolute before:tw-inset-0 before:tw-duration-nobg-fast',
+        'data-disabled:tw-opacity-muted data-disabled:tw-cursor-not-allowed',
+        checked
+          ? 'tw-text-[rgba(var(--c-radio-option-checked-text),_var(--tw-text-opacity))] before:tw-bg-opacity-[var(--o-radio-option-checked-bg)] before:tw-bg-[rgba(var(--c-radio-option-checked-bg),_var(--tw-bg-opacity))] before:tw-scale-normal'
+          : 'tw-text-[rgba(var(--c-radio-option-text),_var(--tw-text-opacity))] hover:tw-text-[rgba(var(--c-radio-option-text--hover),_var(--tw-text-opacity))] before:tw-bg-opacity-[var(--o-radio-option-bg)] before:tw-bg-[rgba(var(--c-radio-option-bg),_var(--tw-bg-opacity))] before:tw-scale-50',
+        className,
+      )}
     >
       <span className="tw-relative tw-pointer-events-none">
         {render?.(option, { checked }) ?? value}

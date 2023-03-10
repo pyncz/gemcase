@@ -3,7 +3,9 @@
   "errors": {
     "_": "{{error}} Error",
     "notFound": "Not Found",
+    "notFoundMessage": "There's no such page... But you can choose and view the contract you like below!",
     "serverError": "Internal Server Error",
+    "serverErrorMessage": "Something went wrong... We'll check that and certainly fix!",
     "unexpected": "Unexpected error has occured"
   },
   "exploreForm": {

@@ -1,4 +1,7 @@
 @mixin light-mode {
+  --c-accent-primary-vivid: var(--c-accent-primary-darken);
+  --c-accent-secondary-vivid: var(--c-accent-secondary-darken);
+
   /* text */
   --c-color-base: 5, 5, 6;
   --c-color-dim-1: 69, 77, 84;
@@ -15,9 +18,9 @@
 
   /* bg */
   --c-bg-base: 249, 249, 255;
-  --c-bg-dim-1: 240, 245, 252;
-  --c-bg-dim-2: 231, 241, 249;
-  --c-bg-dim-3: 231, 241, 249;
+  --c-bg-dim-1: 243, 243, 251;
+  --c-bg-dim-2: 235, 235, 247;
+  --c-bg-dim-3: 227, 227, 243;
 
   --c-bg-card: var(--c-white);
 
@@ -31,22 +34,68 @@
   --c-separator-muted: 236, 240, 246;
   // link
   --c-link-primary: var(--c-accent-primary);
-  --c-link-primary-vivid: var(--c-accent-primary-darken);
+  --c-link-primary-vivid: var(--c-accent-primary-vivid);
   // navlink
   --c-navlink: var(--c-accent-primary);
-  --c-navlink-color: var(--c-accent-primary);
+  --c-navlink-color: var(--c-color-dim-2);
+  --c-navlink-color--hover: var(--c-color-dim-1);
+  --c-navlink-active-color: var(--c-accent-primary);
+  --c-navlink-active-color--hover: var(--c-accent-primary-vivid);
   // button
   --c-button-primary-bg: var(--c-accent-primary);
-  --c-button-primary-bg-vivid: var(--c-accent-primary-darken);
+  --c-button-primary-bg-vivid: var(--c-accent-primary-vivid);
   --c-button-primary-color: var(--c-white);
   --c-button-secondary-bg: 219, 238, 254;
   --c-button-secondary-bg-vivid: 209, 235, 255;
   --c-button-secondary-color: var(--c-accent-primary);
   // radio
+  // - container
   --c-radio-bg: var(--c-white);
+  // - option
+  --c-radio-option-text: var(--c-color-dim-2);
+  --c-radio-option-text--hover: var(--c-color-dim-1);
+  --c-radio-option-bg: var(--c-accent-primary);
+  --o-radio-option-bg: 0;
   --c-radio-option-checked-text: var(--c-accent-primary);
   --c-radio-option-checked-bg: var(--c-accent-primary);
   --o-radio-option-checked-bg: 0.1;
+  // input
+  --c-input-bg: var(--c-white);
+  --c-input-text: var(--c-color-dim-1);
+  --c-input-border: var(--c-separator);
+  --c-input-border--hover: var(--c-separator-vivid);
+  --c-input-border--focus: var(--c-accent-primary);
+  --c-input-placeholder: var(--c-color-dim-2);
+  --c-input-readonly-text: var(--c-color-dim-2);
+  --c-input-disabled-bg: var(--c-bg-dim-1);
+  --c-input-disabled-text: var(--c-color-dim-2);
+  --c-input-disabled-border: var(--c-separator-muted);
+  --c-input-disabled-placeholder: var(--c-color-dim-3);
+  // select
+  // - trigger
+  --c-select-icon: var(--c-accent-primary);
+  // - container
+  --c-select-arrow: var(--c-color-dim-3);
+  --c-select-arrow--hover: var(--c-color-dim-2);
+  --c-select-content-bg: var(--c-bg-dim-1);
+  // - option
+  --c-select-accent: var(--c-accent-primary);
+  --c-select-accent--hover: var(--c-accent-primary-vivid);
+  --c-select-option-text: var(--c-color-dim-2);
+  --c-select-option-text--hover: var(--c-color-dim-1);
+  --c-select-option-text--highlighted: var(--c-color-dim-1);
+  --c-select-option-disabled-text: var(--c-color-dim-3);
+  --c-select-option-bg: var(--c-bg-dim-2);
+  --o-select-option-bg: 0;
+  --c-select-option-bg--hover: var(--c-bg-dim-2);
+  --o-select-option-bg--hover: 1;
+  --c-select-option-checked-text: var(--c-select-accent);
+  --c-select-option-checked-text--hover: var(--c-select-accent--hover);
+  --c-select-option-checked-bg: var(--c-accent-primary);
+  --o-select-option-checked-bg: 0.1;
+
+  --c-ring: var(--c-accent-primary-lighten);
+  --o-ring: 0.2;
 
   /* shadows */
   --s-card: 0 1rem 1rem rgba(var(--c-color-base), 0.25);

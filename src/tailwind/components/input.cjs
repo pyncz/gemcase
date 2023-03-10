@@ -16,32 +16,32 @@ module.exports = ({ addComponents, theme }) => {
 
       'display': 'inline-flex',
       'alignItems': 'center',
-      'color': c('--c-color-dim-1', 'var(--tw-text-opacity)'),
-      'backgroundColor': c('--c-bg-dim-2', 'var(--tw-bg-opacity)'),
-      'border': `${theme('borderWidth.DEFAULT')} solid ${c('--c-separator', 'var(--tw-border-opacity)')}`,
+      'color': c('--c-input-text', 'var(--tw-text-opacity)'),
+      'backgroundColor': c('--c-input-bg', 'var(--tw-bg-opacity)'),
+      'border': `${theme('borderWidth.DEFAULT')} solid ${c('--c-input-border', 'var(--tw-border-opacity)')}`,
       'fontSize': 'calc(var(--ui-scale) * 1rem - 0.0625rem)',
 
       '&:not(button):read-only': {
-        color: c('--c-color-dim-2', 'var(--tw-text-opacity)'),
+        color: c('--c-input-readonly-text', 'var(--tw-text-opacity)'),
       },
       '&::placeholder, &[data-placeholder]': {
-        color: theme('textColor.dim.2'),
+        color: c('--c-input-placeholder', 'var(--tw-text-opacity)'),
       },
       '&:disabled, &[data-disabled]': {
-        'color': c('--c-color-dim-2', 'var(--tw-text-opacity)'),
-        'backgroundColor': c('--c-bg-dim-1', 'var(--tw-bg-opacity)'),
-        'borderColor': c('--c-separator-muted', 'var(--tw-border-opacity)'),
+        'color': c('--c-input-disabled-text', 'var(--tw-text-opacity)'),
+        'backgroundColor': c('--c-input-disabled-bg', 'var(--tw-bg-opacity)'),
+        'borderColor': c('--c-input-disabled-border', 'var(--tw-border-opacity)'),
         '&::placeholder, &[data-placeholder]': {
-          color: theme('textColor.dim.3'),
+          color: c('--c-input-disabled-placeholder', 'var(--tw-text-opacity)'),
         },
       },
 
       '&:hover': {
         ...uiElement['&:hover'],
-        borderColor: c('--c-separator-vivid', 'var(--tw-border-opacity)'),
+        borderColor: c('--c-input-border--hover', 'var(--tw-border-opacity)'),
       },
-      '&:focus': {
-        borderColor: c('--c-accent-primary', 'var(--tw-border-opacity)'),
+      '&:focus, &:focus-within': {
+        borderColor: c('--c-input-border--focus', 'var(--tw-border-opacity)'),
       },
     },
   })
