@@ -1,6 +1,6 @@
 import { publicProcedure, router } from '../trpc'
 import { addressSchema, tokenSchema } from '../../../models'
-import { adapter } from '../../../services'
+import { adapter } from '../../../services/web3'
 
 export const metadataRouter = router({
   getNftContractMetadata: publicProcedure

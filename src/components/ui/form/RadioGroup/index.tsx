@@ -38,13 +38,15 @@ export const RadioGroup = forwardRef<HTMLDivElement, WithClassName<Props>>((prop
 
   const [localValue, setLocalValue] = useUncontrolledValue(value, defaultValue)
 
+  const hasNoChoice = !!defaultValue && options.length < 2
+
   return (
     <div className="sm:tw-flex">
       <RadixRadioGroup.Root
         {...attributes}
         ref={ref}
         value={localValue}
-        disabled={disabled || options.length < 2}
+        disabled={disabled || hasNoChoice}
         aria-label={ariaLabel}
         className={classNames('tw-p-1 tw-rounded-xl tw-bg-[rgba(var(--c-radio-bg),_var(--tw-bg-opacity))] tw-duration-fast tw-border-container tw-flex tw-flex-col sm:tw-flex-row tw-gap-1', className)}
         onValueChange={(newValue) => {

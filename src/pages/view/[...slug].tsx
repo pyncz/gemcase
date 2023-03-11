@@ -1,12 +1,13 @@
 import type { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ExploreForm, ViewAccount, ViewCoinContract, ViewNftContract, ViewNftToken } from '../../components'
-import type { AddressInfo, NextPageWithLayout, TokenInfo, Web3Params } from '../../models'
+import type { AddressInfo, NextPageWithLayout, TokenInfo, Web3Params, Web3PublicConfig } from '../../models'
 import i18nextConfig from '../../../next-i18next.config'
 import { getParamsArray } from '../../utils'
-import { getValidWeb3Params } from '../../services'
+import { getValidWeb3Params } from '../../services/getValidWeb3Params'
+import { web3PublicConfig } from '../../services/web3'
 
-type Props = Web3Params
+type Props = Web3Params & Web3PublicConfig
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({ params, locale }) => {
   const { slug } = params ?? {}
@@ -20,6 +21,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ params, lo
   if (pageConfig) {
     return {
       props: {
+        ...web3PublicConfig,
         ...pageConfig,
         ...(await translations),
       } satisfies Props,

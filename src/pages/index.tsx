@@ -1,19 +1,21 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
-
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import classNames from 'classnames'
 import i18nextConfig from '../../next-i18next.config'
-import type { NextPageWithLayout } from '../models'
+import type { NextPageWithLayout, Web3PublicConfig } from '../models'
 import { ExploreForm, HeadMeta } from '../components'
 import { PageLayoutMessage } from '../layouts'
+import { web3PublicConfig } from '../services/web3'
 
-export const getStaticProps: GetStaticProps = async ({
+type Props = Web3PublicConfig
+
+export const getStaticProps: GetStaticProps<Props> = async ({
   locale,
 }) => {
   return {
     props: {
+      ...web3PublicConfig,
       ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
         'common',
       ])),
@@ -21,7 +23,7 @@ export const getStaticProps: GetStaticProps = async ({
   }
 }
 
-const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = () => {
+const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const { i18n } = useTranslation()
 
   return (
@@ -55,7 +57,7 @@ const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
           />
         </h1>
 
-        <ExploreForm />
+        <ExploreForm {...props} />
       </section>
     </>
   )

@@ -1,11 +1,16 @@
+import classNames from 'classnames'
 import type { FC } from 'react'
-import type { BlockchainMetadata } from '../models'
+import type { BlockchainMetadata, WithClassName } from '../models'
 import { Representation } from './base'
 
-export const BlockchainRepresentation: FC<BlockchainMetadata> = (props) => {
-  const { label, logo } = props
+export const BlockchainRepresentation: FC<WithClassName<BlockchainMetadata>> = (props) => {
+  const { label, logo, className } = props
 
   return (
-    <Representation className="tw-font-mono" image={logo} label={label} />
+    <Representation
+      className={classNames('tw-font-mono', className)}
+      image={logo}
+      label={label}
+    />
   )
 }

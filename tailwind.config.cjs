@@ -271,6 +271,7 @@ module.exports = {
 
     ({ addVariant }) => {
       addVariant('checked', '&[data-state="checked"]')
+      addVariant('child', '& > *')
     },
 
     ({ addUtilities, matchUtilities, addComponents, addBase, theme }) => {

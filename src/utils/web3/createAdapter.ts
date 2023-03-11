@@ -8,7 +8,6 @@ export interface WithAliases<T extends string | number> {
 type BaseConfig<
   T extends Record<string, Record<string, any>>,
 > = T & {
-  blockchains: InferSlug<T, string>[]
   validateBlockchain(bc: string): bc is InferSlug<T, string>
   findBlockchain(bc: string): Nullable<Entry<InferKey<T>, InferValue<T>>>
   validateChain(bc: InferSlug<T, string>, nw: string | number): nw is InferSlug<InferValue<T>['chains']>
@@ -64,7 +63,6 @@ export const createAdapter = <
 
   return {
     ...config,
-    blockchains: Object.keys(config) as InferSlug<T, string>[],
     findBlockchain,
     validateBlockchain: (bc): bc is InferSlug<T, string> => {
       return !!findBlockchain(bc)

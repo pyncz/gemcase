@@ -1,7 +1,7 @@
 import type { Nullable } from '@voire/type-utils'
 import type { Web3Params } from '../models'
 import { isNumberLike } from '../utils/isNumberLike'
-import { adapter } from './checkAddress'
+import { adapter } from './web3/adapter'
 
 export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web3Params>> => {
   // Let's assume the params is a bc/chain/address/token config
@@ -34,6 +34,7 @@ export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web
                 chainMetadata: {
                   label: nwConfig.label,
                   logo: nwConfig.logo ?? null,
+                  test: nwConfig.test ?? null,
                 },
                 address,
                 ...addressMetadata,

@@ -32,13 +32,15 @@ export const generateOpengraphImage = async (config: {
       alignItems: 'center',
       padding: '120px',
       color: '#FFFFFF',
-    }}>
+    }}
+    >
       <div style={{ display: 'flex', flexDirection: 'column', paddingBottom: '24px' }}>
         <h1 style={{
           fontSize: '90px',
           marginBottom: '2px',
           fontFamily: 'Mulish, Helvetica, "sans-serif"',
-        }}>{title}</h1>
+        }}
+        >{title}</h1>
         {description
           ? <p style={{
             opacity: '0.7',
@@ -59,7 +61,8 @@ export const generateOpengraphImage = async (config: {
         fontWeight: 700,
         fontSize: '36px',
         zIndex: '0',
-      }}>gemcase</small>
+      }}
+      >gemcase</small>
     </div>,
     {
       width: 1200,

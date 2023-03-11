@@ -1,7 +1,9 @@
 import type { Nullable } from '@voire/type-utils'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { AddressInfo, TokenInfo } from '../../../models'
-import { adapter, generateOpengraphImage, getValidWeb3Params } from '../../../services'
+import { adapter } from '../../../services/web3'
+import { getValidWeb3Params } from '../../../services/getValidWeb3Params'
+import { generateOpengraphImage } from '../../../services/generateOgImage'
 import { formatAddress, getParamsArray } from '../../../utils'
 
 const getOgpengraphImageByConfig = async (config: any): Promise<Nullable<Buffer>> => {

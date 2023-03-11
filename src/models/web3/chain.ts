@@ -1,13 +1,9 @@
 import type { Nullable } from '@voire/type-utils'
-import type { Web3Config } from '../../services'
+import type { ChainKey } from '../../services/web3'
 import type { HexString } from '../hex'
-import type { InferKey, InferSlug, InferValue } from '../utils'
 import type { BlockchainConfig, BlockchainInfo } from './blockchain'
 
 export type ChainID = HexString | number
-
-export type ChainSlug = InferSlug<InferValue<Web3Config>['chains']>
-export type ChainKey = InferKey<InferValue<Web3Config>['chains']>
 
 export interface ChainConfig extends BlockchainConfig {
   chainId: ChainID
@@ -16,6 +12,7 @@ export interface ChainConfig extends BlockchainConfig {
 export interface ChainMetadata {
   label: string
   logo?: Nullable<string>
+  test?: Nullable<boolean>
 }
 
 export interface ChainInfo extends ChainConfig, BlockchainInfo {

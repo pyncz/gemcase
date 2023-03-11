@@ -1,29 +1,15 @@
-'use server'
-
-import type { Optional } from '@voire/type-utils'
+import type { Nullable, Optional } from '@voire/type-utils'
 import { checkInterfaces, resolveIpfs } from '@wiiib/check-evm-address'
 import Moralis from 'moralis'
 import type { BlockchainMetadata, ChainID, CoinContractMetadata, EvmAddress, NftContractMetadata, NftTokenMetadata } from '../../models'
-import { JsonRpcProvider } from '../../models'
 import type { WithAliases } from '../../utils'
 import { createAdapter, createBlockchainAdapter, isEvmAddress } from '../../utils'
+import { getEvmProvider, startMoralis } from './helpers'
 import type { Methods } from './methods.types'
 
-const startMoralis = async () => {
-  if (!Moralis.Core.isStarted) {
-    await Moralis.start({
-      apiKey: process.env.MORALIS_API_KEY,
-    })
-  }
-}
-const getEvmProvider = (chainId: ChainID, domain: string) => {
-  // TODO: Check if env vars are imported by dotenv under the hood
-  return new JsonRpcProvider(
-    `https://${domain}.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
-    +chainId,
-  )
-}
+console.log('HERE I AM')
 
+/* Configs and the Service */
 const evmChains = {
   eth: {
     id: 1 as ChainID,
@@ -31,6 +17,7 @@ const evmChains = {
     rpcDomain: 'mainnet',
     aliases: ['0x1', 'ethereum', 'mainnet', 'ethereum-mainnet', 1] as const,
     logo: '/img/chains/ethereum-eth-logo.png',
+    test: false,
   },
   goerli: {
     id: 5 as ChainID,
@@ -54,6 +41,7 @@ const evmChains = {
     rpcDomain: 'polygon-mainnet',
     aliases: ['0x89', 'matic', 'polygon-mainnet', 'matic-mainnet', 137] as const,
     logo: '/img/chains/polygon-matic-logo.png',
+    test: false,
   },
   mumbai: {
     id: 80001 as ChainID,
@@ -69,6 +57,7 @@ const evmChains = {
     rpcDomain: 'avalanche-mainnet',
     aliases: ['0xa86a', 'avalanche-mainnet', 43114] as const,
     logo: '/img/chains/avalanche-avax-logo.png',
+    test: false,
   },
   avalancheTestnet: {
     id: 43113 as ChainID,
@@ -84,6 +73,7 @@ const evmChains = {
     rpcDomain: 'palm-mainnet',
     aliases: ['0x2a15c308d', 'palm-mainnet', 11297108109] as const,
     logo: '/img/chains/palm-logo.png',
+    test: false,
   },
   arbitrum: {
     id: 42161 as ChainID,
@@ -91,6 +81,7 @@ const evmChains = {
     rpcDomain: 'arbitrum-mainnet',
     aliases: ['0xa4b1', 'arbitrum-mainnet', 42161] as const,
     logo: '/img/chains/arbitrum-logo.png',
+    test: false,
   },
 
   // TODO: Add networks?
@@ -113,11 +104,11 @@ const evmChains = {
   //   1313161555: Aurora Testnet
 }
 
-const config = {
+export const adapterConfig = {
   evm: createBlockchainAdapter(
     {
       label: 'EVM',
-      logo: undefined,
+      logo: undefined as Optional<Nullable<string>>,
       aliases: ['eip155'] as const,
 
       // methods
@@ -235,6 +226,4 @@ const config = {
   // - Aptos (maybe via Moralis)
 }
 
-export const adapter = createAdapter(config)
-
-export type Web3Config = typeof config
+export const adapter = createAdapter(adapterConfig)

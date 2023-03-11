@@ -18,10 +18,10 @@ export const Representation: FC<PropsWithChildren<WithClassName<Props>>> = (prop
   const logoSize = 20
 
   return (
-    <div className={classNames('tw-inline-flex tw-items-center tw-gap-ch', className)}>
+    <div className={classNames('tw-flex-center-y tw-gap-ch', className)}>
       {image
         ? <Image
-            className="tw-inline-block"
+            className="tw-inline-block tw--ml-0.5"
             src={image}
             alt={label}
             width={logoSize}
@@ -29,7 +29,7 @@ export const Representation: FC<PropsWithChildren<WithClassName<Props>>> = (prop
           />
         : null
       }
-      <span>{children ?? label}</span>
+      <span className="tw-truncate">{children ?? label}</span>
     </div>
   )
 }

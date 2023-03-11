@@ -44,7 +44,7 @@ export const Input = forwardRef<HTMLInputElement, WithClassName<Props>>((props, 
           onChange?.(e.target.value)
         }}
         className={classNames(
-          'tw-input',
+          'tw-input tw-truncate',
           `tw-ui-${size}`,
           className,
         )}

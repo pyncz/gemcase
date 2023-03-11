@@ -2,6 +2,10 @@
 const { c } = require('../helpers/color.cjs')
 
 module.exports = ({ addComponents, addUtilities, theme }) => {
+  const disabledStyles = {
+    opacity: theme('opacity.muted'),
+  }
+
   addComponents({
     '.link': {
       // defaults
@@ -19,9 +23,8 @@ module.exports = ({ addComponents, addUtilities, theme }) => {
       'border-bottom': `${theme('borderWidth.DEFAULT')} solid ${c('--link-border', 'var(--tw-border-opacity)')}`,
       'transitionDuration': theme('transitionDuration.normal'),
 
-      '&:disabled, &[data-disabled]': {
-        opacity: theme('opacity.muted'),
-      },
+      '&:disabled': disabledStyles,
+      '&[data-disabled]': disabledStyles,
 
       '&:hover': {
         color: c('--link-text--hover', 'var(--tw-text-opacity)'),

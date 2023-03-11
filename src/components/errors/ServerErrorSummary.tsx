@@ -1,12 +1,15 @@
 import type { FC, PropsWithChildren } from 'react'
 import { useTranslation } from 'next-i18next'
 import { ExploreForm } from '../ExploreForm'
+import type { Web3PublicConfig } from '../../models'
 
-interface Props {
+interface Props extends Web3PublicConfig {
   code?: number
 }
 
-export const ServerErrorSummary: FC<PropsWithChildren<Props>> = ({ code, children }) => {
+export const ServerErrorSummary: FC<PropsWithChildren<Props>> = (props) => {
+  const { code, children } = props
+
   const { i18n } = useTranslation()
 
   const errorTitle = code === 404
@@ -32,7 +35,7 @@ export const ServerErrorSummary: FC<PropsWithChildren<Props>> = ({ code, childre
         </div>
       </div>
 
-      <ExploreForm />
+      <ExploreForm {...props} />
     </div>
   )
 }

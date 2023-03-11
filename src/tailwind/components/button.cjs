@@ -5,6 +5,11 @@ const { getUiElement } = require('../helpers/ui.cjs')
 module.exports = ({ addComponents, addUtilities, theme }) => {
   const uiElement = getUiElement(theme)
 
+  const disabledStyles = {
+    opacity: theme('opacity.muted'),
+    pointerEvents: 'none',
+  }
+
   addComponents({
     '.button': {
       // defaults
@@ -23,10 +28,8 @@ module.exports = ({ addComponents, addUtilities, theme }) => {
       'fontWeight': theme('fontWeight.medium'),
       'fontSize': 'calc(var(--ui-scale) * 1rem)',
 
-      '&:disabled, &[data-disabled]': {
-        opacity: theme('opacity.muted'),
-        pointerEvents: 'none',
-      },
+      '&:disabled': disabledStyles,
+      '&[data-disabled]': disabledStyles,
 
       '&:hover': {
         ...uiElement['&:hover'],

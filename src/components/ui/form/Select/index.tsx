@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { forwardRef } from 'react'
+import { forwardRef, useMemo } from 'react'
 import * as RadixSelect from '@radix-ui/react-select'
 import { Icon } from '@iconify-icon/react'
 import chevronDownIcon from '@iconify-icons/ion/chevron-down'
@@ -50,11 +50,16 @@ export const Select = forwardRef<HTMLButtonElement, WithClassName<Props>>((props
   const [localValue, setLocalValue] = useUncontrolledValue(value, defaultValue)
 
   const size = useUiSize(scale) ?? 'md'
+  const hasNoChoice = !!defaultValue && options.length < 2
+
+  const selectedOption = useMemo(() => {
+    return options.find(option => getValue(option) === localValue)
+  }, [options, localValue, getValue])
 
   return (
     <RadixSelect.Root
       {...attributes}
-      disabled={disabled || options.length < 2}
+      disabled={disabled || hasNoChoice}
       value={localValue}
       onValueChange={(newValue) => {
         setLocalValue(newValue)
@@ -64,14 +69,15 @@ export const Select = forwardRef<HTMLButtonElement, WithClassName<Props>>((props
       <RadixSelect.Trigger
         id={id}
         ref={ref}
+        title={selectedOption ? getTextValue?.(selectedOption) : undefined}
         className={classNames(
-          'tw-input tw-pr-8 tw-relative',
+          'tw-input tw-pr-[2em] tw-relative child:tw-max-w-full',
           `tw-ui-${size}`,
           className,
         )}
         aria-label={ariaLabel}
       >
-        <RadixSelect.Value placeholder={placeholder} />
+        <RadixSelect.Value placeholder={placeholder} className="tw-inline-flex tw-flex-1" />
         <RadixSelect.Icon className="tw-text-[rgba(var(--c-select-icon),_var(--tw-text-opacity))] tw-inline-flex tw-absolute tw-right-2">
           <Icon icon={chevronDownIcon} />
         </RadixSelect.Icon>
@@ -89,7 +95,7 @@ export const Select = forwardRef<HTMLButtonElement, WithClassName<Props>>((props
               return (
                 <SelectItem
                   key={optionValue}
-                  option={value}
+                  option={option}
                   value={optionValue}
                   textValue={getTextValue?.(option)}
                   selected={localValue === optionValue}

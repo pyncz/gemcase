@@ -36,7 +36,7 @@ export const SelectItem = forwardRef<HTMLDivElement, WithClassName<Props>>((prop
       {...attributes}
       className={classNames(
         'tw-group/option',
-        '!tw-outline-none tw-flex tw-text-ellipsis tw-rounded-sm tw-px-2 tw-py-2 tw-cursor-pointer tw-duration-fast',
+        '!tw-outline-none tw-truncate tw-text-7/8 tw-flex-center-y tw-text-ellipsis tw-rounded-sm tw-px-2 tw-py-2 tw-cursor-pointer tw-duration-fast',
         'tw-bg-[rgba(var(--c-select-option-bg),_var(--tw-bg-opacity))] tw-bg-opacity-[var(--o-select-option-bg)] tw-text-[rgba(var(--c-select-option-text),_var(--tw-text-opacity))]',
         'hover:tw-bg-[rgba(var(--c-select-option-bg--hover),_var(--tw-bg-opacity))] hover:tw-bg-opacity-[var(--o-select-option-bg--hover)] hover:tw-text-[rgba(var(--c-select-option-text--hover),_var(--tw-text-opacity))] data-highlighted:tw-text-[rgba(var(--c-select-option-text--highlighted),_var(--tw-text-opacity))] data-highlighted:tw-underline',
         'checked:tw-text-[rgba(var(--c-select-option-checked-text),_var(--tw-text-opacity))] checked:data-highlighted:tw-text-[rgba(var(--c-select-option-checked-text--hover),_var(--tw-text-opacity))] checked:tw-bg-[rgba(var(--c-select-option-checked-bg),_var(--tw-bg-opacity))] checked:tw-bg-opacity-[var(--o-select-option-checked-bg)]',
