@@ -2,20 +2,19 @@ import type { FC } from 'react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { LayoutSide } from '../layouts'
-import type { AddressInfo } from '../models'
-import { getAbsoluteBaseUrl, trpc } from '../utils'
+import type { AddressData } from '../models'
+import { getAbsoluteBaseUrl, trpcHooks } from '../utils'
 import { HeadMeta } from './HeadMeta'
 import { AddressPathRepresentation } from './AddressPathRepresentation'
 import { Skeleton, Tag } from './ui'
 import { Price } from './Price'
 
-type Props = AddressInfo
+type Props = AddressData
 
 export const ViewCoinContract: FC<Props> = (props) => {
   const {
     blockchain,
     chain,
-    chainId,
     chainMetadata,
     address,
     standard,
@@ -26,7 +25,7 @@ export const ViewCoinContract: FC<Props> = (props) => {
   const {
     isLoading,
     data: metadata,
-  } = trpc.metadata.getCoinContractMetadata.useQuery({ blockchain, chainId, address })
+  } = trpcHooks.metadata.getCoinContractMetadata.useQuery({ blockchain, chain, address })
 
   const logoSize = 64
   const ogImage = `${getAbsoluteBaseUrl()}/api/og/${blockchain}/${chain}/${address}`

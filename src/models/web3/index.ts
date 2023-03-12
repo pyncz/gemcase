@@ -1,8 +1,8 @@
 import type { Nullable } from '@voire/type-utils'
-import type { AddressInfo } from './address'
-import type { BlockchainInfo } from './blockchain'
-import type { ChainInfo } from './chain'
-import type { TokenInfo } from './token'
+import type { AddressData } from './address'
+import type { BlockchainData } from './blockchain'
+import type { ChainData } from './chain'
+import type { TokenData } from './token'
 
 export * from './provider'
 
@@ -13,8 +13,8 @@ export * from './address'
 export * from './coin'
 export * from './token'
 
-export type Web3Params =
-  | BlockchainInfo | ChainInfo | AddressInfo | TokenInfo
+export type Web3Data =
+  | BlockchainData | ChainData | AddressData | TokenData
 
 export interface Web3PublicConfig {
   blockchains: Record<string, {

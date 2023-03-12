@@ -22,7 +22,7 @@ interface BaseBlockchainConfig<
   findChain(nw: string | number): Nullable<Entry<InferKey<ChainsConfig>, InferValue<ChainsConfig>>>
 }
 
-export const findByIdOrAlias = <
+export const findByKeyOrAlias = <
   Data extends Record<string | number, WithAliases<Slug> & any>,
   Slug extends string | number = string | number,
 >(data: Data, keyOrAlias: Slug, strict = false): Nullable<Entry<InferKey<Data>, InferValue<Data>>> => {
@@ -36,13 +36,13 @@ export const findByIdOrAlias = <
 
 export const createBlockchainAdapter = <
   Interfaces extends WithAliases<string> & Record<string, any>,
-  ChainConfig extends WithAliases<string | number> & Record<string, any>,
+  ChainPath extends WithAliases<string | number> & Record<string, any>,
   ChainKey extends string | number = never,
 >(
     interfaces: Interfaces,
-    chains: Record<ChainKey, ChainConfig>,
+    chains: Record<ChainKey, ChainPath>,
   ): BaseBlockchainConfig<typeof chains> & Interfaces => {
-  const findChain = (chainSlug: string | number) => findByIdOrAlias(chains, chainSlug)
+  const findChain = (chainSlug: string | number) => findByKeyOrAlias(chains, chainSlug)
 
   return {
     chains,
@@ -59,7 +59,7 @@ export const createAdapter = <
 >(
     config: T,
   ): BaseConfig<T> => {
-  const findBlockchain = (bc: string) => findByIdOrAlias(config, bc)
+  const findBlockchain = (bc: string) => findByKeyOrAlias(config, bc)
 
   return {
     ...config,
@@ -67,7 +67,7 @@ export const createAdapter = <
     validateBlockchain: (bc): bc is InferSlug<T, string> => {
       return !!findBlockchain(bc)
     },
-    validateChain: (bc, nw): nw is InferSlug<InferValue<T>['chains']> => {
+    validateChain: (bc, nw): nw is InferSlug<T[typeof bc]['chains']> => {
       const [_, bcConfig] = findBlockchain(bc) ?? []
       return bcConfig?.validateChain(nw) ?? false
     },

@@ -6,7 +6,7 @@ import '../assets/css/globals.scss'
 
 import { Provider as ReduxProvider } from 'react-redux'
 import { useEffect } from 'react'
-import { trpc } from '../utils'
+import { trpcHooks } from '../utils'
 import { ColorModeProvider, ScaleUiProvider } from '../contexts'
 import { ErrorBoundary } from '../components'
 import { LayoutBase } from '../layouts'
@@ -71,4 +71,4 @@ const App: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
   )
 }
 
-export default trpc.withTRPC(appWithTranslation(App))
+export default trpcHooks.withTRPC(appWithTranslation(App))

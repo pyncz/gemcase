@@ -1,9 +1,9 @@
 import type { Nullable } from '@voire/type-utils'
-import type { Web3Params } from '../models'
-import { isNumberLike } from '../utils/isNumberLike'
+import type { Web3Data } from '../models'
+import { isTokenId } from '../utils'
 import { adapter } from './web3/adapter'
 
-export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web3Params>> => {
+export const getValidWeb3Info = async (params: string[]): Promise<Nullable<Web3Data>> => {
   // Let's assume the params is a bc/chain/address/token config
   const [blockchain, chain, address, tokenId] = params
 
@@ -15,13 +15,13 @@ export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web
       if (chain) {
         const [nwKey, nwConfig] = bcConfig.findChain(chain) ?? []
 
-        if (nwConfig) {
+        if (nwKey && nwConfig) {
           // chain is valid
           if (address && bcConfig.validateAddress(address)) {
             // address is valid
-            const addressMetadata = await bcConfig.check(nwConfig.id, nwConfig.rpcDomain, address)
+            const addressMetadata = await bcConfig.getAddressMetadata(nwKey, address)
 
-            if (addressMetadata.isNFT && isNumberLike(tokenId) && +tokenId > 0) {
+            if (addressMetadata.isNFT && isTokenId(tokenId)) {
               // can have a tokenId and the provided tokenId is valid
               return {
                 blockchain: bcKey,
@@ -29,8 +29,7 @@ export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web
                   label: bcConfig.label,
                   logo: bcConfig.logo ?? null,
                 },
-                chain: nwKey,
-                chainId: nwConfig.id,
+                chain: nwKey!,
                 chainMetadata: {
                   label: nwConfig.label,
                   logo: nwConfig.logo ?? null,
@@ -49,7 +48,6 @@ export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web
                 logo: bcConfig.logo ?? null,
               },
               chain: nwKey,
-              chainId: nwConfig.id,
               chainMetadata: {
                 label: nwConfig.label,
                 logo: nwConfig.logo ?? null,
@@ -66,7 +64,6 @@ export const getValidWeb3Params = async (params: string[]): Promise<Nullable<Web
               logo: bcConfig.logo ?? null,
             },
             chain: nwKey,
-            chainId: nwConfig.id,
             chainMetadata: {
               label: nwConfig.label,
               logo: nwConfig.logo ?? null,

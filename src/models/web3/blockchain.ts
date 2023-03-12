@@ -1,7 +1,7 @@
 import type { Nullable } from '@voire/type-utils'
 import type { BlockchainKey } from '../../services/web3'
 
-export interface BlockchainConfig {
+export interface BlockchainPath {
   blockchain: BlockchainKey
 }
 
@@ -10,6 +10,6 @@ export interface BlockchainMetadata {
   logo?: Nullable<string>
 }
 
-export interface BlockchainInfo extends BlockchainConfig {
+export interface BlockchainData extends BlockchainPath {
   blockchainMetadata: BlockchainMetadata
 }

@@ -1,10 +1,10 @@
 import type { FC } from 'react'
-import type { AddressInfo } from '../models'
+import type { AddressData } from '../models'
 import { AddressRepresentation } from './AddressRepresentation'
 import { ChainPathRepresentation } from './ChainPathRepresentation'
 import { Breadcrumps } from './ui'
 
-export const AddressPathRepresentation: FC<AddressInfo> = (props) => {
+export const AddressPathRepresentation: FC<AddressData> = (props) => {
   return (
     <>
       <ChainPathRepresentation {...props} />

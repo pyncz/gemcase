@@ -1,11 +1,11 @@
 import classNames from 'classnames'
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import type { AddressInfo, WithClassName } from '../models'
+import type { AddressData, WithClassName } from '../models'
 import { formatAddress } from '../utils'
 import { CopyButton } from './CopyButton'
 
-export const AddressRepresentation: FC<WithClassName<AddressInfo>> = (props) => {
+export const AddressRepresentation: FC<WithClassName<AddressData>> = (props) => {
   const { address, className } = props
 
   const formattedAddress = useMemo(() => {

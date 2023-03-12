@@ -2,6 +2,9 @@
   "connect": "Connect",
   "errors": {
     "_": "{{error}} Error",
+    "invalidAddress": "Invalid {{blockchain}} address",
+    "invalidBlockchain": "Blockchain not found",
+    "invalidChain": "Invalid {{blockchain}} chain",
     "notFound": "Not Found",
     "notFoundMessage": "There's no such page... But you can choose and view the contract you like below!",
     "serverError": "Internal Server Error",

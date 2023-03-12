@@ -1,7 +1,7 @@
 import type { Nullable } from '@voire/type-utils'
 import type { Flags } from '../utils'
 import type { HexString } from '../hex'
-import type { ChainConfig, ChainInfo } from './chain'
+import type { ChainData, ChainPath } from './chain'
 
 export type AddressMetadata = Flags<
   | 'isContract'
@@ -21,8 +21,8 @@ type TLD = string
 export type EnsAddress = `${string}.${TLD}`
 export type EvmAddress = HexAddress | EnsAddress
 
-export interface AddressConfig extends ChainConfig {
+export interface AddressPath extends ChainPath {
   address: string
 }
 
-export type AddressInfo = AddressConfig & ChainInfo & AddressMetadata
+export type AddressData = AddressPath & ChainData & AddressMetadata

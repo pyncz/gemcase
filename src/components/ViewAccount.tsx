@@ -1,11 +1,11 @@
 import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
-import type { AddressInfo } from '../models'
+import type { AddressData } from '../models'
 import { getAbsoluteBaseUrl } from '../utils'
 import { AddressPathRepresentation } from './AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
 
-type Props = AddressInfo
+type Props = AddressData
 
 export const ViewAccount: FC<Props> = (props) => {
   const {

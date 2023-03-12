@@ -1,44 +1,36 @@
 import { publicProcedure, router } from '../trpc'
 import { addressSchema, tokenSchema } from '../../../models'
-import { adapter } from '../../../services/web3'
+import { withValidAddress } from '../helpers'
 
 export const metadataRouter = router({
+  getAddressMetadata: publicProcedure
+    .input(addressSchema)
+    .query(({ input }) => {
+      return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
+        return blockchainConfig.getAddressMetadata(chain, address)
+      })
+    }),
   getNftContractMetadata: publicProcedure
     .input(addressSchema)
-    .query(({ input: { blockchain, chainId, address } }) => {
-      const [_, bcConfig] = adapter.findBlockchain(blockchain) ?? []
-      if (bcConfig && bcConfig.validateChainById(chainId) && bcConfig.validateAddress(address)) {
-        return bcConfig.getNftContractMetadata(
-          chainId,
-          address,
-        )
-      }
-      throw new Error('Blockchain not found')
+    .query(({ input }) => {
+      return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
+        return blockchainConfig.getNftContractMetadata(chain, address)
+      })
     }),
   getNftTokenMetadata: publicProcedure
     .input(tokenSchema)
-    .query(({ input: { blockchain, chainId, address, tokenId } }) => {
-      const [_bc, bcConfig] = adapter.findBlockchain(blockchain) ?? []
-      if (bcConfig && bcConfig.validateChainById(chainId) && bcConfig.validateAddress(address)) {
-        return bcConfig.getNftTokenMetadata(
-          chainId,
-          address,
-          tokenId,
-        )
-      }
-      throw new Error('Blockchain not found')
+    .query(({ input }) => {
+      const { tokenId } = input
+      return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
+        return blockchainConfig.getNftTokenMetadata(chain, address, tokenId)
+      })
     }),
   getCoinContractMetadata: publicProcedure
     .input(addressSchema)
-    .query(({ input: { blockchain, chainId, address } }) => {
-      const [_, bcConfig] = adapter.findBlockchain(blockchain) ?? []
-      if (bcConfig && bcConfig.validateChainById(chainId) && bcConfig.validateAddress(address)) {
-        return bcConfig.getCoinContractMetadata(
-          chainId,
-          address,
-        )
-      }
-      throw new Error('Blockchain not found')
+    .query(({ input }) => {
+      return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
+        return blockchainConfig.getCoinContractMetadata(chain, address)
+      })
     }),
   // test: publicProcedure.query(({ ctx }) => {
   //   return ctx.prisma.example.findMany()

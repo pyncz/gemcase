@@ -1,19 +1,18 @@
 import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import { LayoutSide } from '../layouts'
-import type { AddressInfo } from '../models'
-import { getAbsoluteBaseUrl, stringify, trpc } from '../utils'
+import type { AddressData } from '../models'
+import { getAbsoluteBaseUrl, stringify, trpcHooks } from '../utils'
 import { AddressPathRepresentation } from './AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
 
-type Props = AddressInfo
+type Props = AddressData
 
 export const ViewNftContract: FC<Props> = (props) => {
   const {
     isCollectibleNFT,
     blockchain,
     chain,
-    chainId,
     chainMetadata,
     address,
     standard,
@@ -24,7 +23,7 @@ export const ViewNftContract: FC<Props> = (props) => {
   const {
     isLoading,
     data: metadata,
-  } = trpc.metadata.getNftContractMetadata.useQuery({ blockchain, chainId, address })
+  } = trpcHooks.metadata.getNftContractMetadata.useQuery({ blockchain, chain, address })
 
   const ogImage = `${getAbsoluteBaseUrl()}/api/og/${blockchain}/${chain}/${address}`
 

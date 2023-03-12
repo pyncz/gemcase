@@ -1,10 +1,10 @@
 import type { FC } from 'react'
-import type { ChainInfo } from '../models'
+import type { ChainData } from '../models'
 import { BlockchainRepresentation } from './BlockchainRepresentation'
 import { ChainRepresentation } from './ChainRepresentation'
 import { Breadcrumps } from './ui'
 
-export const ChainPathRepresentation: FC<ChainInfo> = (props) => {
+export const ChainPathRepresentation: FC<ChainData> = (props) => {
   return (
     <>
       <BlockchainRepresentation {...props.blockchainMetadata} />

@@ -1,22 +1,19 @@
 import type { Nullable } from '@voire/type-utils'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { AddressInfo, TokenInfo } from '../../../models'
+import type { AddressData, TokenData } from '../../../models'
 import { adapter } from '../../../services/web3'
-import { getValidWeb3Params } from '../../../services/getValidWeb3Params'
+import { getValidWeb3Info } from '../../../services/getValidWeb3Params'
 import { generateOpengraphImage } from '../../../services/generateOgImage'
 import { formatAddress, getParamsArray } from '../../../utils'
 
 const getOgpengraphImageByConfig = async (config: any): Promise<Nullable<Buffer>> => {
   // NFT
   if (config.tokenId) {
-    const { blockchain, chainId, address, tokenId } = config as TokenInfo
+    const { blockchain, chain, address, tokenId } = config as TokenData
     const [_bc, bcConfig] = adapter.findBlockchain(blockchain) ?? []
-    if (bcConfig && bcConfig.validateChainById(chainId) && bcConfig.validateAddress(address)) {
-      const metadata = await bcConfig.getNftTokenMetadata(
-        chainId,
-        address,
-        tokenId,
-      )
+    if (bcConfig && bcConfig.validateChain(chain) && bcConfig.validateAddress(address)) {
+      const metadata = await bcConfig.getNftTokenMetadata(chain, address, tokenId)
+
       if (metadata) {
         // Show the NFT image as the og-image for this token
         if (metadata.metadata) {
@@ -39,16 +36,14 @@ const getOgpengraphImageByConfig = async (config: any): Promise<Nullable<Buffer>
 
   // Address
   if (config.address) {
-    const { blockchain, chainId, address, isContract, isNFT, standard } = config as AddressInfo
+    const { blockchain, chain, address, isContract, isNFT, standard } = config as AddressData
     const [_bc, bcConfig] = adapter.findBlockchain(blockchain) ?? []
-    if (bcConfig && bcConfig.validateChainById(chainId) && bcConfig.validateAddress(address)) {
+    if (bcConfig && bcConfig.validateChain(chain) && bcConfig.validateAddress(address)) {
       if (isContract) {
         if (isNFT) {
           // NFT Contract Address
-          const metadata = await bcConfig.getNftContractMetadata(
-            chainId,
-            address,
-          )
+          const metadata = await bcConfig.getNftContractMetadata(chain, address)
+
           if (metadata) {
             return await generateOpengraphImage({
               title: metadata.name,
@@ -57,10 +52,8 @@ const getOgpengraphImageByConfig = async (config: any): Promise<Nullable<Buffer>
           }
         } else {
           // Coin Contract Address
-          const metadata = await bcConfig.getCoinContractMetadata(
-            chainId,
-            address,
-          )
+          const metadata = await bcConfig.getCoinContractMetadata(chain, address)
+
           if (metadata) {
             // TODO: meta: Add `metadata.logo` to the og image
             return await generateOpengraphImage({
@@ -88,7 +81,7 @@ const genOpengraphImage = async (req: NextApiRequest, res: NextApiResponse) => {
   const { slug } = req.query
   const slugParams = getParamsArray(slug)
 
-  const pageConfig = await getValidWeb3Params(slugParams)
+  const pageConfig = await getValidWeb3Info(slugParams)
   if (pageConfig) {
     try {
       const buffer = await getOgpengraphImageByConfig(pageConfig)
