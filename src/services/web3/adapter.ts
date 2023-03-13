@@ -43,31 +43,46 @@ export const adapterConfig = {
 
         // Contract
         if (isContract) {
-          // NFT address
+          // NFT Address
           if (isNFT) {
-            // NFT token
+            // NFT
             if (isTokenId(tokenId)) {
+              const metadata = await this.getNftTokenMetadata(chain, address, tokenId)
+              if (metadata) {
+                return {
+                  is: 'nft',
+                  ...addressMetadata,
+                  ...metadata,
+                }
+              } // -> fallback down to 'nftContract' if there's no metadata
+            }
+            // NFT Contract Address
+            const metadata = await this.getNftContractMetadata(chain, address)
+            if (metadata) {
               return {
+                is: 'nftContract',
                 ...addressMetadata,
-                ...(await this.getNftTokenMetadata(chain, address, tokenId)),
+                ...metadata,
               }
-            }
-            // NFT contract
-            return {
-              ...addressMetadata,
-              ...(await this.getNftContractMetadata(chain, address)),
-            }
-          }
-
-          // Coin contract address
-          return {
-            ...addressMetadata,
-            ...(await this.getCoinContractMetadata(chain, address)),
+            } // -> fallback down to 'account' if there's no metadata
+          } else {
+            // Coin contract address
+            const metadata = await this.getCoinContractMetadata(chain, address)
+            if (metadata) {
+              return {
+                is: 'coinContract',
+                ...addressMetadata,
+                ...metadata,
+              }
+            } // -> fallback down to 'account' if there's no metadata
           }
         }
 
         // Regular address
-        return addressMetadata
+        return {
+          is: 'account',
+          ...addressMetadata,
+        }
       },
 
       async getNftContractMetadata(chain, address) {

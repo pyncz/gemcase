@@ -13,8 +13,18 @@ export * from './chain'
 export * from './address'
 export * from './token'
 
+export type Web3AddressEntity = (
+  | 'nftContract'
+  | 'coinContract'
+  | 'account'
+)
+export type Web3Entity = Web3AddressEntity | 'nft'
+
 export type Web3Data =
-  | BlockchainData | ChainData | AddressData | TokenData
+  | (BlockchainData & { is: undefined })
+  | (ChainData & { is: undefined })
+  | (AddressData & { is: Web3AddressEntity })
+  | (TokenData & { is: 'nft' })
 
 export interface Web3PublicConfig {
   blockchains: Record<string, {
