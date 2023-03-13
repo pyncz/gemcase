@@ -1,12 +1,14 @@
 import type { Nullable } from '@voire/type-utils'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { AddressData, TokenData } from '../../../models'
+import type { AddressData, TokenData, Web3Data } from '../../../models'
 import { adapter } from '../../../services/web3'
-import { getValidWeb3Info } from '../../../services/getValidWeb3Params'
+import { getValidWeb3Data } from '../../../services/getValidWeb3Data'
 import { generateOpengraphImage } from '../../../services/generateOgImage'
 import { formatAddress, getParamsArray } from '../../../utils'
 
-const getOgpengraphImageByConfig = async (config: any): Promise<Nullable<Buffer>> => {
+const getOgpengraphImageByConfig = async (data: Web3Data): Promise<Nullable<Buffer>> => {
+  const config = data as any
+
   // NFT
   if (config.tokenId) {
     const { blockchain, chain, address, tokenId } = config as TokenData
@@ -81,7 +83,7 @@ const genOpengraphImage = async (req: NextApiRequest, res: NextApiResponse) => {
   const { slug } = req.query
   const slugParams = getParamsArray(slug)
 
-  const pageConfig = await getValidWeb3Info(slugParams)
+  const pageConfig = await getValidWeb3Data(...slugParams)
   if (pageConfig) {
     try {
       const buffer = await getOgpengraphImageByConfig(pageConfig)

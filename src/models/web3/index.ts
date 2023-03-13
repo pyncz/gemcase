@@ -4,13 +4,13 @@ import type { BlockchainData } from './blockchain'
 import type { ChainData } from './chain'
 import type { TokenData } from './token'
 
+export * from './metadata'
+
 export * from './provider'
 
 export * from './blockchain'
 export * from './chain'
 export * from './address'
-
-export * from './coin'
 export * from './token'
 
 export type Web3Data =

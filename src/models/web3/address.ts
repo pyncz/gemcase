@@ -1,16 +1,6 @@
-import type { Nullable } from '@voire/type-utils'
-import type { Flags } from '../utils'
 import type { HexString } from '../hex'
 import type { ChainData, ChainPath } from './chain'
-
-export type AddressMetadata = Flags<
-  | 'isContract'
-  | 'isCoin'
-  | 'isNFT'
-  | 'isCollectibleNFT'
-> & {
-  standard: Nullable<string>
-}
+import type { AddressMetadata } from './metadata'
 
 export type HexAddress = HexString
 

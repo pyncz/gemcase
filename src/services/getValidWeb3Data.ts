@@ -3,10 +3,12 @@ import type { Web3Data } from '../models'
 import { isTokenId } from '../utils'
 import { adapter } from './web3/adapter'
 
-export const getValidWeb3Info = async (params: string[]): Promise<Nullable<Web3Data>> => {
-  // Let's assume the params is a bc/chain/address/token config
-  const [blockchain, chain, address, tokenId] = params
-
+export const getValidWeb3Data = async (
+  blockchain?: string,
+  chain?: string | number,
+  address?: string,
+  tokenId?: string,
+): Promise<Nullable<Web3Data>> => {
   if (blockchain) {
     const [bcKey, bcConfig] = adapter.findBlockchain(blockchain) ?? []
 
@@ -29,7 +31,7 @@ export const getValidWeb3Info = async (params: string[]): Promise<Nullable<Web3D
                   label: bcConfig.label,
                   logo: bcConfig.logo ?? null,
                 },
-                chain: nwKey!,
+                chain: nwKey,
                 chainMetadata: {
                   label: nwConfig.label,
                   logo: nwConfig.logo ?? null,

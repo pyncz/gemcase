@@ -1,5 +1,5 @@
 import { publicProcedure, router } from '../trpc'
-import { addressSchema, tokenSchema } from '../../../models'
+import { addressSchema, optionalTokenSchema, tokenSchema } from '../../../models'
 import { withValidAddress } from '../helpers'
 
 export const metadataRouter = router({
@@ -8,6 +8,14 @@ export const metadataRouter = router({
     .query(({ input }) => {
       return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
         return blockchainConfig.getAddressMetadata(chain, address)
+      })
+    }),
+  getMetadata: publicProcedure
+    .input(optionalTokenSchema)
+    .query(({ input }) => {
+      const { tokenId } = input
+      return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
+        return blockchainConfig.getMetadata(chain, address, tokenId)
       })
     }),
   getNftContractMetadata: publicProcedure

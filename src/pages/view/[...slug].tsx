@@ -4,7 +4,7 @@ import { ExploreForm, ViewAccount, ViewCoinContract, ViewNftContract, ViewNftTok
 import type { AddressData, NextPageWithLayout, TokenData, Web3Data, Web3PublicConfig } from '../../models'
 import i18nextConfig from '../../../next-i18next.config'
 import { getParamsArray } from '../../utils'
-import { getValidWeb3Info } from '../../services/getValidWeb3Params'
+import { getValidWeb3Data } from '../../services/getValidWeb3Data'
 import { web3PublicConfig } from '../../services/web3'
 
 type Props = Web3Data & Web3PublicConfig
@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ params, lo
     'common',
   ])
 
-  const pageConfig = await getValidWeb3Info(slugParams)
+  const pageConfig = await getValidWeb3Data(...slugParams)
   if (pageConfig) {
     return {
       props: {
@@ -45,10 +45,7 @@ const View: NextPageWithLayout<Props> = (props) => {
   // Address
   if (config.address) {
     const addressConfig = config as AddressData
-    const {
-      isContract,
-      isNFT,
-    } = addressConfig
+    const { isContract, isNFT } = addressConfig
 
     if (isContract) {
       return isNFT
