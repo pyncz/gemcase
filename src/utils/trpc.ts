@@ -2,6 +2,7 @@ import { createTRPCProxyClient, httpBatchLink, loggerLink } from '@trpc/client'
 import { createTRPCNext } from '@trpc/next'
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 import superjson from 'superjson'
+import { defu } from 'defu'
 
 import type { AppRouter } from '../server/trpc/router/_app'
 import { getBaseUrl } from './app'
@@ -17,12 +18,12 @@ const trpcLinks = [
   }),
 ]
 
-export const trpc = createTRPCProxyClient<AppRouter>({
+const trpcClient = createTRPCProxyClient<AppRouter>({
   transformer: superjson,
   links: trpcLinks,
 })
 
-export const trpcHooks = createTRPCNext<AppRouter>({
+const trpcHooks = createTRPCNext<AppRouter>({
   config() {
     return {
       transformer: superjson,
@@ -31,6 +32,8 @@ export const trpcHooks = createTRPCNext<AppRouter>({
   },
   ssr: false,
 })
+
+export const trpc = defu(trpcClient, trpcHooks)
 
 /**
  * Inference helper for inputs
