@@ -2,6 +2,7 @@ import type { FC, PropsWithChildren } from 'react'
 import type { Nullable } from '@voire/type-utils'
 import type { NftTokenMetadata, TokenPath, WithClassName } from '../../models'
 import { Skeleton } from '../ui'
+import { formatTokenName } from '../../utils'
 import { Representation, RepresentationImage } from './base'
 import { NftContractRepresentation } from './NftContractRepresentation'
 
@@ -16,10 +17,10 @@ export const NftRepresentation: FC<PropsWithChildren<WithClassName<Props>>> = (p
     children,
     tokenId,
   } = props
-  const { name, metadata: tokenMetadata } = metadata ?? {}
+  const { name: collectionName, metadata: tokenMetadata } = metadata ?? {}
   const { name: tokenName, image } = tokenMetadata ?? {}
 
-  const label = tokenName ?? `${name ? `${name} ` : ''}#${+tokenId}`
+  const name = formatTokenName(tokenId, tokenName, collectionName)
 
   return (
     <Representation
@@ -32,7 +33,7 @@ export const NftRepresentation: FC<PropsWithChildren<WithClassName<Props>>> = (p
           {image
             ? <RepresentationImage
                 image={image}
-                alt={label}
+                alt={name}
                 className="tw-rounded tw-border-avatar"
               />
             : null}
@@ -40,7 +41,7 @@ export const NftRepresentation: FC<PropsWithChildren<WithClassName<Props>>> = (p
       }
     >
       <Skeleton.Element width={140}>
-        {children ?? label}
+        {children ?? name}
       </Skeleton.Element>
     </Representation>
   )

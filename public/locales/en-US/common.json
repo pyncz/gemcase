@@ -1,5 +1,7 @@
 {
+  "avatarOf": "Avatar of \"{{name}}\"",
   "connect": "Connect",
+  "coverOf": "Cover of \"{{name}}\"",
   "errors": {
     "_": "{{error}} Error",
     "invalidAddress": "Invalid {{blockchain}} address",

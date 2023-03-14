@@ -10,11 +10,11 @@ const ErrorFallback: FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
   return (
     <>
       {/* Stretch error boundary on all the available space */}
-      <div className="tw-flex tw-h-full tw-w-full tw-flex-center">
+      <div className="tw-flex tw-container tw-py-section tw-h-full tw-w-full tw-flex-center">
         <div role="alert" className="tw-space-y-8">
           <div>
             <h1 className="tw-mb-3">{i18n.t('errors.unexpected')}</h1>
-            <pre className="tw-text-state-error tw-text-sm tw-bg-state-error tw-bg-opacity-10 tw-p-5 tw-rounded">
+            <pre className="tw-whitespace-pre-wrap tw-text-state-error tw-text-sm tw-bg-state-error tw-bg-opacity-10 tw-p-5 tw-rounded">
               {error.message}
             </pre>
           </div>

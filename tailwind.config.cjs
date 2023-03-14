@@ -131,6 +131,7 @@ module.exports = {
       'illustration-el': co('--c-illustration-el'),
       'illustration-bg': co('--c-illustration-bg'),
       'card': co('--c-bg-card'),
+      'viewport': co('--c-bg-viewport'),
       'dim': fill(3, i => co(`--c-bg-dim-${i}`)),
       'text': textColors,
     }),
@@ -202,6 +203,10 @@ module.exports = {
       screens: {
         '2xs': '320px',
         'xs': '400px',
+      },
+      blur: {
+        px: '1px',
+        xs: '2px',
       },
       spacing: {
         // for height / width

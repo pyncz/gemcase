@@ -20,7 +20,7 @@ export const CopyButton: FC<PropsWithChildren<WithClassName<Props>>> = (props) =
 
   return (
     <a
-      className={classNames('tw-link tw-link-muted', className)}
+      className={classNames('tw-inline-flex tw-link tw-link-muted', className)}
       role="button"
       onClick={copy}
       title={value}
