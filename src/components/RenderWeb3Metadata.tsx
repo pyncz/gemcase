@@ -1,5 +1,5 @@
 import type { Nullable } from '@voire/type-utils'
-import type { FC, ReactNode } from 'react'
+import type { FC, ReactElement, ReactNode } from 'react'
 import { useAsync } from 'react-use'
 import type { z } from 'zod'
 import type { MetadataWithContext, optionalTokenSchema } from '../models'
@@ -9,10 +9,11 @@ import { Skeleton } from './ui'
 type Props = z.infer<typeof optionalTokenSchema> & {
   render: (metadata: Nullable<MetadataWithContext>) => ReactNode
   delay?: number
+  placeholder?: ReactElement
 }
 
 export const RenderWeb3Metadata: FC<Props> = (props) => {
-  const { blockchain, chain, address, tokenId, delay, render } = props
+  const { blockchain, chain, address, tokenId, delay, placeholder, render } = props
 
   // When address is set try to figure out what contract / account this is
   const fetchMetadata = () => {
@@ -35,8 +36,8 @@ export const RenderWeb3Metadata: FC<Props> = (props) => {
   )
 
   return (
-    <Skeleton.Root loaded={!!metadata || !loading}>
-      <Skeleton.Element width={120} height={36}>
+    <Skeleton.Root loaded={!loading}>
+      <Skeleton.Element width={120} height={36} placeholder={placeholder}>
         {render(metadata ?? null)}
       </Skeleton.Element>
     </Skeleton.Root>

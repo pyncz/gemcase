@@ -25,6 +25,7 @@
       "label": "Chain",
       "placeholder": "Chain"
     },
+    "submitPlaceholder": "Choose address or token",
     "tokenId": {
       "label": "Token ID",
       "placeholder": "Token ID"

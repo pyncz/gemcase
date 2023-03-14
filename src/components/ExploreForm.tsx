@@ -6,7 +6,7 @@ import type { FC } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import classNames from 'classnames'
 import { Icon } from '@iconify-icon/react'
-import searchIcon from '@iconify-icons/ion/search-outline'
+import viewIcon from '@iconify-icons/ion/arrow-forward-outline'
 import { z } from 'zod'
 import { useRouter } from 'next/router'
 import type { ChainPath, Web3PublicConfig } from '../models'
@@ -143,6 +143,10 @@ export const ExploreForm: FC<Props> = (props) => {
     router.push(`/view/${blockchain}/${chain}/${address}${tokenUrlSuffix}`)
   }
 
+  const submitPlaceholder = (
+    <span className="tw-text-dim-3 tw-leading-1">{i18n.t('exploreForm.submitPlaceholder')}</span>
+  )
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="tw-space-y-form tw-max-w-sm md:tw-max-w-none">
       <div className="tw-flex tw-flex-col md:tw-flex-row tw-flex-wrap tw-gap-fields">
@@ -219,17 +223,10 @@ export const ExploreForm: FC<Props> = (props) => {
 
       <ErrorMessage error={errors.root} />
 
-      <div className="tw-w-full md:tw-w-auto tw-flex tw-flex-col sm:tw-flex-row tw-gap-4 sm:tw-gap-6">
-        <Button
-          type="submit"
-          className=""
-          iconRight={
-            <Icon className="tw-mirror-x" icon={searchIcon} />
-          }
-        >
-          {i18n.t('view')}
-        </Button>
-
+      <button
+        type="submit"
+        className="tw-group/submit tw-h-auto tw-p-3 tw-flex-center-y tw-shadow-highlight disabled:tw-shadow-none tw-duration-fast tw-rounded tw-w-full tw-max-w-sm tw-border tw-border-separator hover:tw-border-accent-primary focus:tw-border-accent-primary focus-within:tw-border-accent-primary"
+      >
         {/* Preview */}
         {blockchain && chain && address
           ? <RenderWeb3Metadata
@@ -240,12 +237,18 @@ export const ExploreForm: FC<Props> = (props) => {
               delay={1000}
               render={metadata => metadata
                 ? <Web3EntityRepresentation {...metadata} />
-                : null
+                : submitPlaceholder
               }
             />
-          : null
+          : submitPlaceholder
         }
-      </div>
+
+        <Icon icon={viewIcon} className="tw-duration-fast tw-text-5/4 tw-p-2 sm:tw-hidden tw-ml-auto tw-text-accent-primary group-hover/submit:tw-text-accent-primary-vivid" />
+        <div className="tw-button tw-button-primary tw-hidden sm:tw-inline-flex tw-ml-auto group-hover/submit:tw-bg-[rgba(var(--button-bg--hover),_var(--tw-bg-opacity))]">
+          {i18n.t('view')}{' '}
+          <Icon icon={viewIcon} />
+        </div>
+      </button>
     </form>
   )
 }

@@ -96,9 +96,11 @@ module.exports = {
         'primary': co('--c-accent-primary'),
         'primary-lighten': co('--c-accent-primary-lighten'),
         'primary-darken': co('--c-accent-primary-darken'),
+        'primary-vivid': co('--c-accent-primary-vivid'),
         'secondary': co('--c-accent-secondary'),
         'secondary-lighten': co('--c-accent-secondary-lighten'),
         'secondary-darken': co('--c-accent-secondary-darken'),
+        'secondary-vivid': co('--c-accent-secondary-vivid'),
       },
       state: {
         error: co('--c-state-error'),
@@ -174,11 +176,14 @@ module.exports = {
       modal: 'var(--o-modal-overlay)',
     }),
     boxShadow: {
+      none: 'none',
+
       card: 'var(--s-card)',
 
       // shadows for dialogs, popups etc
       popup: '0 0.75rem 1.75rem -1.75rem rgba(var(--c-color-base), 0.5)',
       modal: '0 0 2rem -1.75rem rgb(var(--c-color-base))',
+      highlight: '0 0 1rem rgba(var(--c-accent-primary), 0.1)',
     },
     dropShadow: {
       title: 'var(--s-title)',
