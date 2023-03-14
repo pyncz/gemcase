@@ -31,7 +31,6 @@ specifiers:
   '@wiiib/check-evm-address': ^1.0.1
   autoprefixer: ^10.4.7
   classnames: ^2.3.2
-  defu: ^6.1.2
   eslint: ^8.26.0
   eslint-config-next: 13.0.7
   ethers: ^6.0.3
@@ -44,6 +43,7 @@ specifiers:
   prisma: ^4.5.0
   react: 18.2.0
   react-dom: 18.2.0
+  react-error-boundary: ^3.1.4
   react-hook-form: ^7.43.1
   react-i18next: ^12.1.1
   react-redux: ^8.0.5
@@ -79,7 +79,6 @@ dependencies:
   '@voire/type-utils': 1.1.2
   '@wiiib/check-evm-address': 1.0.1
   classnames: 2.3.2
-  defu: 6.1.2
   ethers: 6.0.3
   i18next: 22.4.5
   moralis: 2.14.3
@@ -87,6 +86,7 @@ dependencies:
   next-i18next: 13.0.2_6gqrsu6j456ckf2tjhgrp5q5sq
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-error-boundary: 3.1.4_react@18.2.0
   react-hook-form: 7.43.1_react@18.2.0
   react-i18next: 12.1.1_ewanii43wbrufvukcu3uzq3hsy
   react-redux: 8.0.5_yqqa5ithnjtlkxisuaub7c4kpa
@@ -2397,10 +2397,6 @@ packages:
   /defined/1.0.1:
     resolution: {integrity: sha512-hsBd2qSVCRE+5PmNdHt1uzyrFu5d3RwmFDKzyNZMFq/EwDNJF7Ee5+D5oEKF0hU6LhtoUF1macFvOe4AskQC1Q==}
     dev: true
-
-  /defu/6.1.2:
-    resolution: {integrity: sha512-+uO4+qr7msjNNWKYPHqN/3+Dx3NFkmIzayk2L1MyZQlvgZb/J1A0fo410dpKrN2SnqFjt8n4JL8fDJE0wIgjFQ==}
-    dev: false
 
   /delayed-stream/1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
@@ -4882,6 +4878,16 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-error-boundary/3.1.4_react@18.2.0:
+    resolution: {integrity: sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==}
+    engines: {node: '>=10', npm: '>=6'}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.20.6
+      react: 18.2.0
     dev: false
 
   /react-hook-form/7.43.1_react@18.2.0:

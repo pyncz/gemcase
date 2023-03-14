@@ -1,45 +1,50 @@
-import type { ErrorInfo, PropsWithChildren } from 'react'
-import React from 'react'
+import type { FC, PropsWithChildren } from 'react'
+import type { FallbackProps } from 'react-error-boundary'
+import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary'
+import { useTranslation } from 'react-i18next'
 import { Button } from '../ui'
 
-interface State {
-  hasError: boolean
+const ErrorFallback: FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
+  const { i18n } = useTranslation()
+
+  return (
+    <>
+      {/* Stretch error boundary on all the available space */}
+      <div className="tw-flex tw-h-full tw-w-full tw-flex-center">
+        <div role="alert" className="tw-space-y-8">
+          <div>
+            <h1 className="tw-mb-3">{i18n.t('errors.unexpected')}</h1>
+            <pre className="tw-text-state-error tw-text-sm tw-bg-state-error tw-bg-opacity-10 tw-p-5 tw-rounded">
+              {error.message}
+            </pre>
+          </div>
+
+          <Button
+            type="button"
+            onClick={resetErrorBoundary}
+          >
+            {i18n.t('refresh')}
+          </Button>
+        </div>
+      </div>
+    </>
+  )
 }
 
-export class ErrorBoundary extends React.Component<PropsWithChildren, State> {
-  public static getDerivedStateFromError(_: Error): State {
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true }
-  }
+interface Props {
+  // Reset the state of your app so the error doesn't happen again
+  onReset?: () => void
+}
 
-  public state: State = {
-    hasError: false,
-  }
+export const ErrorBoundary: FC<PropsWithChildren<Props>> = (props) => {
+  const { onReset, children } = props
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo)
-  }
-
-  public render() {
-    if (this.state.hasError) {
-      return (
-        <>
-          {/* Stretch error boundary on all the available space */}
-          <div className="tw-flex tw-h-full tw-w-full tw-flex-center">
-            <div>
-              <h1>Sorry... there was an error</h1>
-              <Button
-                type="button"
-                onClick={() => this.setState({ hasError: false })}
-              >
-                Try again?
-              </Button>
-            </div>
-          </div>
-        </>
-      )
-    }
-
-    return this.props.children
-  }
+  return (
+    <ReactErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={onReset}
+    >
+      {children}
+    </ReactErrorBoundary>
+  )
 }
