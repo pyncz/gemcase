@@ -4,7 +4,7 @@ import type { WithClassName } from '../../models'
 
 const Root: FC<PropsWithChildren<WithClassName>> = ({ children, className }) => {
   return (
-    <span className={classNames('tw-text-dim-1', className)}>
+    <span className={classNames('tw-inline-flex tw-text-dim-1', className)}>
       {children}
     </span>
   )

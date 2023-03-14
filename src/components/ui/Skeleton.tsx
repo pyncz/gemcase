@@ -4,10 +4,11 @@ import { createContext, useContext } from 'react'
 import type { WithClassName } from '../../models'
 
 interface SkeletonContextType {
-  loaded: boolean
+  loaded?: boolean
 }
 
 interface SkeletonElementProps {
+  size?: string | number
   height?: string | number
   width?: string | number
   as?: keyof JSX.IntrinsicElements
@@ -16,19 +17,20 @@ interface SkeletonElementProps {
 type SkeletonRootProps = SkeletonContextType
 
 const SkeletonContext = createContext<SkeletonContextType>({
-  loaded: false,
+  loaded: undefined,
 })
 
 const Element: FC<PropsWithChildren<WithClassName<SkeletonElementProps>>> = (props) => {
   const {
     as: Wrapper = 'span',
-    height = '1em',
-    width = '100%',
+    size,
+    height = size ?? '1em',
+    width = size ?? '100%',
     children,
     className,
   } = props
 
-  const { loaded } = useContext(SkeletonContext)
+  const loaded = useContext(SkeletonContext).loaded ?? true
 
   if (loaded) {
     return <>{children}</>
@@ -42,7 +44,7 @@ const Element: FC<PropsWithChildren<WithClassName<SkeletonElementProps>>> = (pro
   )
 }
 
-const Root: FC<PropsWithChildren<SkeletonRootProps>> = (props) => {
+const Root: FC<PropsWithChildren<Required<SkeletonRootProps>>> = (props) => {
   const { children, loaded } = props
 
   return (

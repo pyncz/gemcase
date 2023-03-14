@@ -16,6 +16,6 @@ export interface CoinContractMetadata {
   thumbnail?: string
 }
 
-export interface CoinContractMarketMetadata {
+export interface CoinContractMarketMetadata extends CoinContractMetadata {
   marketData?: CoinMarketData
 }

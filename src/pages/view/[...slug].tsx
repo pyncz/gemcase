@@ -1,7 +1,7 @@
 import type { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ExploreForm, ViewAccount, ViewCoinContract, ViewNftContract, ViewNftToken } from '../../components'
-import type { AddressData, NextPageWithLayout, TokenData, Web3Data, Web3PublicConfig } from '../../models'
+import type { NextPageWithLayout, Web3Data, Web3PublicConfig } from '../../models'
 import i18nextConfig from '../../../next-i18next.config'
 import { getParamsArray } from '../../utils'
 import { getValidWeb3Data } from '../../services/getValidWeb3Data'
@@ -17,12 +17,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ params, lo
     'common',
   ])
 
-  const pageConfig = await getValidWeb3Data(...slugParams)
-  if (pageConfig) {
+  const pageWeb3Data = await getValidWeb3Data(...slugParams)
+  if (pageWeb3Data) {
     return {
       props: {
         ...web3PublicConfig,
-        ...pageConfig,
+        ...pageWeb3Data,
         ...(await translations),
       } satisfies Props,
     }
@@ -33,32 +33,35 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ params, lo
   }
 }
 
-const View: NextPageWithLayout<Props> = (props) => {
-  const config = props as any
+const View: NextPageWithLayout<Props> = (props: Props) => {
+  const { is } = props
 
-  // NFT
-  if (config.tokenId) {
-    const tokenConfig = config as TokenData
-    return <ViewNftToken {...tokenConfig} />
+  if (is === 'nft') {
+    return (
+      // NFT
+      <ViewNftToken {...props} />
+    )
+  } else if (is === 'nftContract') {
+    return (
+      // NFT Contract address
+      <ViewNftContract {...props} />
+    )
+  } else if (is === 'coinContract') {
+    return (
+      // Coin Contract address
+      <ViewCoinContract {...props} />
+    )
+  } else if (is === 'account') {
+    return (
+      // Just a regular address
+      <ViewAccount {...props} />
+    )
+  } else {
+    return (
+      // Only bc or bc and chain are specified
+      <ExploreForm {...props} />
+    )
   }
-
-  // Address
-  if (config.address) {
-    const addressConfig = config as AddressData
-    const { isContract, isNFT } = addressConfig
-
-    if (isContract) {
-      return isNFT
-        ? <ViewNftContract {...addressConfig} />
-        : <ViewCoinContract {...addressConfig} />
-    }
-
-    // Just a regular address
-    return <ViewAccount {...addressConfig} />
-  }
-
-  // Only bc or bc and chain are specified
-  return <ExploreForm {...props} />
 }
 
 export default View

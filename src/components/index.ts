@@ -1,6 +1,7 @@
 export * from './logos'
 export * from './errors'
 export * from './ui'
+export * from './representations'
 
 export * from './HeadMeta'
 
@@ -20,9 +21,3 @@ export * from './GroupContainer'
 export * from './ExploreForm'
 export * from './CopyButton'
 export * from './Price'
-
-export * from './BlockchainRepresentation'
-export * from './ChainRepresentation'
-export * from './ChainPathRepresentation'
-export * from './AddressRepresentation'
-export * from './AddressPathRepresentation'

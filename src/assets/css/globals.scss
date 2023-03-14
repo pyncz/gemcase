@@ -25,6 +25,9 @@
   body {
     @apply tw-overscroll-none;
   }
+  small {
+    @apply tw-text-3/4;
+  }
   ::selection {
     @apply tw-text-accent-primary tw-bg-accent-secondary;
     -webkit-text-stroke-color: rgb(var(--c-accent-primary));

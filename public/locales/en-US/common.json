@@ -83,6 +83,7 @@
       "title": "Any blockchain. Any network"
     }
   },
+  "refresh": "Refresh page",
   "submit": "Submit",
   "theme": {
     "_": "Color mode",
@@ -90,5 +91,6 @@
     "dark": "Dark",
     "light": "Light",
     "system": "System"
-  }
+  },
+  "view": "View"
 }

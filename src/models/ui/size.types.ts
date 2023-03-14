@@ -1,2 +1,2 @@
 export type Size = 'sm' | 'md' | 'lg'
-export type SizeExta = 'xs' | Size | 'xl'
+export type SizeExtra = 'xs' | Size | 'xl'

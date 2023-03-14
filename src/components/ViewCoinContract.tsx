@@ -1,13 +1,12 @@
 import type { FC } from 'react'
-import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { LayoutSide } from '../layouts'
 import type { AddressData } from '../models'
 import { getAbsoluteBaseUrl, trpcHooks } from '../utils'
 import { HeadMeta } from './HeadMeta'
-import { AddressPathRepresentation } from './AddressPathRepresentation'
+import { AddressPathRepresentation } from './representations/AddressPathRepresentation'
 import { Skeleton, Tag } from './ui'
-import { Price } from './Price'
+import { CoinContractRepresentation } from './representations'
 
 type Props = AddressData
 
@@ -27,7 +26,6 @@ export const ViewCoinContract: FC<Props> = (props) => {
     data: metadata,
   } = trpcHooks.metadata.getCoinContractMetadata.useQuery({ blockchain, chain, address })
 
-  const logoSize = 64
   const ogImage = `${getAbsoluteBaseUrl()}/api/og/${blockchain}/${chain}/${address}`
 
   return (
@@ -61,33 +59,16 @@ export const ViewCoinContract: FC<Props> = (props) => {
               </div>
             </div>
 
-            <div className="tw-text-dim-1 tw-flex tw-gap-4 tw-items-center tw-pb-4 tw-border-b tw-border-separator-muted">
-              <div className="tw-rounded-full tw-overflow-hidden tw-inline-flex tw--mx-1">
-                <Skeleton.Element width={logoSize} height={logoSize}>
-                  {metadata?.logo
-                    ? <Image
-                        src={metadata.logo}
-                        alt={metadata.name}
-                        width={logoSize}
-                        height={logoSize}
-                      />
-                    : null}
-                </Skeleton.Element>
-              </div>
-
-              <div className="tw-flex-1">
+            <div className="tw-flex tw-pb-4 tw-border-b tw-border-separator-muted">
+              <CoinContractRepresentation
+                metadata={metadata}
+                imageSize="xl"
+                className="tw-text-lg tw-text-dim-1"
+              >
                 <h3 className="tw-mb-0 tw-flex">
-                  <Skeleton.Element width={120}>
-                    {metadata?.symbol}
-                  </Skeleton.Element>
+                  {metadata?.symbol}
                 </h3>
-                <Skeleton.Element width={100} className="tw-text-sm tw-mt-1">
-                  {metadata?.marketData
-                    ? <small className="tw-text-dim-2"><Price value={metadata.marketData.usdPrice} symbol="USD" /></small>
-                    : null
-                  }
-                </Skeleton.Element>
-              </div>
+              </CoinContractRepresentation>
             </div>
           </section>
         </Skeleton.Root>

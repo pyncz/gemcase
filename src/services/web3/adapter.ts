@@ -38,51 +38,80 @@ export const adapterConfig = {
       },
 
       async getMetadata(chain, address, tokenId) {
-        const addressMetadata = await this.getAddressMetadata(chain, address)
-        const { isContract, isNFT } = addressMetadata
+        const blockchainPath = {
+          blockchain: 'evm' as const,
+        }
 
-        // Contract
-        if (isContract) {
-          // NFT Address
-          if (isNFT) {
-            // NFT
-            if (isTokenId(tokenId)) {
-              const metadata = await this.getNftTokenMetadata(chain, address, tokenId)
-              if (metadata) {
-                return {
-                  is: 'nft',
-                  ...addressMetadata,
-                  ...metadata,
-                }
-              } // -> fallback down to 'nftContract' if there's no metadata
+        const [nwKey, nwConfig] = findByKeyOrAlias(evmChains, chain) ?? []
+
+        if (nwKey && nwConfig) {
+          // chain is valid
+          const chainPath = {
+            ...blockchainPath,
+            chain: nwKey,
+          }
+
+          if (this.validateAddress(address)) {
+            // address is valid
+            const addressMetadata = await this.getAddressMetadata(chain, address)
+            const { isContract, isNFT } = addressMetadata
+
+            const addressPath = {
+              ...chainPath,
+              address,
             }
-            // NFT Contract Address
-            const metadata = await this.getNftContractMetadata(chain, address)
-            if (metadata) {
-              return {
-                is: 'nftContract',
-                ...addressMetadata,
-                ...metadata,
+
+            // Contract
+            if (isContract) {
+              // NFT Address
+              if (isNFT) {
+                // NFT
+                if (isTokenId(tokenId)) {
+                  const metadata = await this.getNftTokenMetadata(chain, address, tokenId)
+                  if (metadata) {
+                    return {
+                      is: 'nft',
+                      ...addressPath,
+                      ...addressMetadata,
+                      tokenId,
+                      ...metadata,
+                    }
+                  } // -> fallback down to 'nftContract' if there's no metadata
+                }
+                // NFT Contract Address
+                const metadata = await this.getNftContractMetadata(chain, address)
+                if (metadata) {
+                  return {
+                    is: 'nftContract',
+                    ...addressPath,
+                    ...addressMetadata,
+                    ...metadata,
+                  }
+                } // -> fallback down to 'account' if there's no metadata
+              } else {
+                // Coin contract address
+                const metadata = await this.getCoinContractMetadata(chain, address)
+                if (metadata) {
+                  return {
+                    is: 'coinContract',
+                    ...addressPath,
+                    ...addressMetadata,
+                    ...metadata,
+                  }
+                } // -> fallback down to 'account' if there's no metadata
               }
-            } // -> fallback down to 'account' if there's no metadata
-          } else {
-            // Coin contract address
-            const metadata = await this.getCoinContractMetadata(chain, address)
-            if (metadata) {
-              return {
-                is: 'coinContract',
-                ...addressMetadata,
-                ...metadata,
-              }
-            } // -> fallback down to 'account' if there's no metadata
+            }
+
+            // Regular address
+            return {
+              is: 'account',
+              ...addressPath,
+              ...addressMetadata,
+            }
           }
         }
 
-        // Regular address
-        return {
-          is: 'account',
-          ...addressMetadata,
-        }
+        return null
       },
 
       async getNftContractMetadata(chain, address) {

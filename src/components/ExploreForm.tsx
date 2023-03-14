@@ -8,14 +8,16 @@ import classNames from 'classnames'
 import { Icon } from '@iconify-icon/react'
 import searchIcon from '@iconify-icons/ion/search-outline'
 import { z } from 'zod'
-import { useAsync } from 'react-use'
+import { useRouter } from 'next/router'
 import type { ChainPath, Web3PublicConfig } from '../models'
 import { useValidValue } from '../hooks'
-import { debounce, trpc } from '../utils'
+import { trpcClient } from '../utils'
 import { positiveNumberLike } from '../models'
 import { Button, ControlledField, ErrorMessage, Input, Select } from './ui'
-import { BlockchainRepresentation } from './BlockchainRepresentation'
-import { ChainRepresentation } from './ChainRepresentation'
+import { BlockchainRepresentation } from './representations/BlockchainRepresentation'
+import { ChainRepresentation } from './representations/ChainRepresentation'
+import { Web3EntityRepresentation } from './representations'
+import { RenderWeb3Metadata } from './RenderWeb3Metadata'
 
 type Props = Partial<ChainPath> & Web3PublicConfig
 
@@ -38,7 +40,7 @@ export const ExploreForm: FC<Props> = (props) => {
       ),
       chain: z.string(),
       address: z.string(),
-      tokenId: positiveNumberLike.optional().transform(val => val ? +val : val),
+      tokenId: positiveNumberLike.optional(),
     })
     .refine(
       ({ blockchain, chain }) => !!blockchains[blockchain]?.chains[chain],
@@ -51,7 +53,7 @@ export const ExploreForm: FC<Props> = (props) => {
       async ({ blockchain, chain, address }) => {
         // TODO: Validate on client too?
         return blockchain && chain && address
-          ? trpc.validate.validateAddress.query({ blockchain, chain, address })
+          ? trpcClient.validate.validateAddress.query({ blockchain, chain, address })
           : false
       },
       ({ blockchain }) => ({
@@ -60,7 +62,7 @@ export const ExploreForm: FC<Props> = (props) => {
       }),
     )
 
-  type ExploreFormInput = z.input<typeof exploreFormSchema>
+  type ExploreFormInput = z.infer<typeof exploreFormSchema>
 
   const {
     handleSubmit,
@@ -113,25 +115,16 @@ export const ExploreForm: FC<Props> = (props) => {
   const chainConfig = useMemo(() => chain ? chains[chain] : null, [chains, chain])
 
   /**
-   * Address
+   * Address / token
    */
-  // Valid address provided
+  // Valid address / tokenId provided
   const address = useValidValue(control, watch, 'address')
-
-  // When address is set (and valid)
-  // try to figure out what contract / account this is
-  const fetchAddressMetadata = debounce(() => {
-    if (blockchain && chain && address) {
-      return trpc.metadata.getAddressMetadata.query({ blockchain, chain, address })
-    }
-    return null
-  }, 1000)
-  const { value: addressMetadata, loading } = useAsync(async () => fetchAddressMetadata(), [blockchain, chain, address])
+  const tokenId = useValidValue(control, watch, 'tokenId') ?? undefined
 
   /**
    * UI stuff
    */
-  const formElementClassName = 'tw-w-full xs:tw-w-48'
+  const formElementClassName = 'tw-w-full md:tw-w-48'
 
   const addressPlaceholder = useMemo(() => {
     return chainConfig
@@ -139,17 +132,19 @@ export const ExploreForm: FC<Props> = (props) => {
       : i18n.t('exploreForm.address.placeholder')
   }, [i18n, chainConfig])
 
-  const onSubmit: SubmitHandler<ExploreFormInput> = (data) => {
-    console.log(data, chain, blockchain)
+  const router = useRouter()
+  const onSubmit: SubmitHandler<ExploreFormInput> = ({
+    blockchain,
+    chain,
+    address,
+    tokenId,
+  }) => {
+    const tokenUrlSuffix = tokenId ? `/${tokenId}` : ''
+    router.push(`/view/${blockchain}/${chain}/${address}${tokenUrlSuffix}`)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="tw-space-y-form">
-      <div>bc: {blockchain ?? 'null'}</div>
-      <div>nw: {chain ?? 'null'}</div>
-      <div>nw: {JSON.stringify(addressMetadata) ?? 'null'}</div>
-      <div>nw: {loading ? 'true' : 'false'}</div>
-
+    <form onSubmit={handleSubmit(onSubmit)} className="tw-space-y-form tw-max-w-sm md:tw-max-w-none">
       <div className="tw-flex tw-flex-col md:tw-flex-row tw-flex-wrap tw-gap-fields">
         <ControlledField<ExploreFormInput, 'blockchain'>
           name="blockchain"
@@ -224,15 +219,33 @@ export const ExploreForm: FC<Props> = (props) => {
 
       <ErrorMessage error={errors.root} />
 
-      <Button
-        type="submit"
-        className="tw-w-full xs:tw-w-auto"
-        iconRight={
-          <Icon className="tw-mirror-x" icon={searchIcon} />
+      <div className="tw-w-full md:tw-w-auto tw-flex tw-flex-col sm:tw-flex-row tw-gap-4 sm:tw-gap-6">
+        <Button
+          type="submit"
+          className=""
+          iconRight={
+            <Icon className="tw-mirror-x" icon={searchIcon} />
+          }
+        >
+          {i18n.t('view')}
+        </Button>
+
+        {/* Preview */}
+        {blockchain && chain && address
+          ? <RenderWeb3Metadata
+              blockchain={blockchain}
+              chain={chain}
+              address={address}
+              tokenId={tokenId}
+              delay={1000}
+              render={metadata => metadata
+                ? <Web3EntityRepresentation {...metadata} />
+                : null
+              }
+            />
+          : null
         }
-      >
-        {i18n.t('submit')}
-      </Button>
+      </div>
     </form>
   )
 }

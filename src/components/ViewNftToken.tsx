@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import { LayoutSide } from '../layouts'
 import type { TokenData } from '../models'
 import { getAbsoluteBaseUrl, stringify, trpcHooks } from '../utils'
-import { AddressPathRepresentation } from './AddressPathRepresentation'
+import { AddressPathRepresentation } from './representations/AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
 
 type Props = TokenData

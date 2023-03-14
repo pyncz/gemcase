@@ -22,7 +22,7 @@ export const getValidWeb3Data = async (
           if (address && bcConfig.validateAddress(address)) {
             // address is valid
             const addressMetadata = await bcConfig.getAddressMetadata(nwKey, address)
-            const { isNFT, isContract } = addressMetadata
+            const { isContract, isNFT } = addressMetadata
 
             if (isNFT && isTokenId(tokenId)) {
               // can have a tokenId and the provided tokenId is valid
@@ -65,6 +65,7 @@ export const getValidWeb3Data = async (
           }
 
           return {
+            is: undefined,
             blockchain: bcKey,
             blockchainMetadata: {
               label: bcConfig.label,
@@ -80,6 +81,7 @@ export const getValidWeb3Data = async (
       }
 
       return {
+        is: undefined,
         blockchain: bcKey,
         blockchainMetadata: {
           label: bcConfig.label,

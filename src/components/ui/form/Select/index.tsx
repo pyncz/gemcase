@@ -71,7 +71,7 @@ export const Select = forwardRef<HTMLButtonElement, WithClassName<Props>>((props
         ref={ref}
         title={selectedOption ? getTextValue?.(selectedOption) : undefined}
         className={classNames(
-          'tw-input tw-pr-[2em] tw-relative child:tw-max-w-full',
+          'tw-input tw-pr-[2em] tw-relative child:tw-max-w-full child:tw-inline-flex',
           `tw-ui-${size}`,
           className,
         )}

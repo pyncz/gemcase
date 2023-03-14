@@ -314,6 +314,12 @@ module.exports = {
         },
       })
       addUtilities({
+        '.border-avatar': {
+          // tw-border tw-border-separator-vivid tw-border-opacity-muted
+          border: `${theme('borderWidth.DEFAULT')} solid ${c('--c-separator-vivid', theme('opacity.muted'))}`,
+        },
+      })
+      addUtilities({
         '.bg-accent': {
           backgroundImage: 'linear-gradient(135deg, #56FF47 8%, #00FFE0 88%)',
         },
