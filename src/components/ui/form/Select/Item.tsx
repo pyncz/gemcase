@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { forwardRef } from 'react'
 import classNames from 'classnames'
 import { Icon } from '@iconify-icon/react'
-import selectedIcon from '@iconify-icons/ion/checkmark-outline'
+import selectedIcon from '@iconify/icons-ion/checkmark-outline'
 import type { WithClassName } from '../../../../models'
 
 interface Props<

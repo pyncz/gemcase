@@ -3,12 +3,12 @@ import { forwardRef } from 'react'
 import * as Label from '@radix-ui/react-label'
 import classNames from 'classnames'
 import type { MaybePromise } from '@voire/type-utils'
-import type { OmitListeners, Size, WithClassName } from '../../../models'
+import type { OmitListeners, SizeExtra, WithClassName } from '../../../models'
 import { useUiSize, useUncontrolledValue } from '../../../hooks'
 
 interface Props extends OmitListeners<InputHTMLAttributes<HTMLInputElement>> {
   label?: string
-  scale?: Size
+  scale?: SizeExtra
   onChange?: (value: string) => MaybePromise<void>
   onBlur?: () => MaybePromise<void>
 }

@@ -1,6 +1,6 @@
 import type { FC, PropsWithChildren } from 'react'
 import { Icon } from '@iconify-icon/react'
-import openIcon from '@iconify-icons/ion/open-outline'
+import openIcon from '@iconify/icons-ion/open-outline'
 
 interface Props {
   href: string

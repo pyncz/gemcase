@@ -10,6 +10,7 @@ type Props = AddressData
 export const ViewAccount: FC<Props> = (props) => {
   const {
     blockchain,
+    blockchainMetadata,
     chain,
     chainMetadata,
     address,
@@ -28,6 +29,7 @@ export const ViewAccount: FC<Props> = (props) => {
         })}
         description={i18n.t('pages.viewAccount.description', {
           address,
+          blockchain: blockchainMetadata.label,
           chain: chainMetadata.label,
         })}
         image={ogImage}

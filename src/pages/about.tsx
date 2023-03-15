@@ -4,7 +4,7 @@ import type {
 } from 'next'
 import { Icon } from '@iconify-icon/react'
 
-import githubIcon from '@iconify-icons/ion/logo-github-outline'
+import githubIcon from '@iconify/icons-bx/bxl-github'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import { ExternalLink, HeadMeta, PromoCard } from '../components'

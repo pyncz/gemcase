@@ -52,14 +52,11 @@ module.exports = ({ addComponents, addUtilities, theme }) => {
       '--button-bg--hover': 'var(--c-button-secondary-bg-vivid)',
     },
   })
-  addUtilities({
+  addComponents({
     '.button-icon': {
-      '--button-offset': '0.25rem',
-      'padding': 'var(--ui-py)',
-      'height': 'calc(var(--ui-size) + 2 * var(--button-offset))',
-      'width': 'calc(var(--ui-size) + 2 * var(--button-offset))',
-      'fontSize': 'calc(var(--ui-scale) * 1rem + 0.25rem)',
-      'borderRadius': theme('borderRadius.full'),
+      padding: 'var(--ui-py)',
+      height: 'var(--ui-size)',
+      width: 'var(--ui-size)',
     },
   })
 }

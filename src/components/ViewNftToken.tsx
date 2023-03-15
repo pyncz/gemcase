@@ -1,15 +1,23 @@
 import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
+import { useMemo } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { Icon } from '@iconify-icon/react'
+import openIcon from '@iconify/icons-ion/open-outline'
+import shareIcon from '@iconify/icons-ion/share-outline'
+import statsIcon from '@iconify/icons-ion/stats-chart'
 import { LayoutSide } from '../layouts'
 import type { TokenData } from '../models'
 import { formatTokenName, getAbsoluteBaseUrl, trpcHooks } from '../utils'
 import { AddressPathRepresentation } from './representations/AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
-import { Skeleton } from './ui'
+import { Button, ButtonLink, Markdown, Skeleton } from './ui'
 import { ProfileHeader } from './ProfileHeader'
 import { NftContractRepresentation } from './representations'
 import { ViewPort } from './ViewPort'
+import { GroupContainer } from './GroupContainer'
+import { SharePopup } from './share'
 
 type Props = TokenData
 
@@ -36,6 +44,14 @@ export const ViewNftToken: FC<Props> = (props) => {
 
   const name = formatTokenName(tokenId, tokenName, collectionName)
 
+  const hashtags = useMemo(() => {
+    const tags = ['NFT', 'token']
+    if (metadata) {
+      tags.push(metadata.symbol, metadata.name)
+    }
+    return tags
+  }, [metadata])
+
   const ogImage = `${getAbsoluteBaseUrl()}/api/og/${blockchain}/${chain}/${address}/${tokenId}`
 
   return (
@@ -43,12 +59,15 @@ export const ViewNftToken: FC<Props> = (props) => {
       <HeadMeta
         title={i18n.t('pages.viewNftToken.title', {
           name: metadata
-            ? `${metadata.name} #${tokenId} - ${standard}`
-            : `#${tokenId} - ${standard}`,
+            ? `${tokenMetadata?.name ?? `#${+tokenId}`} - ${metadata.name} - ${standard}`
+            : `#${+tokenId} - ${standard}`,
         })}
         description={i18n.t('pages.viewNftToken.description', {
-          name: metadata ? `${metadata.symbol} ${standard}` : standard,
-          tokenId,
+          name: metadata
+            ? tokenMetadata
+              ? `${tokenMetadata.name} (${metadata.name} #${+tokenId}) ${standard}`
+              : `${metadata.name} #${+tokenId} ${standard}`
+            : standard,
           chain: chainMetadata.label,
         })}
         image={ogImage}
@@ -70,8 +89,9 @@ export const ViewNftToken: FC<Props> = (props) => {
               alt={name}
             />
 
-            <div className="tw-px-6 tw-py-2 tw-space-y-fields tw-text-center">
-              <div>
+            <div className="tw-px-6 tw-pt-2 tw-pb-10 md:tw-pb-8 tw-space-y-fields tw-text-center">
+              {/* Summary */}
+              <div className="tw-space-y-2 tw-max-w-[15rem] tw-mx-auto">
                 {/* Title */}
                 <div className="tw-font-bold">
                   <Skeleton.Element width={140}>
@@ -80,32 +100,77 @@ export const ViewNftToken: FC<Props> = (props) => {
                 </div>
 
                 {/* Collection */}
-                <NftContractRepresentation metadata={metadata} />
+                <Link className="tw-link tw-link-regular" href={`/view/${blockchain}/${chain}/${address}`}>
+                  <NftContractRepresentation className="tw-text-sm" metadata={metadata} />
+                </Link>
               </div>
 
-              {/* Amount (for collectible) */}
-              {isCollectibleNFT
-                ? (
-                  <Skeleton.Element width={90}>
-                    <div>amount: {metadata?.amount}</div>
-                  </Skeleton.Element>
-                  )
-                : null
-              }
+              {/* Actions */}
+              {/* TODO: Add like / bookmark buttons */}
+              <div className="tw-flex-center-x tw-gap-2.5">
+                {tokenMetadata?.externalUrl
+                  ? <ButtonLink
+                      targetBlank
+                      href={tokenMetadata.externalUrl}
+                      appearance="secondary"
+                      icon={<Icon icon={openIcon} />}
+                      className="tw-flex-1"
+                    />
+                  : null
+                }
+                {tokenMetadata?.externalUrl
+                  ? <ButtonLink
+                      targetBlank
+                      href={tokenMetadata.externalUrl}
+                      appearance="secondary"
+                      icon={<Icon icon={statsIcon} />}
+                      className="tw-flex-1"
+                    />
+                  : null
+                }
+                <SharePopup
+                  message={i18n.t('share.nftToken', {
+                    name: tokenMetadata?.name ?? standard,
+                  })}
+                  hashtags={hashtags}
+                  url={`/view/${blockchain}/${chain}/${address}/${tokenId}`}
+                >
+                  <Button className="tw-flex-1" icon={<Icon icon={shareIcon} />} />
+                </SharePopup>
+              </div>
+
+              <GroupContainer>
+                {/* Amount (for collectible) */}
+                {isCollectibleNFT
+                  ? (
+                    <Skeleton.Element width={90}>
+                      <div>amount: {metadata?.amount}</div>
+                    </Skeleton.Element>
+                    )
+                  : null
+                }
+                <Skeleton.Element width={90}>
+                  {standard
+                    ? <div>standard: {standard}</div>
+                    : null
+                  }
+                </Skeleton.Element>
+              </GroupContainer>
 
               {`
               - standard
               - traits {metadata?.metadata?.attributes}
-              - site / opensea {metadata?.metadata?.externalUrl}
-              - scan link
               - original image link
-
-              - share button?
-              - like / bookmark
               `}
 
               <Skeleton.Element width={280} height={200}>
-                {metadata?.metadata?.description ?? null}
+                {tokenMetadata?.description
+                  ? <Markdown
+                      className="tw-text-ellipsis tw-overflow-hidden tw-text-sm tw-text-dim-1"
+                      content={tokenMetadata.description}
+                    />
+                  : null
+                }
               </Skeleton.Element>
             </div>
             {/* TODO: Add stats, e.g. floor price, etc */}
@@ -118,10 +183,10 @@ export const ViewNftToken: FC<Props> = (props) => {
             </div>
 
             <Skeleton.Element size={320} className="tw-rounded">
-              {metadata?.metadata?.image
+              {tokenMetadata?.image
                 ? <Image
                     className="tw-object-contain"
-                    src={metadata.metadata.image}
+                    src={tokenMetadata.image}
                     alt={name}
                     fill
                   />

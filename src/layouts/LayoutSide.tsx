@@ -9,7 +9,7 @@ type Props = WithClassName<WithOptionalSlots<'details'>>
  */
 export const LayoutSide: FC<PropsWithChildren<Props>> = ({ children, details, className }) => {
   return (
-    <div className={classNames('tw-h-full md:tw-grid md:tw-grid-cols-[3fr_minmax(18rem,1fr)]', className)}>
+    <div className={classNames('tw-snap-y tw-snap-mandatory tw-h-full md:tw-grid md:tw-grid-cols-[3fr_minmax(20rem,1fr)]', className)}>
       <aside className="tw-border-b tw-border-b-separator md:tw-max-h-screen md:tw-sticky md:tw-top-0 md:tw-overflow-y-auto md:tw-col-[2] md:tw-border-b-0 md:tw-border-l md:tw-border-l-separator">
         {details ?? null}
       </aside>

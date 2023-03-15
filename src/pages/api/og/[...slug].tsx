@@ -29,8 +29,8 @@ const getOgpengraphImageByConfig = async (config: Web3Data): Promise<Nullable<Bu
         } // -> fallback down to a regular template image
 
         return await generateOpengraphImage({
-          title: metadata.name,
-          description: `View ${metadata.symbol} #${+tokenId} on gemcase`,
+          title: metadata.metadata?.name ?? metadata.name,
+          description: `View ${metadata.name} #${+tokenId} on gemcase`,
         })
       } // -> fallback down to NFT Contract Address if there's no metadata
     }
@@ -71,7 +71,7 @@ const getOgpengraphImageByConfig = async (config: Web3Data): Promise<Nullable<Bu
       // A regular address
       return await generateOpengraphImage({
         title: formatAddress(address),
-        description: 'View address on gemcase',
+        description: `View ${blockchain} address on gemcase`,
       })
     }
   }

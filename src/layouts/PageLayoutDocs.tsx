@@ -13,7 +13,7 @@ export const PageLayoutDocs: FC<PropsWithChildren> = ({ children }) => {
       <LayoutSide className="tw-h-full">
         <article className="tw-px-container tw-py-section tw-w-full tw-block tw-max-w-[48rem] tw-mx-auto">
           <div className="tw-flex sm:tw-hidden">
-            <Link href="/" className="tw-relative tw--left-1 tw--top-4">
+            <Link href="/" className="!tw-border-none tw-relative tw--left-1 tw--top-4">
               <LogoMain size="sm" />
             </Link>
           </div>

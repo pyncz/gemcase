@@ -10,7 +10,7 @@ import { trpcHooks } from '../utils'
 import { ColorModeProvider, ScaleUiProvider } from '../contexts'
 import { ErrorBoundary } from '../components'
 import { LayoutBase } from '../layouts'
-import type { AppPropsWithLayout, Size } from '../models'
+import type { AppPropsWithLayout, SizeExtra } from '../models'
 
 import { store } from '../stores'
 import { useBreakpoint } from '../hooks'
@@ -47,7 +47,7 @@ const App: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
   const Layout = Component.Layout ?? LayoutBase
 
   const gteXsScreen = useBreakpoint('xs')
-  const scale: Size = gteXsScreen ? 'md' : 'lg'
+  const scale: SizeExtra = gteXsScreen ? 'md' : 'lg'
 
   useEffect(() => {
     const root = document.getElementsByTagName('html')[0]!

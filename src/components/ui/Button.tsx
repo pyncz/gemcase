@@ -1,20 +1,9 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { forwardRef } from 'react'
 import classNames from 'classnames'
-import type { Size, WithClassName } from '../../models'
+import type { ButtonProps, WithClassName } from '../../models'
 import { useUiSize } from '../../hooks'
 
-type Appearance = 'primary' | 'secondary'
-
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  scale?: Size
-  appearance?: Appearance
-  icon?: ReactNode
-  iconLeft?: ReactNode
-  iconRight?: ReactNode
-}
-
-export const Button = forwardRef<HTMLButtonElement, WithClassName<Props>>((props, ref) => {
+export const Button = forwardRef<HTMLButtonElement, WithClassName<ButtonProps>>((props, ref) => {
   const {
     children,
     appearance = 'primary',
@@ -27,7 +16,6 @@ export const Button = forwardRef<HTMLButtonElement, WithClassName<Props>>((props
   } = props
 
   const size = useUiSize(scale) ?? 'md'
-
   const noContent = !(children || iconLeft || iconRight)
 
   return (

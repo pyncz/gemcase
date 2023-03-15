@@ -210,7 +210,7 @@ module.exports = {
       },
       spacing: {
         // for height / width
-        sidebar: '80px',
+        sidebar: 'var(--h-sidebar)',
         // for spacing
         list: '1.25rem',
         title: '2.5rem',
@@ -323,10 +323,10 @@ module.exports = {
           transition: 'all 300ms, background 0s',
         },
       })
-      addUtilities({
+      addComponents({
         '.border-avatar': {
-          // tw-border tw-border-separator-vivid tw-border-opacity-muted
-          border: `${theme('borderWidth.DEFAULT')} solid ${c('--c-separator-vivid', theme('opacity.muted'))}`,
+          '--tw-border-opacity': theme('opacity.muted'),
+          'border': `${theme('borderWidth.DEFAULT')} solid ${c('--c-separator-vivid', 'var(--tw-border-opacity)')}`,
         },
       })
       addUtilities({
@@ -375,7 +375,6 @@ module.exports = {
         { logo: size },
         {
           values: {
-            icon: '1.25em',
             xs: '1.5rem',
             sm: '2.25rem',
             md: '3rem',

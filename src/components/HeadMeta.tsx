@@ -2,6 +2,7 @@ import Head from 'next/head'
 import type { FC, PropsWithChildren } from 'react'
 import { useRouter } from 'next/router'
 import { getAbsoluteBaseUrl } from '../utils'
+import { APP_TWITTER_HANDLE } from '../consts'
 
 interface Props {
   pageTitle?: string
@@ -50,7 +51,10 @@ export const HeadMeta: FC<PropsWithChildren<Props>> = (props) => {
       <meta property="twitter:title" content={title} key="twitter-title" />
       <meta property="twitter:description" content={description} key="twitter-description" />
       <meta property="twitter:url" content={href} key="twitter-url" />
-      <meta property="twitter:site" content="@iampyncz" key="twitter-site" />
+      {APP_TWITTER_HANDLE
+        ? <meta property="twitter:site" content={`@${APP_TWITTER_HANDLE}`} key="twitter-site" />
+        : null
+      }
       {creator ? <meta property="twitter:creator" content={creator} key="twitter-creator" /> : null}
       {image ? <meta property="twitter:image" content={image} key="twitter-image" /> : null}
 

@@ -56,8 +56,8 @@
       "title": "Settings"
     },
     "viewAccount": {
-      "description": "View {{address}} blockchain address on {{chain}} chain",
-      "title": "{{address}} in {{chain}}"
+      "description": "View {{address}} {{blockchain}} address on {{chain}} chain",
+      "title": "{{address}} on {{chain}}"
     },
     "viewCoinContract": {
       "description": "View {{name}} coin contract on {{chain}} chain",
@@ -68,7 +68,7 @@
       "title": "{{name}}"
     },
     "viewNftToken": {
-      "description": "View {{name}} NFT token #{{tokenId}} on {{chain}} chain",
+      "description": "View {{name}} NFT token on {{chain}} chain",
       "title": "{{name}}"
     }
   },
@@ -87,6 +87,9 @@
     }
   },
   "refresh": "Refresh page",
+  "share": {
+    "nftToken": "What a fabulous {{name}} NFT token on gemcase!"
+  },
   "submit": "Submit",
   "theme": {
     "_": "Color mode",

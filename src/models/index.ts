@@ -1,5 +1,7 @@
 export * from './schemas'
 
+export * from './props'
+
 export * from './utils'
 export * from './ui'
 export * from './web3'

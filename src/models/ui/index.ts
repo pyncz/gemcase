@@ -1,3 +1,4 @@
-export * from './core.types'
-export * from './size.types'
-export * from './theme.types'
+export * from './core'
+export * from './size'
+export * from './theme'
+export * from './share'

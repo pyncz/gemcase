@@ -1,14 +1,14 @@
 import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
-import type { Size } from '../../models'
+import type { SizeExtra } from '../../models'
 
 interface Props {
-  size?: Size
+  size?: SizeExtra
 }
 
 export const LogoMain: FC<Props> = (props) => {
   const { i18n } = useTranslation()
-  const size: Size = props.size ?? 'md'
+  const size: SizeExtra = props.size ?? 'md'
 
   return (
     <span title={i18n.t('logo', { name: 'gemcase' })}>

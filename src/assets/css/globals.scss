@@ -22,6 +22,9 @@
     font-size: 16px; // 1rem
     @apply tw-font-main tw-bg-base tw-text-base tw-leading-sm;
   }
+  a {
+    @apply tw-link;
+  }
   body {
     @apply tw-overscroll-none;
   }
@@ -69,6 +72,8 @@
     --r-lg: 0.5rem;
     --r-xl: 0.75rem;
     --r-navlink: var(--r-lg);
+
+    --h-sidebar: 80px;
 
     // Default: light mode
     @include light-mode;

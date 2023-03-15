@@ -2,11 +2,11 @@ import type { ReactNode } from 'react'
 import { forwardRef, useMemo } from 'react'
 import * as RadixSelect from '@radix-ui/react-select'
 import { Icon } from '@iconify-icon/react'
-import chevronDownIcon from '@iconify-icons/ion/chevron-down'
+import chevronDownIcon from '@iconify/icons-ion/chevron-down'
 import classNames from 'classnames'
-import chevronUpIcon from '@iconify-icons/ion/chevron-up'
+import chevronUpIcon from '@iconify/icons-ion/chevron-up'
 import { useUiSize, useUncontrolledValue } from '../../../../hooks'
-import type { Size, WithClassName } from '../../../../models'
+import type { SizeExtra, WithClassName } from '../../../../models'
 import { SelectItem } from './Item'
 
 interface Props<
@@ -26,7 +26,7 @@ interface Props<
   renderOption?: (option: TOption, options: {
     selected: boolean
   }) => ReactNode
-  scale?: Size
+  scale?: SizeExtra
 }
 
 export const Select = forwardRef<HTMLButtonElement, WithClassName<Props>>((props, ref) => {

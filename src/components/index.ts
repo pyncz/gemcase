@@ -2,6 +2,7 @@ export * from './logos'
 export * from './errors'
 export * from './ui'
 export * from './representations'
+export * from './share'
 
 export * from './HeadMeta'
 

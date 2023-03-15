@@ -34,7 +34,7 @@ export const ViewNftContract: FC<Props> = (props) => {
           name: metadata ? `${metadata.name} - ${standard}` : standard,
         })}
         description={i18n.t('pages.viewNftContract.description', {
-          name: metadata ? `${metadata.symbol} ${standard}` : standard,
+          name: metadata ? `${metadata.name} (${metadata.symbol}) ${standard}` : standard,
           chain: chainMetadata.label,
         })}
         image={ogImage}

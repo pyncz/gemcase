@@ -1,9 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
+import type { WithClassName } from '../models'
 import { RadioGroup } from './ui'
 
-export const LocaleRadio: FC = () => {
+export const LocaleRadio: FC<WithClassName> = ({ className }) => {
   const { i18n } = useTranslation()
   const router = useRouter()
 
@@ -13,6 +14,7 @@ export const LocaleRadio: FC = () => {
 
   return (
     <RadioGroup
+      className={className}
       defaultValue={i18n.language}
       options={router.locales}
       onChange={(locale) => {

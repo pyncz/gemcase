@@ -4,11 +4,11 @@ import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import { colorModes } from '../consts'
 import { useColorMode } from '../hooks'
-import type { ColorMode } from '../models'
+import type { ColorMode, WithClassName } from '../models'
 import { getColorModeValue } from '../utils'
 import { RadioGroup } from './ui'
 
-export const ThemeRadio: FC = () => {
+export const ThemeRadio: FC<WithClassName> = ({ className }) => {
   const { switchColorMode, colorMode, fallbackTheme } = useColorMode()
   const { i18n } = useTranslation()
 
@@ -16,6 +16,7 @@ export const ThemeRadio: FC = () => {
     <RadioGroup
       value={colorMode ?? 'system'}
       options={colorModes.map(x => x)}
+      className={className}
       onChange={(colorMode) => {
         switchColorMode(getColorModeValue(colorMode as ColorMode))
       }}
