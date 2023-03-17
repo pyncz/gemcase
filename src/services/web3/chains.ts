@@ -7,6 +7,10 @@ export const evmChains = {
     rpcDomain: 'mainnet',
     aliases: ['0x1', 'ethereum', 'mainnet', 'ethereum-mainnet', 1] as const,
     logo: '/img/chains/ethereum-eth-logo.png',
+    explorer: {
+      label: 'Etherscan',
+      url: 'https://etherscan.io/',
+    },
     test: false,
   },
   goerli: {
@@ -15,6 +19,10 @@ export const evmChains = {
     rpcDomain: 'goerli',
     aliases: ['0x5', 'testnet', 'goerli-testnet', 5] as const,
     logo: '/img/chains/ethereum-eth-logo.png',
+    explorer: {
+      label: 'Etherscan Goerli Testnet Explorer',
+      url: 'https://goerli.etherscan.io/',
+    },
     test: true,
   },
   sepolia: {
@@ -23,6 +31,10 @@ export const evmChains = {
     rpcDomain: 'sepolia',
     aliases: ['0xaa36a7', 'sepolia-testnet', 11155111] as const,
     logo: '/img/chains/ethereum-eth-logo.png',
+    explorer: {
+      label: 'Etherscan Sepolia Testnet Explorer',
+      url: 'https://sepolia.etherscan.io/',
+    },
     test: true,
   },
   polygon: {
@@ -31,6 +43,10 @@ export const evmChains = {
     rpcDomain: 'polygon-mainnet',
     aliases: ['0x89', 'matic', 'polygon-mainnet', 'matic-mainnet', 137] as const,
     logo: '/img/chains/polygon-matic-logo.png',
+    explorer: {
+      label: 'Polygonscan',
+      url: 'https://polygonscan.com/',
+    },
     test: false,
   },
   mumbai: {
@@ -39,6 +55,10 @@ export const evmChains = {
     rpcDomain: 'polygon-mumbai',
     aliases: ['0x13881', 'polygon-mumbai', 80001] as const,
     logo: '/img/chains/polygon-matic-logo.png',
+    explorer: {
+      label: 'Polygonscan Mumbai',
+      url: 'https://mumbai.polygonscan.com/',
+    },
     test: true,
   },
   avalanche: {
@@ -47,6 +67,10 @@ export const evmChains = {
     rpcDomain: 'avalanche-mainnet',
     aliases: ['0xa86a', 'avalanche-mainnet', 43114] as const,
     logo: '/img/chains/avalanche-avax-logo.png',
+    explorer: {
+      label: 'SnowTrace Avalanche C-Chain Explorer',
+      url: 'https://snowtrace.io/',
+    },
     test: false,
   },
   avalancheTestnet: {
@@ -55,6 +79,10 @@ export const evmChains = {
     rpcDomain: 'avalanche-fuji',
     aliases: ['0xa869', 'avalanche-fuji', 'fuji', 43113] as const,
     logo: '/img/chains/avalanche-avax-logo.png',
+    explorer: {
+      label: 'SnowTrace Avalanche C-Chain Testnet Explorer',
+      url: 'https://testnet.snowtrace.io/',
+    },
     test: true,
   },
   palm: {
@@ -63,6 +91,10 @@ export const evmChains = {
     rpcDomain: 'palm-mainnet',
     aliases: ['0x2a15c308d', 'palm-mainnet', 11297108109] as const,
     logo: '/img/chains/palm-logo.png',
+    explorer: {
+      label: 'Epirus Palm Explorer',
+      url: 'https://palm.epirus.io/',
+    },
     test: false,
   },
   arbitrum: {
@@ -71,6 +103,10 @@ export const evmChains = {
     rpcDomain: 'arbitrum-mainnet',
     aliases: ['0xa4b1', 'arbitrum-mainnet', 42161] as const,
     logo: '/img/chains/arbitrum-logo.png',
+    explorer: {
+      label: 'Arbiscan Arbitrum One Explorer',
+      url: 'https://arbiscan.io/',
+    },
     test: false,
   },
 
