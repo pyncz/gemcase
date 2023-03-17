@@ -1,4 +1,4 @@
-import type { BigintLike, StringifiedBigint } from '../models'
+import type { BigintLike, StringifiedBigint } from '@voire/type-utils'
 import { isHexString } from './isHexString'
 
 export const isStringifiedBigint = (value: any): value is StringifiedBigint => {

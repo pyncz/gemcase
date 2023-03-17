@@ -1,7 +1,6 @@
-import type { Optional } from '@voire/type-utils'
+import type { Optional, SizeExtra } from '@voire/type-utils'
 import type { FC, PropsWithChildren } from 'react'
 import { createContext } from 'react'
-import type { SizeExtra } from '../models'
 
 interface ScaleUiContextType {
   size: Optional<SizeExtra>

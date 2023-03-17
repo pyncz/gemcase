@@ -1,5 +1,4 @@
-import type { BigintLike } from './bigint'
-import type { NumberLike } from './number'
+import type { BigintLike, NumberLike } from '@voire/type-utils'
 
 export interface PriceData<T extends NumberLike | BigintLike = NumberLike | BigintLike> {
   value: T

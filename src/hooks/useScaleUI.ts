@@ -1,6 +1,6 @@
 import { useContext } from 'react'
+import type { SizeExtra } from '@voire/type-utils'
 import { ScaleUiContext } from '../contexts'
-import type { SizeExtra } from '../models'
 
 export const useUiScale = () => useContext(ScaleUiContext)
 

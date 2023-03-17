@@ -1,7 +1,8 @@
 import classNames from 'classnames'
 import Image from 'next/image'
 import type { FC, ReactElement } from 'react'
-import type { SizeExtra, WithClassName } from '../../../models'
+import type { SizeExtra } from '@voire/type-utils'
+import type { WithClassName } from '../../../models'
 
 type Props = {
   image: string

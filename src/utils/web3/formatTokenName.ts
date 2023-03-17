@@ -1,4 +1,4 @@
-import type { NumberLike } from '../../models'
+import type { NumberLike } from '@voire/type-utils'
 
 export const formatTokenName = (
   tokenId: NumberLike,

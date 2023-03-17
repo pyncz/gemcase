@@ -1,5 +1,4 @@
-import type { Nullable } from '@voire/type-utils'
-import type { Flags } from '../../utils'
+import type { Flags, Nullable } from '@voire/type-utils'
 
 export type AddressMetadata = Flags<
   | 'isContract'

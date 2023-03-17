@@ -1,4 +1,4 @@
-import type { NumberLike } from '../number'
+import type { NumberLike } from '@voire/type-utils'
 import type { AddressData, AddressPath } from './address'
 
 export interface TokenPath extends AddressPath {

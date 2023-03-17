@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC, PropsWithChildren } from 'react'
-import type { Position } from '../models'
+import type { Position } from '@voire/type-utils'
 import { Tooltip } from './ui'
 
 interface Props {

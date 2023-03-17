@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
-import type { SizeExtra } from '../../models'
+import type { SizeExtra } from '@voire/type-utils'
 
 interface Props {
   size?: SizeExtra

@@ -1,7 +1,8 @@
 import type { FC, PropsWithChildren } from 'react'
 import * as RadixTooltip from '@radix-ui/react-tooltip'
 import classNames from 'classnames'
-import type { Position, WithSlots } from '../../models'
+import type { Position } from '@voire/type-utils'
+import type { WithSlots } from '../../models'
 
 type Props = WithSlots<'trigger'> & {
   position?: Position

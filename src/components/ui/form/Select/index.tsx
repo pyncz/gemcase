@@ -5,8 +5,9 @@ import { Icon } from '@iconify-icon/react'
 import chevronDownIcon from '@iconify/icons-ion/chevron-down'
 import classNames from 'classnames'
 import chevronUpIcon from '@iconify/icons-ion/chevron-up'
+import type { SizeExtra } from '@voire/type-utils'
 import { useUiSize, useUncontrolledValue } from '../../../../hooks'
-import type { SizeExtra, WithClassName } from '../../../../models'
+import type { WithClassName } from '../../../../models'
 import { SelectItem } from './Item'
 
 interface Props<

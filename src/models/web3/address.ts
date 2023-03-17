@@ -1,4 +1,4 @@
-import type { HexString } from '../hex'
+import type { HexString } from '@voire/type-utils'
 import type { ChainData, ChainPath } from './chain'
 import type { AddressMetadata } from './metadata'
 

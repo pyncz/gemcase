@@ -1,5 +1,5 @@
-import type { Entry, Nullable } from '@voire/type-utils'
-import type { InferKey, InferSlug, InferValue } from '../../models'
+import type { Entry, InferKey, InferValue, Nullable } from '@voire/type-utils'
+import type { InferSlug } from '../../models'
 
 export interface WithAliases<T extends string | number> {
   aliases?: Readonly<T[]>
@@ -8,10 +8,10 @@ export interface WithAliases<T extends string | number> {
 type BaseConfig<
   T extends Record<string, Record<string, any>>,
 > = T & {
-  validateBlockchain(bc: string): bc is InferSlug<T, string>
-  findBlockchain(bc: string): Nullable<Entry<InferKey<T>, InferValue<T>>>
-  validateChain(bc: InferSlug<T, string>, nw: string | number): nw is InferSlug<InferValue<T>['chains']>
-  findChain(bc: InferSlug<T, string>, nw: string | number): Nullable<Entry<InferKey<InferValue<T>['chains']>, InferValue<InferValue<T>['chains']>>>
+  validateBlockchain(bc: string | number): bc is InferSlug<T>
+  findBlockchain(bc: string | number): Nullable<Entry<InferKey<T>, InferValue<T>>>
+  validateChain(bc: InferSlug<T>, nw: string | number): nw is InferSlug<InferValue<T>['chains']>
+  findChain(bc: InferSlug<T>, nw: string | number): Nullable<Entry<InferKey<InferValue<T>['chains']>, InferValue<InferValue<T>['chains']>>>
 }
 
 interface BaseBlockchainConfig<
@@ -59,12 +59,12 @@ export const createAdapter = <
 >(
     config: T,
   ): BaseConfig<T> => {
-  const findBlockchain = (bc: string) => findByKeyOrAlias(config, bc)
+  const findBlockchain = (bc: string | number) => findByKeyOrAlias(config, bc)
 
   return {
     ...config,
     findBlockchain,
-    validateBlockchain: (bc): bc is InferSlug<T, string> => {
+    validateBlockchain: (bc): bc is InferSlug<T> => {
       return !!findBlockchain(bc)
     },
     validateChain: (bc, nw): nw is InferSlug<T[typeof bc]['chains']> => {

@@ -29,7 +29,7 @@ specifiers:
   '@types/smart-truncate': ^1.0.2
   '@typescript-eslint/eslint-plugin': ^5.33.0
   '@typescript-eslint/parser': ^5.33.0
-  '@voire/type-utils': ^1.1.2
+  '@voire/type-utils': ^1.2.0
   '@wiiib/check-evm-address': ^1.0.1
   autoprefixer: ^10.4.7
   classnames: ^2.3.2
@@ -84,7 +84,7 @@ dependencies:
   '@trpc/react-query': 10.5.0_hkttq5uvq7kltri3tppuogqqou
   '@trpc/server': 10.5.0
   '@types/sharp': 0.31.1
-  '@voire/type-utils': 1.1.2
+  '@voire/type-utils': 1.2.0
   '@wiiib/check-evm-address': 1.0.1
   classnames: 2.3.2
   ethers: 6.0.3
@@ -1755,8 +1755,8 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@voire/type-utils/1.1.2:
-    resolution: {integrity: sha512-zdywnC0IRcStpVV6YnzYUuqv6k9Hz4sKMAJgMIr6O2Mpd0w7SlelNZ4T94JPT32TNWTjepvqd9Efa7vKnGPYHw==}
+  /@voire/type-utils/1.2.0:
+    resolution: {integrity: sha512-/FttTm9ijEZLniUWNpNlbCHEli19fybVTjTlwKOv730TwBribQA/4uvB+LkV0hOAjlmUAMMu97USnB5X1cbJpw==}
     dev: false
 
   /@wiiib/check-evm-address/1.0.1:

@@ -1,4 +1,4 @@
-import type { colorModes, themes } from '../../consts'
+import type { colorModes, themes } from '../consts'
 
 export type Theme = typeof themes[number]
 

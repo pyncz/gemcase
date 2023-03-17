@@ -6,11 +6,12 @@ import '../assets/css/globals.scss'
 
 import { Provider as ReduxProvider } from 'react-redux'
 import { useEffect } from 'react'
+import type { SizeExtra } from '@voire/type-utils'
 import { trpcHooks } from '../utils'
 import { ColorModeProvider, ScaleUiProvider } from '../contexts'
 import { ErrorBoundary } from '../components'
 import { LayoutBase } from '../layouts'
-import type { AppPropsWithLayout, SizeExtra } from '../models'
+import type { AppPropsWithLayout } from '../models'
 
 import { store } from '../stores'
 import { useBreakpoint } from '../hooks'

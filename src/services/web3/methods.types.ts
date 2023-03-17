@@ -1,5 +1,5 @@
-import type { MaybePromise, Nullable } from '@voire/type-utils'
-import type { AddressMetadata, CoinContractMarketMetadata, Metadata, NftContractMetadata, NftTokenMetadata, NumberLike } from '../../models'
+import type { MaybePromise, Nullable, NumberLike } from '@voire/type-utils'
+import type { AddressMetadata, CoinContractMarketMetadata, Metadata, NftContractMetadata, NftTokenMetadata } from '../../models'
 
 export interface Methods<
   Address extends string = string,

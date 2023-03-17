@@ -2,8 +2,8 @@ import type { InputHTMLAttributes } from 'react'
 import { forwardRef } from 'react'
 import * as Label from '@radix-ui/react-label'
 import classNames from 'classnames'
-import type { MaybePromise } from '@voire/type-utils'
-import type { OmitListeners, SizeExtra, WithClassName } from '../../../models'
+import type { MaybePromise, OmitListeners, SizeExtra } from '@voire/type-utils'
+import type { WithClassName } from '../../../models'
 import { useUiSize, useUncontrolledValue } from '../../../hooks'
 
 interface Props extends OmitListeners<InputHTMLAttributes<HTMLInputElement>> {

@@ -1,4 +1,4 @@
-import type { NumberLike } from '../../models'
+import type { NumberLike } from '@voire/type-utils'
 import { isNumberLike } from '../isNumberLike'
 
 export const isTokenId = (value: any): value is NumberLike => {

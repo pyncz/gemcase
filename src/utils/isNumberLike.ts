@@ -1,4 +1,4 @@
-import type { NumberLike, StringifiedNumber } from '../models'
+import type { NumberLike, StringifiedNumber } from '@voire/type-utils'
 import { isHexString } from './isHexString'
 
 export const isStringifiedNumber = (value: any): value is StringifiedNumber => {

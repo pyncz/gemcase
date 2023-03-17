@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import type { SizeExtra } from '../ui'
+import type { SizeExtra } from '@voire/type-utils'
 
 type Appearance = 'primary' | 'secondary'
 
