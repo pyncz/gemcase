@@ -10,6 +10,7 @@ import statsIcon from '@iconify/icons-ion/stats-chart'
 import { LayoutSide } from '../layouts'
 import type { TokenData } from '../models'
 import { formatTokenName, getAbsoluteBaseUrl, trpcHooks } from '../utils'
+import { exploreAdapter } from '../services/exploreAdapter'
 import { AddressPathRepresentation } from './representations/AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
 import { Button, ButtonLink, Markdown, Skeleton } from './ui'
@@ -107,24 +108,25 @@ export const ViewNftToken: FC<Props> = (props) => {
 
               {/* Actions */}
               {/* TODO: Add like / bookmark buttons */}
-              <div className="tw-flex-center-x tw-gap-2.5">
+              <div className="tw-grid tw-grid-cols-[repeat(3,_1fr)] tw-gap-2.5">
                 {tokenMetadata?.externalUrl
                   ? <ButtonLink
                       targetBlank
                       href={tokenMetadata.externalUrl}
                       appearance="secondary"
                       icon={<Icon icon={openIcon} />}
-                      className="tw-flex-1"
                     />
                   : null
                 }
-                {tokenMetadata?.externalUrl
+                {chainMetadata.explorer
                   ? <ButtonLink
                       targetBlank
-                      href={tokenMetadata.externalUrl}
+                      href={exploreAdapter[chainMetadata.explorer.resolver].token({
+                        address,
+                        tokenId,
+                      })}
                       appearance="secondary"
                       icon={<Icon icon={statsIcon} />}
-                      className="tw-flex-1"
                     />
                   : null
                 }
@@ -135,7 +137,7 @@ export const ViewNftToken: FC<Props> = (props) => {
                   hashtags={hashtags}
                   url={`/view/${blockchain}/${chain}/${address}/${tokenId}`}
                 >
-                  <Button className="tw-flex-1" icon={<Icon icon={shareIcon} />} />
+                  <Button className="tw-w-auto" icon={<Icon icon={shareIcon} />} />
                 </SharePopup>
               </div>
 

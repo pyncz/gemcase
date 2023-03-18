@@ -1,4 +1,5 @@
 import type { EvmChainID } from '../../models'
+import type { Explorer } from '../exploreAdapter'
 
 export const evmChains = {
   eth: {
@@ -9,7 +10,7 @@ export const evmChains = {
     logo: '/img/chains/ethereum-eth-logo.png',
     explorer: {
       label: 'Etherscan',
-      url: 'https://etherscan.io/',
+      resolver: 'eth' as Explorer,
     },
     test: false,
   },
@@ -21,7 +22,7 @@ export const evmChains = {
     logo: '/img/chains/ethereum-eth-logo.png',
     explorer: {
       label: 'Etherscan Goerli Testnet Explorer',
-      url: 'https://goerli.etherscan.io/',
+      resolver: 'goerli' as Explorer,
     },
     test: true,
   },
@@ -33,7 +34,7 @@ export const evmChains = {
     logo: '/img/chains/ethereum-eth-logo.png',
     explorer: {
       label: 'Etherscan Sepolia Testnet Explorer',
-      url: 'https://sepolia.etherscan.io/',
+      resolver: 'sepolia' as Explorer,
     },
     test: true,
   },
@@ -45,7 +46,7 @@ export const evmChains = {
     logo: '/img/chains/polygon-matic-logo.png',
     explorer: {
       label: 'Polygonscan',
-      url: 'https://polygonscan.com/',
+      resolver: 'polygon' as Explorer,
     },
     test: false,
   },
@@ -57,7 +58,7 @@ export const evmChains = {
     logo: '/img/chains/polygon-matic-logo.png',
     explorer: {
       label: 'Polygonscan Mumbai',
-      url: 'https://mumbai.polygonscan.com/',
+      resolver: 'mumbai' as Explorer,
     },
     test: true,
   },
@@ -69,7 +70,7 @@ export const evmChains = {
     logo: '/img/chains/avalanche-avax-logo.png',
     explorer: {
       label: 'SnowTrace Avalanche C-Chain Explorer',
-      url: 'https://snowtrace.io/',
+      resolver: 'avalanche' as Explorer,
     },
     test: false,
   },
@@ -81,7 +82,7 @@ export const evmChains = {
     logo: '/img/chains/avalanche-avax-logo.png',
     explorer: {
       label: 'SnowTrace Avalanche C-Chain Testnet Explorer',
-      url: 'https://testnet.snowtrace.io/',
+      resolver: 'avalancheTestnet' as Explorer,
     },
     test: true,
   },
@@ -93,7 +94,7 @@ export const evmChains = {
     logo: '/img/chains/palm-logo.png',
     explorer: {
       label: 'Epirus Palm Explorer',
-      url: 'https://palm.epirus.io/',
+      resolver: 'palm' as Explorer,
     },
     test: false,
   },
@@ -105,7 +106,7 @@ export const evmChains = {
     logo: '/img/chains/arbitrum-logo.png',
     explorer: {
       label: 'Arbiscan Arbitrum One Explorer',
-      url: 'https://arbiscan.io/',
+      resolver: 'arbitrum' as Explorer,
     },
     test: false,
   },

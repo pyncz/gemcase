@@ -1,7 +1,7 @@
 import type { Nullable } from '@voire/type-utils'
 import type { Web3Data } from '../models'
 import { isTokenId } from '../utils'
-import { web3Adapter } from './web3Adapter/web3Adapter'
+import { web3Adapter } from './web3Adapter'
 
 export const getValidWeb3Data = async (
   blockchain?: string,
@@ -37,6 +37,7 @@ export const getValidWeb3Data = async (
                 chainMetadata: {
                   label: nwConfig.label,
                   logo: nwConfig.logo ?? null,
+                  explorer: nwConfig.explorer ?? null,
                   test: nwConfig.test ?? null,
                 },
                 address,
@@ -58,6 +59,8 @@ export const getValidWeb3Data = async (
               chainMetadata: {
                 label: nwConfig.label,
                 logo: nwConfig.logo ?? null,
+                explorer: nwConfig.explorer ?? null,
+                test: nwConfig.test ?? null,
               },
               address,
               ...addressMetadata,
@@ -75,6 +78,8 @@ export const getValidWeb3Data = async (
             chainMetadata: {
               label: nwConfig.label,
               logo: nwConfig.logo ?? null,
+              explorer: nwConfig.explorer ?? null,
+              test: nwConfig.test ?? null,
             },
           }
         }
