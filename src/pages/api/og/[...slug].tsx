@@ -1,7 +1,7 @@
 import type { Nullable } from '@voire/type-utils'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Web3Data } from '../../../models'
-import { adapter } from '../../../services/web3'
+import { web3Adapter } from '../../../services/web3Adapter'
 import { getValidWeb3Data } from '../../../services/getValidWeb3Data'
 import { generateOpengraphImage } from '../../../services/generateOgImage'
 import { formatAddress, getParamsArray } from '../../../utils'
@@ -12,7 +12,7 @@ const getOgpengraphImageByConfig = async (config: Web3Data): Promise<Nullable<Bu
   // NFT
   if (is === 'nft') {
     const { blockchain, chain, address, tokenId } = config
-    const [_bc, bcConfig] = adapter.findBlockchain(blockchain) ?? []
+    const [_bc, bcConfig] = web3Adapter.findBlockchain(blockchain) ?? []
     if (bcConfig && bcConfig.validateAddress(address)) {
       const metadata = await bcConfig.getNftTokenMetadata(chain, address, tokenId)
 
@@ -39,7 +39,7 @@ const getOgpengraphImageByConfig = async (config: Web3Data): Promise<Nullable<Bu
   // Address
   if (is) {
     const { blockchain, chain, address, standard } = config
-    const [_bc, bcConfig] = adapter.findBlockchain(blockchain) ?? []
+    const [_bc, bcConfig] = web3Adapter.findBlockchain(blockchain) ?? []
     if (bcConfig && bcConfig.validateAddress(address)) {
       // NFT Contract Address
       if (['nftContract', 'nft'].includes(is)) {

@@ -7,7 +7,7 @@ import { chainSchema } from './chain'
  *
  * ```ts
  * addressSchema.refine(({ blockchain, chain, address }) => {
- *   const [_, bcConfig] = adapter.findBlockchain(blockchain) ?? []
+ *   const [_, bcConfig] = web3Adapter.findBlockchain(blockchain) ?? []
  *   return bcConfig
  *     ? bcConfig.validateChain(chain) && bcConfig.validateAddress(address)
  *     : false // invalid blockchain

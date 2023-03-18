@@ -1,5 +1,5 @@
 import type { HexString, Nullable } from '@voire/type-utils'
-import type { ChainKey } from '../../services/web3'
+import type { ChainKey } from '../../services/web3Adapter'
 import type { BlockchainData, BlockchainPath } from './blockchain'
 
 export type EvmChainID = HexString | number

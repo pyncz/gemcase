@@ -5,7 +5,7 @@ import { HeadMeta, ServerErrorSummary } from '../components'
 import { PageLayoutMessage } from '../layouts'
 import type { NextPageWithLayout, Web3PublicConfig } from '../models'
 import i18nextConfig from '../../next-i18next.config'
-import { web3PublicConfig } from '../services/web3'
+import { web3PublicConfig } from '../services/web3Adapter'
 
 type Props = Web3PublicConfig
 

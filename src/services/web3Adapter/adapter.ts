@@ -221,4 +221,4 @@ export const adapterConfig = {
   // - Aptos (maybe via Moralis)
 }
 
-export const adapter = createAdapter(adapterConfig)
+export const web3Adapter = createAdapter(adapterConfig)

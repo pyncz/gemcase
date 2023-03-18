@@ -5,7 +5,7 @@ import type { NextPageWithLayout, Web3Data, Web3PublicConfig } from '../../model
 import i18nextConfig from '../../../next-i18next.config'
 import { getParamsArray } from '../../utils'
 import { getValidWeb3Data } from '../../services/getValidWeb3Data'
-import { web3PublicConfig } from '../../services/web3'
+import { web3PublicConfig } from '../../services/web3Adapter'
 
 type Props = Web3Data & Web3PublicConfig
 

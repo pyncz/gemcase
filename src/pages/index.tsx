@@ -6,7 +6,7 @@ import i18nextConfig from '../../next-i18next.config'
 import type { NextPageWithLayout, Web3PublicConfig } from '../models'
 import { ExploreForm, HeadMeta } from '../components'
 import { PageLayoutMessage } from '../layouts'
-import { web3PublicConfig } from '../services/web3'
+import { web3PublicConfig } from '../services/web3Adapter'
 
 type Props = Web3PublicConfig
 

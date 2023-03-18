@@ -1,22 +1,22 @@
 import { publicProcedure, router } from '../trpc'
 import { addressSchema, blockchainSchema, chainSchema } from '../../../models'
-import { adapter } from '../../../services/web3'
+import { web3Adapter } from '../../../services/web3Adapter'
 
 export const validateRouter = router({
   validateBlockchain: publicProcedure
     .input(blockchainSchema)
     .query(({ input: { blockchain } }) => {
-      return adapter.validateBlockchain(blockchain)
+      return web3Adapter.validateBlockchain(blockchain)
     }),
   validateChain: publicProcedure
     .input(chainSchema)
     .query(({ input: { blockchain, chain } }) => {
-      return adapter.validateBlockchain(blockchain) && adapter.validateChain(blockchain, chain)
+      return web3Adapter.validateBlockchain(blockchain) && web3Adapter.validateChain(blockchain, chain)
     }),
   validateAddress: publicProcedure
     .input(addressSchema)
     .query(({ input: { blockchain, address } }) => {
-      const [_, bcConfig] = adapter.findBlockchain(blockchain) ?? []
+      const [_, bcConfig] = web3Adapter.findBlockchain(blockchain) ?? []
       return bcConfig?.validateAddress(address) ?? false
     }),
 })

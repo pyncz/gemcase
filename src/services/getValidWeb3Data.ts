@@ -1,7 +1,7 @@
 import type { Nullable } from '@voire/type-utils'
 import type { Web3Data } from '../models'
 import { isTokenId } from '../utils'
-import { adapter } from './web3/adapter'
+import { web3Adapter } from './web3Adapter/web3Adapter'
 
 export const getValidWeb3Data = async (
   blockchain?: string,
@@ -10,7 +10,7 @@ export const getValidWeb3Data = async (
   tokenId?: string,
 ): Promise<Nullable<Web3Data>> => {
   if (blockchain) {
-    const [bcKey, bcConfig] = adapter.findBlockchain(blockchain) ?? []
+    const [bcKey, bcConfig] = web3Adapter.findBlockchain(blockchain) ?? []
 
     if (bcKey && bcConfig) {
       // blockchain is valid

@@ -1,5 +1,5 @@
 import type { Nullable } from '@voire/type-utils'
-import type { BlockchainKey } from '../../services/web3'
+import type { BlockchainKey } from '../../services/web3Adapter'
 
 export interface BlockchainPath {
   blockchain: BlockchainKey
