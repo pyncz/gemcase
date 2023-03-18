@@ -1,8 +1,8 @@
 import type { Nullable, Optional } from '@voire/type-utils'
 import { checkInterfaces, resolveIpfs } from '@wiiib/check-evm-address'
 import Moralis from 'moralis'
-import type { BlockchainMetadata, CoinContractMarketMetadata, EvmAddress, InferSlug, NftContractMetadata, NftTokenMetadata } from '../../models'
-import { isEvmAddress, isTokenId } from '../../utils'
+import type { BlockchainMetadata, CoinContractMarketMetadata, EvmAddress, InferSlug, NftContractMetadata, NftTokenMetadata, TokenTrait } from '../../models'
+import { compareTraits, isEvmAddress, isTokenId } from '../../utils'
 import { createAdapter, createBlockchainAdapter, findByKeyOrAlias } from './createAdapter'
 import type { WithAliases } from './createAdapter'
 import { evmChains } from './chains'
@@ -128,7 +128,7 @@ export const adapterConfig = {
             ? resolveIpfs({
               symbol: data.symbol,
               name: data.name,
-            }) satisfies NftContractMetadata
+            }) as NftContractMetadata
             : null
         }
         throw new Error('Chain not found')
@@ -170,7 +170,7 @@ export const adapterConfig = {
                     }
                   : undefined,
               },
-            }) satisfies CoinContractMarketMetadata
+            }) as CoinContractMarketMetadata
           }
 
           return null
@@ -203,10 +203,10 @@ export const adapterConfig = {
                     image: metadata.image as string,
                     animationUrl: metadata.animation_url as Optional<string>,
                     externalUrl: metadata.external_url as Optional<string>,
-                    attributes: metadata.attributes,
+                    attributes: (metadata.attributes as Optional<(string | TokenTrait)[]>)?.sort(compareTraits),
                   }
                 : undefined,
-            }) satisfies NftTokenMetadata
+            }) as NftTokenMetadata
             : null
         }
         throw new Error('Chain not found')

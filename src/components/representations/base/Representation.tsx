@@ -14,6 +14,7 @@ type LabelProps = {
 type Props = LabelProps & {
   image?: Nullable<ReactElement>
   description?: ReactNode
+  title?: string
 }
 
 export const Representation: FC<PropsWithChildren<WithClassName<Props>>> = (props) => {
@@ -22,11 +23,12 @@ export const Representation: FC<PropsWithChildren<WithClassName<Props>>> = (prop
     image,
     label,
     description,
+    title,
     className,
   } = props
 
   return (
-    <span className={classNames('tw-inline-flex tw-items-center tw-gap-[0.875ch]', className)}>
+    <span title={title} className={classNames('tw-inline-flex tw-items-center tw-gap-[0.875ch]', className)}>
       {image ?? null}
 
       <div className="tw-truncate tw-flex-col tw-flex-center-x">

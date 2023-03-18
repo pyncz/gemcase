@@ -24,6 +24,10 @@ export const CopyButton: FC<PropsWithChildren<WithClassName<Props>>> = (props) =
       role="button"
       onClick={copy}
       title={value}
-    ><span className="tw-text-dim-1">{children ?? value}</span><Icon icon={icon} className="tw-relative tw-left-px tw-top-0.5" /></a>
+    >{
+      children
+        ? <span className="tw-text-dim-1">{children}</span>
+        : null
+      }<Icon icon={icon} className="tw-relative tw-left-px tw-top-0.5" /></a>
   )
 }

@@ -3,6 +3,7 @@ export * from './errors'
 export * from './ui'
 export * from './representations'
 export * from './share'
+export * from './trait/Trait'
 
 export * from './HeadMeta'
 
@@ -24,3 +25,4 @@ export * from './CopyButton'
 export * from './Price'
 export * from './ProfileHeader'
 export * from './ViewPort'
+export * from './Attribute'

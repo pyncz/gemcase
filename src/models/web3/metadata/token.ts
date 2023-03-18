@@ -7,8 +7,8 @@ export interface NftContractMetadata {
 }
 
 // Token
-interface Trait {
-  trait_type: string
+export interface TokenTrait {
+  trait_type?: string
   value: string
   display_type?: 'string' | 'number'
   max_value?: number
@@ -25,6 +25,6 @@ export interface NftTokenMetadata extends NftContractMetadata {
     image: string
     animationUrl?: string
     externalUrl?: string
-    attributes?: (string | Trait)[]
+    attributes?: (string | TokenTrait)[]
   }
 }

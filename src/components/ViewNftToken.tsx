@@ -6,19 +6,20 @@ import Link from 'next/link'
 import { Icon } from '@iconify-icon/react'
 import openIcon from '@iconify/icons-ion/open-outline'
 import shareIcon from '@iconify/icons-ion/share-outline'
-import statsIcon from '@iconify/icons-ion/stats-chart'
+import explorerIcon from '@iconify/icons-ion/information-circle-outline'
 import { LayoutSide } from '../layouts'
 import type { TokenData } from '../models'
 import { formatTokenName, getAbsoluteBaseUrl, trpcHooks } from '../utils'
 import { exploreAdapter } from '../services/exploreAdapter'
 import { AddressPathRepresentation } from './representations/AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
-import { Button, ButtonLink, Markdown, Skeleton } from './ui'
+import { Button, ButtonLink, Markdown, Skeleton, Tag } from './ui'
 import { ProfileHeader } from './ProfileHeader'
-import { NftContractRepresentation } from './representations'
+import { ChainRepresentation, NftContractRepresentation } from './representations'
 import { ViewPort } from './ViewPort'
-import { GroupContainer } from './GroupContainer'
 import { SharePopup } from './share'
+import { Attribute } from './Attribute'
+import { Trait } from './trait/Trait'
 
 type Props = TokenData
 
@@ -90,7 +91,7 @@ export const ViewNftToken: FC<Props> = (props) => {
               alt={name}
             />
 
-            <div className="tw-px-6 tw-pt-2 tw-pb-10 md:tw-pb-8 tw-space-y-fields tw-text-center">
+            <div className="tw-px-6 tw-pt-2 tw-pb-10 tw-space-y-fields tw-text-center">
               {/* Summary */}
               <div className="tw-space-y-2 tw-max-w-[15rem] tw-mx-auto">
                 {/* Title */}
@@ -108,9 +109,10 @@ export const ViewNftToken: FC<Props> = (props) => {
 
               {/* Actions */}
               {/* TODO: Add like / bookmark buttons */}
-              <div className="tw-grid tw-grid-cols-[repeat(3,_1fr)] tw-gap-2.5">
+              <div className="tw-flex tw-flex-col xs:tw-grid xs:tw-grid-cols-[repeat(3,_1fr)] tw-gap-2.5">
                 {tokenMetadata?.externalUrl
                   ? <ButtonLink
+                      title={i18n.t('externalUrl')}
                       targetBlank
                       href={tokenMetadata.externalUrl}
                       appearance="secondary"
@@ -120,57 +122,80 @@ export const ViewNftToken: FC<Props> = (props) => {
                 }
                 {chainMetadata.explorer
                   ? <ButtonLink
+                      title={i18n.t('viewOn', { name: chainMetadata.explorer.label })}
                       targetBlank
-                      href={exploreAdapter[chainMetadata.explorer.resolver].token({
+                      href={exploreAdapter[chainMetadata.explorer.resolver].nftToken({
                         address,
                         tokenId,
                       })}
                       appearance="secondary"
-                      icon={<Icon icon={statsIcon} />}
+                      icon={<Icon icon={explorerIcon} />}
                     />
                   : null
                 }
                 <SharePopup
-                  message={i18n.t('share.nftToken', {
+                  message={i18n.t('shareMessage.nftToken', {
                     name: tokenMetadata?.name ?? standard,
                   })}
                   hashtags={hashtags}
                   url={`/view/${blockchain}/${chain}/${address}/${tokenId}`}
                 >
-                  <Button className="tw-w-auto" icon={<Icon icon={shareIcon} />} />
+                  <Button
+                    title={i18n.t('share')}
+                    className="tw-w-auto"
+                    icon={<Icon icon={shareIcon} />}
+                  />
                 </SharePopup>
               </div>
 
-              <GroupContainer>
+              <div className="tw-space-y-fields tw-py-4">
                 {/* Amount (for collectible) */}
                 {isCollectibleNFT
                   ? (
-                    <Skeleton.Element width={90}>
-                      <div>amount: {metadata?.amount}</div>
-                    </Skeleton.Element>
+                    <Attribute label={i18n.t('amount')}>
+                      <Skeleton.Element width={90}>
+                        {metadata?.amount}
+                      </Skeleton.Element>
+                    </Attribute>
                     )
                   : null
                 }
-                <Skeleton.Element width={90}>
-                  {standard
-                    ? <div>standard: {standard}</div>
-                    : null
-                  }
-                </Skeleton.Element>
-              </GroupContainer>
 
-              {`
-              - standard
-              - traits {metadata?.metadata?.attributes}
-              - original image link
-              `}
+                {/* Network */}
+                <Attribute label={i18n.t('chain')} textValue={chainMetadata.label}>
+                  <ChainRepresentation
+                    className="tw-overflow-hidden tw-text-sm"
+                    {...chainMetadata}
+                  />
+                </Attribute>
+
+                {/* Type of the token */}
+                {standard
+                  ? (
+                    <Attribute label={i18n.t('standard')} textValue={standard}>
+                      <Tag>{standard}</Tag>
+                    </Attribute>
+                    )
+                  : null
+                }
+
+                {tokenMetadata?.attributes?.length
+                  ? tokenMetadata.attributes.map((trait, index) => (
+                    <Trait key={index} trait={trait} />
+                  ))
+                  : null
+                }
+              </div>
 
               <Skeleton.Element width={280} height={200}>
                 {tokenMetadata?.description
-                  ? <Markdown
-                      className="tw-text-ellipsis tw-overflow-hidden tw-text-sm tw-text-dim-1"
+                  ? <>
+                    <h5>{i18n.t('about')}</h5>
+                    <Markdown
+                      className="tw-text-ellipsis tw-max-w-md tw-mx-auto tw-overflow-hidden tw-text-sm tw-text-dim-1"
                       content={tokenMetadata.description}
                     />
+                  </>
                   : null
                 }
               </Skeleton.Element>
@@ -179,11 +204,29 @@ export const ViewNftToken: FC<Props> = (props) => {
           </>
         }
         >
-          <ViewPort>
-            <div className="tw-absolute tw--top-10 tw-left-0 tw-z-1">
-              <AddressPathRepresentation {...props} />
-            </div>
+          <ViewPort
+            className="tw-group/viewport"
+            overlay={
+              <div className="tw-opacity-muted tw-duration-normal group-hover/viewport:tw-opacity-full tw-flex tw-items-center tw-justify-between tw-gap-3 tw-p-6">
+                <div className="tw-inline-block tw-px-2">
+                  <AddressPathRepresentation {...props} />
+                </div>
 
+                <Skeleton.Element size={32} className="tw-rounded">
+                  {tokenMetadata?.image
+                    ? <ButtonLink
+                        title={i18n.t('openOriginal')}
+                        targetBlank
+                        href={tokenMetadata.image}
+                        appearance="secondary"
+                        icon={<Icon icon={openIcon} />}
+                      />
+                    : null
+                }
+                </Skeleton.Element>
+              </div>
+            }
+          >
             <Skeleton.Element size={320} className="tw-rounded">
               {tokenMetadata?.image
                 ? <Image

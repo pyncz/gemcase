@@ -17,9 +17,9 @@ export const ButtonLink: FC<WithClassName<Props>> = (props) => {
     <Link
       href={href}
       target={target}
-      className={classNames('tw-relative !tw-border-none', className)}
+      className={classNames('!tw-border-none', className)}
     >
-      <Button {...buttonProps} className="tw-absolute tw-w-auto tw-inset-0" />
+      <Button {...buttonProps} className="tw-w-full tw-h-full" />
     </Link>
   )
 }

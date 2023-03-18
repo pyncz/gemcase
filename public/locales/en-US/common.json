@@ -1,5 +1,11 @@
 {
+  "about": "About",
+  "amount": "Amount",
   "avatarOf": "Avatar of \"{{name}}\"",
+  "blockchain": "Blockchain",
+  "blockchainName": "{{name}} Blockchain",
+  "chain": "Chain",
+  "chainName": "{{name}} Chain",
   "connect": "Connect",
   "coverOf": "Cover of \"{{name}}\"",
   "errors": {
@@ -33,6 +39,7 @@
       "placeholder": "Token ID"
     }
   },
+  "externalUrl": "External URL",
   "hi": "Hello",
   "index": {
     "title": "Explore <0>web3</0> world"
@@ -42,6 +49,7 @@
   },
   "logo": "{{name}} logo",
   "madeBy": "Made by",
+  "openOriginal": "Open original",
   "pages": {
     "about": {
       "description": "Why will gemcase make your life easier?",
@@ -87,9 +95,11 @@
     }
   },
   "refresh": "Refresh page",
-  "share": {
+  "share": "Share",
+  "shareMessage": {
     "nftToken": "What a fabulous {{name}} NFT token on gemcase!"
   },
+  "standard": "Standard",
   "submit": "Submit",
   "theme": {
     "_": "Color mode",
@@ -98,5 +108,6 @@
     "light": "Light",
     "system": "System"
   },
-  "view": "View"
+  "view": "View",
+  "viewOn": "View on {{name}}"
 }

@@ -36,11 +36,11 @@ const Settings: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps
       </h1>
 
       <div className="tw-space-y-list">
-        <GroupContainer title={i18n.t('theme._')}>
+        <GroupContainer heading={i18n.t('theme._')}>
           <ThemeRadio className="tw-mt-1" />
         </GroupContainer>
 
-        <GroupContainer title={i18n.t('locale._')}>
+        <GroupContainer heading={i18n.t('locale._')}>
           <LocaleRadio className="tw-mt-1" />
         </GroupContainer>
       </div>
