@@ -109,7 +109,7 @@ export const ViewNftToken: FC<Props> = (props) => {
 
               {/* Actions */}
               {/* TODO: Add like / bookmark buttons */}
-              <div className="tw-flex tw-flex-col xs:tw-grid xs:tw-grid-cols-[repeat(3,_1fr)] tw-gap-2.5">
+              <div className="tw-flex tw-flex-col xs:tw-grid xs:tw-grid-cols-[repeat(auto-fit,minmax(0,1fr))] tw-gap-2.5">
                 {tokenMetadata?.externalUrl
                   ? <ButtonLink
                       title={i18n.t('externalUrl')}
