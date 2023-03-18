@@ -23,7 +23,7 @@
   --c-bg-dim-3: 27, 44, 70;
   
   --c-bg-card: var(--c-bg-base);
-  --c-bg-viewport: var(--c-bg-dim-1);
+  --c-bg-viewport: 16, 27, 45;
   
   /* elements */
   // illustration
@@ -46,9 +46,11 @@
   --c-button-primary-bg: var(--c-accent-primary);
   --c-button-primary-bg-vivid: var(--c-accent-primary-vivid);
   --c-button-primary-color: var(--c-white);
+  --c-button-primary-color-vivid: var(--c-white);
   --c-button-secondary-bg: var(--c-bg-dim-2);
   --c-button-secondary-bg-vivid: var(--c-bg-dim-3);
   --c-button-secondary-color: var(--c-white);
+  --c-button-secondary-color-vivid: var(--c-white);
   // radio
   // - container
   --c-radio-bg: var(--c-bg-dim-2);

@@ -46,9 +46,11 @@
   --c-button-primary-bg: var(--c-accent-primary);
   --c-button-primary-bg-vivid: var(--c-accent-primary-vivid);
   --c-button-primary-color: var(--c-white);
-  --c-button-secondary-bg: 219, 238, 254;
-  --c-button-secondary-bg-vivid: 209, 235, 255;
-  --c-button-secondary-color: var(--c-accent-primary);
+  --c-button-primary-color-vivid: var(--c-white);
+  --c-button-secondary-bg: var(--c-bg-dim-2); // 219, 238, 254;
+  --c-button-secondary-bg-vivid: 209, 230, 250;
+  --c-button-secondary-color: var(--c-color-dim-2);
+  --c-button-secondary-color-vivid: var(--c-accent-primary);
   // radio
   // - container
   --c-radio-bg: var(--c-white);

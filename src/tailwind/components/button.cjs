@@ -33,6 +33,7 @@ module.exports = ({ addComponents, addUtilities, theme }) => {
 
       '&:hover': {
         ...uiElement['&:hover'],
+        color: c('--button-text--hover', 'var(--tw-text-opacity)'),
         backgroundColor: c('--button-bg--hover', 'var(--tw-bg-opacity)'),
       },
       '&:active': {
@@ -43,11 +44,13 @@ module.exports = ({ addComponents, addUtilities, theme }) => {
   addUtilities({
     '.button-primary': {
       '--button-text': 'var(--c-button-primary-color)',
+      '--button-text--hover': 'var(--c-button-primary-color-vivid)',
       '--button-bg': 'var(--c-button-primary-bg)',
       '--button-bg--hover': 'var(--c-button-primary-bg-vivid)',
     },
     '.button-secondary': {
       '--button-text': 'var(--c-button-secondary-color)',
+      '--button-text--hover': 'var(--c-button-secondary-color-vivid)',
       '--button-bg': 'var(--c-button-secondary-bg)',
       '--button-bg--hover': 'var(--c-button-secondary-bg-vivid)',
     },
