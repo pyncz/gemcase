@@ -4,6 +4,7 @@ export * from './ui'
 export * from './representations'
 export * from './share'
 export * from './trait'
+export * from './colorUtils'
 
 export * from './HeadMeta'
 
