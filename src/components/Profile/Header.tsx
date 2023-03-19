@@ -2,14 +2,15 @@ import classNames from 'classnames'
 import Image from 'next/image'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { WithClassName } from '../../models'
+import type { AvatarShape, WithClassName } from '../../models'
 import { Skeleton } from '../ui'
+import { Avatar } from './Avatar'
 
 interface Props {
   cover?: string
   avatar?: string
-  avatarShape?: 'circle' | 'square'
-  alt?: string
+  avatarShape?: AvatarShape
+  label?: string
   blur?: number
 }
 
@@ -17,8 +18,8 @@ export const Header: FC<WithClassName<Props>> = (props) => {
   const {
     cover,
     avatar,
-    avatarShape = 'square',
-    alt,
+    avatarShape,
+    label,
     blur = 2,
     className,
   } = props
@@ -31,12 +32,9 @@ export const Header: FC<WithClassName<Props>> = (props) => {
     ? `calc(${avatarSize}px * 0.5 + ${avatarOffset}px)`
     : undefined
 
-  const avatarOuterRadius = avatarShape === 'square'
-    ? `${Math.round(avatarSize / 8) + avatarOffset}px`
-    : '100%'
-  const avatarInnerRadius = avatarShape === 'square'
-    ? `${Math.round(avatarSize / 8)}px`
-    : '100%'
+  const coverAlt = label
+    ? i18n.t('coverOf', { name: label })
+    : i18n.t('cover')
 
   return (
     <div
@@ -61,7 +59,7 @@ export const Header: FC<WithClassName<Props>> = (props) => {
                   className="tw-object-cover tw-bg-viewport"
                   style={{ filter: `blur(${blur}px)` }}
                   src={cover}
-                  alt={i18n.t('coverOf', { name: alt })}
+                  alt={coverAlt}
                   fill
                 />
                 )
@@ -72,27 +70,13 @@ export const Header: FC<WithClassName<Props>> = (props) => {
       </div>
 
       {avatar
-        ? (
-          <div
-            className="tw-absolute tw-bottom-0 tw-left-1/2 tw--translate-x-1/2 tw-bg-base"
-            style={{
-              padding: `${avatarOffset}px`,
-              borderRadius: avatarOuterRadius,
-            }}
-          >
-            {/* TODO: Provide placeholder="blur" & blurDataUrl */}
-            <Image
-              className="tw-object-cover tw-border-avatar tw-bg-viewport"
-              src={avatar}
-              alt={i18n.t('avatarOf', { name: alt })}
-              width={avatarSize}
-              height={avatarSize}
-              style={{
-                borderRadius: avatarInnerRadius,
-              }}
-            />
-          </div>
-          )
+        ? <Avatar
+            src={avatar}
+            label={label}
+            shape={avatarShape}
+            size={avatarSize}
+            offset={avatarOffset}
+          />
         : null
       }
     </div>

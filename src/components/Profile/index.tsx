@@ -2,6 +2,7 @@ import { Actions } from './Actions'
 import { Attributes } from './Attributes'
 import { Body } from './Body'
 import { Summary } from './Summary'
+import { Avatar } from './Avatar'
 import { Header } from './Header'
 
 export const Profile = {
@@ -10,4 +11,5 @@ export const Profile = {
   Attributes,
   Summary,
   Header,
+  Avatar,
 }

@@ -1,12 +1,14 @@
 {
   "about": "About",
   "amount": "Amount",
+  "avatar": "Avatar",
   "avatarOf": "Avatar of \"{{name}}\"",
   "blockchain": "Blockchain",
   "blockchainName": "{{name}} Blockchain",
   "chain": "Chain",
   "chainName": "{{name}} Chain",
   "connect": "Connect",
+  "cover": "Cover",
   "coverOf": "Cover of \"{{name}}\"",
   "errors": {
     "_": "{{error}} Error",
