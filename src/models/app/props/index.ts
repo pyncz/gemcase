@@ -11,3 +11,4 @@ export type WithClassName<T = any> = T & {
 }
 
 export * from './buttonProps'
+export * from './sharingProps'

@@ -9,14 +9,16 @@ export interface ChainPath extends BlockchainPath {
   chain: ChainKey
 }
 
+export interface ExplorerConfig {
+  label: string
+  resolver: Explorer
+}
+
 export interface ChainMetadata {
   label: string
   logo?: Nullable<string>
   test?: Nullable<boolean>
-  explorer?: Nullable<{
-    label: string
-    resolver: Explorer
-  }>
+  explorer?: Nullable<ExplorerConfig>
 }
 
 export interface ChainData extends ChainPath, BlockchainData {

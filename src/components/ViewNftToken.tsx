@@ -5,21 +5,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Icon } from '@iconify-icon/react'
 import openIcon from '@iconify/icons-ion/open-outline'
-import shareIcon from '@iconify/icons-ion/share-outline'
-import explorerIcon from '@iconify/icons-ion/information-circle-outline'
 import { LayoutSide } from '../layouts'
 import type { TokenData } from '../models'
 import { formatTokenName, getAbsoluteBaseUrl, trpcHooks } from '../utils'
-import { exploreAdapter } from '../services/exploreAdapter'
 import { AddressPathRepresentation } from './representations/AddressPathRepresentation'
 import { HeadMeta } from './HeadMeta'
-import { Button, ButtonLink, Markdown, Skeleton, Tag } from './ui'
-import { ProfileHeader } from './ProfileHeader'
+import { ButtonLink, Markdown, Skeleton, Tag } from './ui'
 import { ChainRepresentation, NftContractRepresentation } from './representations'
 import { ViewPort } from './ViewPort'
-import { SharePopup } from './share'
+import { ShareButton } from './share'
 import { Attribute } from './Attribute'
 import { Trait } from './trait/Trait'
+import { Profile } from './Profile'
+import { ExplorerLink } from './ExplorerLink'
 
 type Props = TokenData
 
@@ -47,7 +45,7 @@ export const ViewNftToken: FC<Props> = (props) => {
   const name = formatTokenName(tokenId, tokenName, collectionName)
 
   const hashtags = useMemo(() => {
-    const tags = ['NFT', 'token']
+    const tags = ['NFT', 'token', 'crypto']
     if (metadata) {
       tags.push(metadata.symbol, metadata.name)
     }
@@ -85,31 +83,28 @@ export const ViewNftToken: FC<Props> = (props) => {
               TODO: Update `ProfileHeader` to get it able to render
               `metadata?.metadata?.animationUrl` as a cover (i.e. a video file)
             */}
-            <ProfileHeader
+            <Profile.Header
               cover={metadata?.metadata?.image}
               avatar={metadata?.metadata?.image}
               alt={name}
             />
 
-            <div className="tw-px-6 tw-pt-2 tw-pb-10 tw-space-y-fields tw-text-center">
-              {/* Summary */}
-              <div className="tw-space-y-2 tw-max-w-[15rem] tw-mx-auto">
-                {/* Title */}
-                <div className="tw-font-bold">
+            <Profile.Body>
+              <Profile.Summary
+                heading={
                   <Skeleton.Element width={140}>
                     {name}
                   </Skeleton.Element>
-                </div>
-
+                }
+              >
                 {/* Collection */}
                 <Link className="tw-link tw-link-regular" href={`/view/${blockchain}/${chain}/${address}`}>
                   <NftContractRepresentation className="tw-text-sm" metadata={metadata} />
                 </Link>
-              </div>
+              </Profile.Summary>
 
-              {/* Actions */}
-              {/* TODO: Add like / bookmark buttons */}
-              <div className="tw-flex tw-flex-col xs:tw-grid xs:tw-grid-cols-[repeat(auto-fit,minmax(0,1fr))] tw-gap-2.5">
+              <Profile.Actions>
+                {/* TODO: Add like / bookmark buttons */}
                 {tokenMetadata?.externalUrl
                   ? <ButtonLink
                       title={i18n.t('externalUrl')}
@@ -121,34 +116,25 @@ export const ViewNftToken: FC<Props> = (props) => {
                   : null
                 }
                 {chainMetadata.explorer
-                  ? <ButtonLink
-                      title={i18n.t('viewOn', { name: chainMetadata.explorer.label })}
-                      targetBlank
-                      href={exploreAdapter[chainMetadata.explorer.resolver].nftToken({
+                  ? <ExplorerLink
+                      explorer={chainMetadata.explorer}
+                      getHref={resolver => resolver.nftToken({
                         address,
                         tokenId,
                       })}
-                      appearance="secondary"
-                      icon={<Icon icon={explorerIcon} />}
                     />
                   : null
                 }
-                <SharePopup
+                <ShareButton
+                  url={`/view/${blockchain}/${chain}/${address}/${tokenId}`}
                   message={i18n.t('shareMessage.nftToken', {
                     name: tokenMetadata?.name ?? standard,
                   })}
                   hashtags={hashtags}
-                  url={`/view/${blockchain}/${chain}/${address}/${tokenId}`}
-                >
-                  <Button
-                    title={i18n.t('share')}
-                    className="tw-w-auto"
-                    icon={<Icon icon={shareIcon} />}
-                  />
-                </SharePopup>
-              </div>
+                />
+              </Profile.Actions>
 
-              <div className="tw-space-y-fields tw-py-4">
+              <Profile.Attributes>
                 {/* Amount (for collectible) */}
                 {isCollectibleNFT
                   ? (
@@ -185,21 +171,25 @@ export const ViewNftToken: FC<Props> = (props) => {
                   ))
                   : null
                 }
-              </div>
+              </Profile.Attributes>
 
-              <Skeleton.Element width={280} height={200}>
+              {/* Description */}
+              <Skeleton.Element width={60} className="tw-h-5">
                 {tokenMetadata?.description
-                  ? <>
-                    <h5>{i18n.t('about')}</h5>
-                    <Markdown
-                      className="tw-text-ellipsis tw-max-w-md tw-mx-auto tw-overflow-hidden tw-text-sm tw-text-dim-1"
-                      content={tokenMetadata.description}
-                    />
-                  </>
+                  ? <h5>{i18n.t('about')}</h5>
                   : null
                 }
               </Skeleton.Element>
-            </div>
+              <Skeleton.Element width={280} height={200}>
+                {tokenMetadata?.description
+                  ? <Markdown
+                      className="tw-text-ellipsis tw-max-w-md tw-mx-auto tw-overflow-hidden tw-text-sm tw-text-dim-1"
+                      content={tokenMetadata.description}
+                    />
+                  : null
+                }
+              </Skeleton.Element>
+            </Profile.Body>
             {/* TODO: Add stats, e.g. floor price, etc */}
           </>
         }

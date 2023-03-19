@@ -1,6 +1,6 @@
 import type { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ExploreForm, ViewAccount, ViewCoinContract, ViewNftContract, ViewNftToken } from '../../components'
+import { ExploreForm, ViewAccount, ViewNftContract, ViewNftToken, ViewToken } from '../../components'
 import type { NextPageWithLayout, Web3Data, Web3PublicConfig } from '../../models'
 import i18nextConfig from '../../../next-i18next.config'
 import { getParamsArray } from '../../utils'
@@ -49,7 +49,7 @@ const View: NextPageWithLayout<Props> = (props: Props) => {
   } else if (is === 'coinContract') {
     return (
       // Coin Contract address
-      <ViewCoinContract {...props} />
+      <ViewToken {...props} />
     )
   } else if (is === 'account') {
     return (
