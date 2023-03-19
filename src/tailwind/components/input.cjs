@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { c } = require('../helpers/color.cjs')
-const { getUiElement } = require('../helpers/ui.cjs')
+const { getUiElement } = require('./base/ui.cjs')
 
 module.exports = ({ addComponents, theme }) => {
   const uiElement = getUiElement(theme)

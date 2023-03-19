@@ -4,20 +4,6 @@ const plugin = require('tailwindcss/plugin')
 const { c, co } = require('./src/tailwind/helpers/color.cjs')
 const { fill } = require('./src/tailwind/helpers/fill.cjs')
 
-function slideKeyframes(offset, axis) {
-  const transform = `translate${axis}`
-  return {
-    '0%': {
-      opacity: 0,
-      transform: `scale(0.5) ${transform}(${offset}px)`,
-    },
-    '100%': {
-      opacity: 1,
-      transform: `scale(1) ${transform}(0)`,
-    },
-  }
-}
-
 const sansSerif = [
   'ui-sans-serif',
   'system-ui',
@@ -182,8 +168,8 @@ module.exports = {
       card: 'var(--s-card)',
 
       // shadows for dialogs, popups etc
-      popup: '0 0.75rem 1.75rem -1.75rem rgba(var(--c-color-base), 0.5)',
-      modal: '0 0 2rem -1.75rem rgb(var(--c-color-base))',
+      popup: '0 0 0 1px rgb(var(--c-separator-muted)), 0 0.75rem 1.75rem -1.75rem rgba(var(--c-color-base), 0.5)',
+      modal: '0 0 0 1px rgb(var(--c-separator-muted)), 0 0 2rem -1.75rem rgb(var(--c-color-base))',
       highlight: '0 0 1rem rgba(var(--c-accent-primary), 0.1)',
     },
     dropShadow: {
@@ -234,11 +220,6 @@ module.exports = {
         bezier: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
       keyframes: {
-        slideDown: slideKeyframes(-10, 'Y'),
-        slideUp: slideKeyframes(10, 'Y'),
-        slideLeft: slideKeyframes(10, 'Y'),
-        slideRight: slideKeyframes(-10, 'Y'),
-
         shake: {
           '26%, 74%': { transform: 'rotate(0) scale(1)' },
           '32%, 68%': { transform: 'rotate(4deg) scale(1)' },
@@ -251,20 +232,14 @@ module.exports = {
           '50%': { transform: 'rotate(3deg)' },
         },
       },
-      animation: theme => ({
+      animation: {
         // slow fading out and in, e.g. gradient lights on the home page
         damping: 'tw-pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-
-        // e.g. tooltips animations
-        slideDown: `slideDown ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
-        slideUp: `slideUp ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
-        slideLeft: `slideLeft ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
-        slideRight: `slideRight ${theme('transitionDuration.fast')} ${theme('transitionTimingFunction.bezier')}`,
 
         // e.g. connect button on hover
         shake: 'shake 1.5s ease-in-out infinite',
         wiggle: 'wiggle 1s ease-in-out infinite',
-      }),
+      },
     },
   },
   plugins: [
@@ -278,6 +253,7 @@ module.exports = {
     plugin(require('./src/tailwind/components/link.cjs')),
     plugin(require('./src/tailwind/components/button.cjs')),
     plugin(require('./src/tailwind/components/input.cjs')),
+    plugin(require('./src/tailwind/components/popup.cjs')),
 
     ({ addVariant }) => {
       addVariant('checked', '&[data-state="checked"]')
