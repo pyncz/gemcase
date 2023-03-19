@@ -18,6 +18,9 @@
 }
 
 @layer base {
+  * {
+    outline: 0 !important;
+  }
   html {
     font-size: 16px; // 1rem
     @apply tw-font-main tw-bg-base tw-text-base tw-leading-sm;

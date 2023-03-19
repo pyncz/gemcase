@@ -22,7 +22,7 @@ export const NavLink: FC<PropsWithChildren<Props>> = ({ children, href, tooltip,
         <Link
           href={href}
           className={classNames(
-            '!tw-outline-none !tw-border-none tw-text-2xl tw-flex tw-p-3 tw-relative tw-duration-fast before:tw-bg-[rgb(var(--c-navlink))] before:tw-mask-radial before:tw-absolute before:tw-inset-0 before:tw-duration-normal',
+            '!tw-border-none tw-text-2xl tw-flex tw-p-3 tw-relative tw-duration-fast before:tw-bg-[rgb(var(--c-navlink))] before:tw-mask-radial before:tw-absolute before:tw-inset-0 before:tw-duration-normal',
             'active:before:tw-scale-[0.85]',
             isActive
               ? 'tw-text-[rgba(var(--c-navlink-active-color),_var(--tw-text-opacity))] hover:tw-text-[rgba(var(--c-navlink-active-color--hover),_var(--tw-text-opacity))] before:tw-scale-normal before:tw-opacity-20'

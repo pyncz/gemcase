@@ -85,7 +85,7 @@ export const Select = forwardRef<HTMLButtonElement, WithClassName<Props>>((props
       </RadixSelect.Trigger>
 
       <RadixSelect.Portal>
-        <RadixSelect.Content className="tw-backdrop-blur-sm tw-bg-opacity-[0.95] tw-py-0.5 tw-shadow-popup tw-overflow-hidden tw-bg-[rgba(var(--c-select-content-bg),_var(--tw-bg-opacity))] tw-rounded tw-text-dim-1 tw-duration-fast tw-border-container !tw-outline-none">
+        <RadixSelect.Content className="tw-backdrop-blur-sm tw-bg-opacity-[0.95] tw-py-0.5 tw-shadow-popup tw-overflow-hidden tw-bg-[rgba(var(--c-select-content-bg),_var(--tw-bg-opacity))] tw-rounded tw-text-dim-1 tw-duration-fast tw-border-container">
           <RadixSelect.ScrollUpButton className="tw-w-full tw-text-center tw-duration-fast tw-text-[rgba(var(--c-select-arrow),_var(--tw-text-opacity))] hover:tw-text-[rgba(var(--c-select-arrow--hover),_var(--tw-text-opacity))]">
             <Icon icon={chevronUpIcon} />
           </RadixSelect.ScrollUpButton>

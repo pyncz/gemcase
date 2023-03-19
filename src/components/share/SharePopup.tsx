@@ -7,7 +7,7 @@ import telegramIcon from '@iconify/icons-bx/bxl-telegram'
 import facebookIcon from '@iconify/icons-bx/bxl-facebook-circle'
 import type { SharePlatform } from '../../models'
 import { getAbsoluteBaseUrl } from '../../utils'
-import { Popover } from '../ui'
+import { ButtonLink, Popover } from '../ui'
 import { sharingPlatforms } from '../../consts'
 import { sharer } from '../../services/share'
 
@@ -35,18 +35,21 @@ export const SharePopup: FC<PropsWithChildren<Props>> = (props) => {
 
   return (
     <Popover trigger={children}>
-      {sharingPlatforms.map(platform => (
-        <a
-          key={platform}
-          href={sharer[platform]({
-            url: absoluteUrl,
-            message,
-            hashtags,
-          })}
-        >
-          <Icon icon={iconMap[platform]} />
-        </a>
-      ))}
+      <div className="tw-flex tw-gap-1">
+        {sharingPlatforms.map(platform => (
+          <ButtonLink
+            key={platform}
+            appearance="secondary"
+            scale="sm"
+            href={sharer[platform]({
+              url: absoluteUrl,
+              message,
+              hashtags,
+            })}
+            icon={<Icon icon={iconMap[platform]} />}
+          />
+        ))}
+      </div>
     </Popover>
   )
 }
