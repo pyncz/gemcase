@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from 'react'
 import type { FallbackProps } from 'react-error-boundary'
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Button } from '../ui'
 
 const ErrorFallback: FC<FallbackProps> = ({ error, resetErrorBoundary }) => {

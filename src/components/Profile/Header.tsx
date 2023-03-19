@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import Image from 'next/image'
 import type { FC } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import type { AvatarShape, WithClassName } from '../../models'
 import { Skeleton } from '../ui'
 import { Avatar } from './Avatar'
