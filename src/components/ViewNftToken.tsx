@@ -86,7 +86,7 @@ export const ViewNftToken: FC<Props> = (props) => {
             <Profile.Header
               cover={metadata?.metadata?.image}
               avatar={metadata?.metadata?.image}
-              alt={name}
+              label={name}
             />
 
             <Profile.Body>

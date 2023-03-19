@@ -63,7 +63,7 @@ export const ViewToken: FC<Props> = (props) => {
                 cover={metadata?.logo}
                 avatar={metadata?.logo}
                 avatarShape="circle"
-                alt={metadata?.name}
+                label={metadata?.name}
               />
 
               <Profile.Body>
