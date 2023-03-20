@@ -245,10 +245,10 @@ module.exports = {
   plugins: [
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/aspect-ratio'),
+    require('@pyncz/tailwind-mask-image'),
     // Utils
     plugin(require('./src/tailwind/headers.cjs')),
     plugin(require('./src/tailwind/utils/layouts.cjs')),
-    plugin(require('./src/tailwind/utils/mask.cjs')),
     // Components
     plugin(require('./src/tailwind/components/link.cjs')),
     plugin(require('./src/tailwind/components/button.cjs')),
