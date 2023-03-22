@@ -22,7 +22,7 @@ export const NftContractRepresentation: FC<PropsWithChildren<WithClassName<Props
         {children ?? (
           <>
             {name}{' '}
-            <Tag>{symbol}</Tag>
+            <Tag className="tw-font-mono">{symbol}</Tag>
           </>
         )}
       </Skeleton.Element>

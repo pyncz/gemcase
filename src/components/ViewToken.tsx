@@ -113,7 +113,7 @@ export const ViewToken: FC<Props> = (props) => {
                   {standard
                     ? (
                       <Attribute label={i18n.t('standard')} textValue={standard}>
-                        <Tag>{standard}</Tag>
+                        <Tag className="tw-font-mono">{standard}</Tag>
                       </Attribute>
                       )
                     : null
@@ -130,7 +130,7 @@ export const ViewToken: FC<Props> = (props) => {
                   <span className="tw-relative tw--top-2 tw-inline-flex tw-pb-1">{metadata?.name}</span>
                 </Skeleton.Element>
                 {standard
-                  ? (<>{' '}<Tag className="tw-text-3/4 tw-relative tw--top-2">{standard}</Tag></>)
+                  ? (<>{' '}<Tag className="tw-text-3/4 tw-relative tw--top-2 tw-font-mono">{standard}</Tag></>)
                   : null
                 }
               </h1>

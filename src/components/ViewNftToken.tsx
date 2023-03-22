@@ -159,7 +159,7 @@ export const ViewNftToken: FC<Props> = (props) => {
                 {standard
                   ? (
                     <Attribute label={i18n.t('standard')} textValue={standard}>
-                      <Tag>{standard}</Tag>
+                      <Tag className="tw-font-mono">{standard}</Tag>
                     </Attribute>
                     )
                   : null

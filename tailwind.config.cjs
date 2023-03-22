@@ -97,7 +97,7 @@ module.exports = {
       sans: sansSerif, // without any loaded font
       header: ['var(--font-mulish)', 'Mulish', ...sansSerif],
       main: ['var(--font-roboto)', 'Roboto', ...sansSerif],
-      mono: ['monospace'],
+      mono: ['var(--font-dm-mono)', '"DM Mono"', 'monospace'],
     },
     lineHeight: {
       1: 1,

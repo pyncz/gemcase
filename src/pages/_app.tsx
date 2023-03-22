@@ -40,8 +40,13 @@ const Roboto = localFont({
     },
   ],
 })
+const DMMono = localFont({
+  variable: '--font-dm-mono',
+  src: '../assets/fonts/DM_Mono/DMMono-Regular.ttf',
+  weight: '700',
+})
 
-const fonts = [Mulish, Roboto]
+const fonts = [Mulish, Roboto, DMMono]
 
 const App: AppType = ({ Component, pageProps }: AppPropsWithLayout) => {
   // Get per-page layout or use a default one
