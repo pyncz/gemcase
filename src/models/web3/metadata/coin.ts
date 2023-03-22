@@ -1,4 +1,5 @@
 import type { PriceData } from '../../price'
+import type { ContractMetadata } from './token'
 
 interface CoinMarketData {
   nativePrice?: PriceData<bigint> & {
@@ -8,7 +9,7 @@ interface CoinMarketData {
   exchangeName?: string
 }
 
-export interface CoinContractMetadata {
+export interface CoinContractMetadata extends ContractMetadata {
   name: string
   symbol: string
   decimals: number
