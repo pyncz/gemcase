@@ -13,24 +13,30 @@ export const tokenTraitSchema = z.object({
   order: z.number().nullish(),
 })
 
-const nftTokenMetadataSchema = mapped(z.object({
-  name: z.string(),
-  description: z.string().nullish(),
-  image: z.string(),
-  animation_url: z.string().nullish(),
-  external_url: z.string().nullish(),
-  attrbutes: z.array(z.union([tokenTraitSchema, z.string()])).nullish().default([]),
-}), {
-  animation_url: 'animationUrl',
-  external_url: 'externalUrl',
-}).transform(data => resolveIpfs(data))
+const nftTokenMetadataSchema = mapped(
+  mapped(
+    z.object({
+      name: z.string(),
+      description: z.string().nullish(),
+      image: z.string(),
+      animation_url: z.string().nullish(),
+      external_url: z.string().nullish(),
+      attributes: z.array(z.union([tokenTraitSchema, z.string()])).nullish().default([]),
+    }),
+    'animation_url', 'animationUrl',
+  ),
+  'external_url', 'externalUrl',
+).transform(data => resolveIpfs(data))
 
 export const nftTokenSchema = nftContractSchema.and(
-  mapped(z.object({
-    amount: intLike.nullish().default(1),
-    token_uri: z.string().nullish(),
-    metadata: nftTokenMetadataSchema.nullish(),
-  }), { token_uri: 'tokenUri' }),
+  mapped(
+    z.object({
+      amount: intLike.nullish().default(1),
+      token_uri: z.string().nullish(),
+      metadata: nftTokenMetadataSchema.nullish(),
+    }),
+    'token_uri', 'tokenUri',
+  ),
 )
 
 export type TokenTrait = z.infer<typeof tokenTraitSchema>

@@ -1,17 +1,31 @@
 import type { z } from 'zod'
 
-export const mapped = <T extends z.ZodRawShape>(
-  schema: z.ZodObject<T>,
-  map?: { [key in keyof z.baseObjectOutputType<T>]?: string },
-) => {
-  return schema.transform((data) => {
-    type M = NonNullable<typeof map>
-    const res = Object.keys(data).reduce((mappedSchema, oldKey: z.baseObjectOutputType<T>[any]) => {
-      // @ts-expect-error Index typings' issues
-      mappedSchema[map?.[oldKey] ?? oldKey] = data[oldKey]
-      return mappedSchema
-    }, {} as Omit<z.baseObjectOutputType<T>, keyof M> & { [key in keyof M]: z.baseObjectOutputType<T>[key] })
+type MappedSchema<
+  T extends Record<string, any>,
+  OldKey extends keyof T,
+  NewKey extends string,
+> = Omit<T, OldKey | NewKey> & Record<NewKey, T[OldKey]>
 
-    return res
+export const mapped = <
+  T extends Record<string, any>,
+  OldKey extends keyof T,
+  NewKey extends string,
+>(
+    schema: z.ZodType<T, z.ZodTypeDef, any>,
+    oldKey: OldKey,
+    newKey: NewKey,
+  ): z.ZodType<MappedSchema<T, OldKey, NewKey>, z.ZodTypeDef, T> => {
+  return schema.transform((data) => {
+    const mappedData = {} as MappedSchema<T, OldKey, NewKey>
+
+    for (const k in data) {
+      const key = k as keyof T
+      if (key === oldKey) {
+        mappedData[newKey as keyof MappedSchema<T, OldKey, NewKey>] = data[key]
+      } else {
+        mappedData[key as keyof MappedSchema<T, OldKey, NewKey>] = data[key]
+      }
+    }
+    return mappedData
   })
 }
