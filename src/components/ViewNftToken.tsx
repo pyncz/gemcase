@@ -8,10 +8,9 @@ import openIcon from '@iconify/icons-ion/open-outline'
 import { LayoutSide } from '../layouts'
 import type { TokenData } from '../models'
 import { formatTokenName, getAbsoluteBaseUrl, trpcHooks } from '../utils'
-import { AddressPathRepresentation } from './representations/AddressPathRepresentation'
+import { AddressPathRepresentation, ChainRepresentation, NftContractRepresentation } from './representations'
 import { HeadMeta } from './HeadMeta'
 import { ButtonLink, Markdown, Skeleton, Tag } from './ui'
-import { ChainRepresentation, NftContractRepresentation } from './representations'
 import { ViewPort } from './ViewPort'
 import { ShareButton } from './share'
 import { Attribute } from './Attribute'
@@ -171,6 +170,8 @@ export const ViewNftToken: FC<Props> = (props) => {
                   ))
                   : null
                 }
+
+                {/* TODO: Add stats, e.g. last price etc */}
               </Profile.Attributes>
 
               {/* Description */}
@@ -190,7 +191,6 @@ export const ViewNftToken: FC<Props> = (props) => {
                 }
               </Skeleton.Element>
             </Profile.Body>
-            {/* TODO: Add stats, e.g. floor price, etc */}
           </>
         }
         >

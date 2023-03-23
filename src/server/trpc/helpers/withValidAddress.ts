@@ -1,11 +1,11 @@
 import { TRPCError } from '@trpc/server'
 import type { z } from 'zod'
-import type { addressSchema } from '../../../models'
+import type { addressPathSchema } from '../../../models'
 import type { BlockchainAdapterConfig, BlockchainSlug, ChainAdapterConfig, ChainSlug } from '../../../services/web3Adapter'
 import { web3Adapter } from '../../../services/web3Adapter'
 
 export const withValidAddress = <Return>(
-  params: z.output<typeof addressSchema>,
+  params: z.output<typeof addressPathSchema>,
   callback: (validatedConfig: {
     blockchain: BlockchainSlug
     blockchainConfig: BlockchainAdapterConfig

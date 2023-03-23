@@ -1,7 +1,10 @@
-import type { BigintLike, NumberLike } from '@voire/type-utils'
+import { z } from 'zod'
+import { intLike } from './rules'
 
-export interface PriceData<T extends NumberLike | BigintLike = NumberLike | BigintLike> {
-  value: T
-  symbol: string
-  decimals?: number
-}
+export const priceSchema = z.object({
+  value: intLike,
+  symbol: z.string(),
+  decimals: z.number().nullish(),
+})
+
+export type PriceData = z.infer<typeof priceSchema>

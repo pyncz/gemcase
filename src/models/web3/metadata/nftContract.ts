@@ -1,4 +1,6 @@
-import type { ContractMetadata } from './token'
+import type { z } from 'zod'
+import { contractSchema } from './contract'
 
-// Contract
-export type NftContractMetadata = ContractMetadata
+export const nftContractSchema = contractSchema
+
+export type NftContractMetadata = z.infer<typeof nftContractSchema>

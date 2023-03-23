@@ -1,22 +1,26 @@
-import type { PriceData } from '../../price'
-import type { ContractMetadata } from './token'
+import { resolveIpfs } from '@wiiib/check-evm-address'
+import { z } from 'zod'
+import { priceSchema } from '../../price'
+import { numberLike } from '../../rules'
+import { contractSchema } from './contract'
 
-interface CoinMarketData {
-  nativePrice?: PriceData<bigint> & {
-    name: string
-  }
-  usdPrice: number
-  exchangeName?: string
-}
+const coinMarketDataSchema = z.object({
+  nativePrice: priceSchema.extend({
+    name: z.string(),
+  }).nullish(),
+  usdPrice: z.number(),
+  exchangeName: z.string().nullish(),
+})
 
-export interface CoinContractMetadata extends ContractMetadata {
-  name: string
-  symbol: string
-  decimals: number
-  logo?: string
-  thumbnail?: string
-}
+const coinContractSchema = z.object({
+  decimals: numberLike.transform(Number),
+  logo: z.string(),
+  thumbnail: z.string(),
+}).transform(data => resolveIpfs(data)).and(contractSchema)
 
-export interface CoinContractMarketMetadata extends CoinContractMetadata {
-  marketData?: CoinMarketData
-}
+export const coinContractMarketSchema = coinContractSchema.and(z.object({
+  marketData: coinMarketDataSchema,
+}))
+
+export type CoinContractMetadata = z.infer<typeof coinContractSchema>
+export type CoinContractMarketMetadata = z.infer<typeof coinContractMarketSchema>

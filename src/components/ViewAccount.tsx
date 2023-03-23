@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
 import type { AddressData } from '../models'
 import { getAbsoluteBaseUrl } from '../utils'
-import { AddressPathRepresentation } from './representations/AddressPathRepresentation'
+import { AddressPathRepresentation } from './representations'
 import { HeadMeta } from './HeadMeta'
 
 type Props = AddressData

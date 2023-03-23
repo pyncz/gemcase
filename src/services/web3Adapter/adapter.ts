@@ -1,8 +1,9 @@
 import type { Nullable, Optional } from '@voire/type-utils'
-import { checkInterfaces, resolveIpfs } from '@wiiib/check-evm-address'
+import { checkInterfaces } from '@wiiib/check-evm-address'
 import Moralis from 'moralis'
-import type { BlockchainMetadata, CoinContractMarketMetadata, EvmAddress, InferSlug, NftContractMetadata, NftTokenMetadata, TokenTrait } from '../../models'
-import { compareTraits, isEvmAddress, isTokenId } from '../../utils'
+import type { BlockchainMetadata, EvmAddress, InferSlug } from '../../models'
+import { coinContractMarketSchema, nftContractSchema, nftTokenSchema, paginated } from '../../models'
+import { isEvmAddress, isTokenId } from '../../utils'
 import { createAdapter, createBlockchainAdapter, findByKeyOrAlias } from './createAdapter'
 import type { WithAliases } from './createAdapter'
 import { evmChains } from './chains'
@@ -124,12 +125,7 @@ export const adapterConfig = {
             address,
           })
           const data = result?.toJSON() ?? null
-          return data
-            ? resolveIpfs({
-              symbol: data.symbol,
-              name: data.name,
-            }) as NftContractMetadata
-            : null
+          return nftContractSchema.nullable().parse(data)
         }
         throw new Error('Chain not found')
       },
@@ -143,36 +139,17 @@ export const adapterConfig = {
             addresses: [address],
           })
           const data = result?.toJSON()[0] ?? null
-
           if (data) {
             const marketResult = await Moralis.EvmApi.token.getTokenPrice({
               chain: nwConfig.id,
               address,
             })
             const marketData = marketResult?.toJSON() ?? null
-
-            return resolveIpfs({
-              name: data.name,
-              symbol: data.symbol,
-              decimals: +data.decimals,
-              logo: data.logo,
-              thumbnail: data.thumbnail,
-              // TODO: Add market data
-              marketData: {
-                usdPrice: marketData.usdPrice,
-                exchangeName: marketData.exchangeName,
-                nativePrice: marketData.nativePrice
-                  ? {
-                      value: BigInt(marketData.nativePrice.value),
-                      name: marketData.nativePrice.name,
-                      symbol: marketData.nativePrice.symbol,
-                      decimals: marketData.nativePrice.decimals,
-                    }
-                  : undefined,
-              },
-            }) as CoinContractMarketMetadata
+            return coinContractMarketSchema.nullable().parse({
+              ...data,
+              marketData,
+            })
           }
-
           return null
         }
         throw new Error('Chain not found')
@@ -186,28 +163,28 @@ export const adapterConfig = {
             chain: nwConfig.id,
             address,
             tokenId: tokenId.toString(),
+            normalizeMetadata: true,
           })
           const data = result?.toJSON() ?? null
-          const metadata = data?.metadata ? JSON.parse(data.metadata) : undefined
+          return nftTokenSchema.nullable().parse({
+            ...data,
+            metadata: data?.metadata ? JSON.parse(data.metadata) : undefined,
+          })
+        }
+        throw new Error('Chain not found')
+      },
 
-          return data
-            ? resolveIpfs({
-              symbol: data.symbol,
-              name: data.name,
-              amount: data.amount ? +data.amount : 1,
-              tokenUri: data.token_uri,
-              metadata: data.metadata
-                ? {
-                    name: metadata.name as string,
-                    description: metadata.description as Optional<string>,
-                    image: metadata.image as string,
-                    animationUrl: metadata.animation_url as Optional<string>,
-                    externalUrl: metadata.external_url as Optional<string>,
-                    attributes: (metadata.attributes as Optional<(string | TokenTrait)[]>)?.sort(compareTraits),
-                  }
-                : undefined,
-            }) as NftTokenMetadata
-            : null
+      async getNftContractTokens(chain, address) {
+        const [_, nwConfig] = findByKeyOrAlias(evmChains, chain) ?? []
+        if (nwConfig) {
+          await startMoralis()
+          const result = await Moralis.EvmApi.nft.getContractNFTs({
+            chain: nwConfig.id,
+            address,
+            normalizeMetadata: true,
+          })
+          const data = result?.toJSON() ?? null
+          return paginated(nftTokenSchema).nullable().parse(data)
         }
         throw new Error('Chain not found')
       },

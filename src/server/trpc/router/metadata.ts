@@ -1,10 +1,10 @@
 import { publicProcedure, router } from '../trpc'
-import { addressSchema, optionalTokenSchema, tokenSchema } from '../../../models'
+import { addressPathSchema, optionalTokenSchema, tokenSchema } from '../../../models'
 import { withValidAddress } from '../helpers'
 
 export const metadataRouter = router({
   getAddressMetadata: publicProcedure
-    .input(addressSchema)
+    .input(addressPathSchema)
     .query(({ input }) => {
       return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
         return blockchainConfig.getAddressMetadata(chain, address)
@@ -19,7 +19,7 @@ export const metadataRouter = router({
       })
     }),
   getNftContractMetadata: publicProcedure
-    .input(addressSchema)
+    .input(addressPathSchema)
     .query(({ input }) => {
       return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
         return blockchainConfig.getNftContractMetadata(chain, address)
@@ -34,7 +34,7 @@ export const metadataRouter = router({
       })
     }),
   getCoinContractMetadata: publicProcedure
-    .input(addressSchema)
+    .input(addressPathSchema)
     .query(({ input }) => {
       return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
         return blockchainConfig.getCoinContractMetadata(chain, address)

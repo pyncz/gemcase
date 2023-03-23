@@ -1,25 +1,37 @@
-import type { Nullable } from '@voire/type-utils'
-import type { NftContractMetadata } from './nftContract'
+import { resolveIpfs } from '@wiiib/check-evm-address'
+import { z } from 'zod'
+import { intLike } from '../../rules'
+import { mapped } from '../../utils'
+import { nftContractSchema } from './nftContract'
 
-// Token
-export interface TokenTrait {
-  trait_type?: string
-  value: string
-  display_type?: 'string' | 'number'
-  max_value?: number
-  trait_count?: number
-  order?: number
-}
+export const tokenTraitSchema = z.object({
+  trait_type: z.string().nullish(),
+  value: z.string(),
+  display_type: z.enum(['string', 'number']).nullish(),
+  max_value: z.number().nullish(),
+  trait_count: z.number().nullish(),
+  order: z.number().nullish(),
+})
 
-export interface NftTokenMetadata extends NftContractMetadata {
-  amount: number
-  tokenUri?: Nullable<string>
-  metadata?: {
-    name: string
-    description?: string
-    image: string
-    animationUrl?: string
-    externalUrl?: string
-    attributes?: (string | TokenTrait)[]
-  }
-}
+const nftTokenMetadataSchema = mapped(z.object({
+  name: z.string(),
+  description: z.string().nullish(),
+  image: z.string(),
+  animation_url: z.string().nullish(),
+  external_url: z.string().nullish(),
+  attrbutes: z.array(z.union([tokenTraitSchema, z.string()])).nullish().default([]),
+}), {
+  animation_url: 'animationUrl',
+  external_url: 'externalUrl',
+}).transform(data => resolveIpfs(data))
+
+export const nftTokenSchema = nftContractSchema.and(
+  mapped(z.object({
+    amount: intLike.nullish().default(1),
+    token_uri: z.string().nullish(),
+    metadata: nftTokenMetadataSchema.nullish(),
+  }), { token_uri: 'tokenUri' }),
+)
+
+export type TokenTrait = z.infer<typeof tokenTraitSchema>
+export type NftTokenMetadata = z.infer<typeof nftTokenSchema>
