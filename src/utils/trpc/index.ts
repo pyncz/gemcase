@@ -1,10 +1,10 @@
-import { createTRPCProxyClient, httpBatchLink, loggerLink } from '@trpc/client'
+import { httpBatchLink, loggerLink } from '@trpc/client'
 import { createTRPCNext } from '@trpc/next'
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
-import superjson from 'superjson'
 
-import type { AppRouter } from '../server/trpc/router/_app'
-import { getBaseUrl } from './app'
+import type { AppRouter } from '../../server/trpc/router/_app'
+import { getBaseUrl } from '../app'
+import { transformer } from './transformer'
 
 const trpcLinks = [
   loggerLink({
@@ -17,19 +17,14 @@ const trpcLinks = [
   }),
 ]
 
-export const trpcClient = createTRPCProxyClient<AppRouter>({
-  transformer: superjson,
-  links: trpcLinks,
-})
-
-export const trpcHooks = createTRPCNext<AppRouter>({
+export const trpc = createTRPCNext<AppRouter>({
   config() {
     return {
-      transformer: superjson,
+      transformer,
       links: trpcLinks,
     }
   },
-  ssr: false,
+  ssr: true,
 })
 
 /**
@@ -43,3 +38,5 @@ export type RouterInputs = inferRouterInputs<AppRouter>
  * @example type HelloOutput = RouterOutputs['example']['hello']
  **/
 export type RouterOutputs = inferRouterOutputs<AppRouter>
+
+export { transformer }

@@ -1,11 +1,7 @@
 {
   "name": "gemcase",
   "version": "0.1.0",
-  "author": {
-    "name": "Pavel Yankovski",
-    "email": "pyncz.dev@gmail.com",
-    "url": "https://github.com/pyncz"
-  },
+  "author": "Pau Yankovski <https://github.com/pyncz>",
   "license": "MIT",
   "scripts": {
     "build": "next build",
@@ -30,10 +26,10 @@
     "@radix-ui/react-tooltip": "^1.0.3",
     "@reduxjs/toolkit": "^1.9.1",
     "@tanstack/react-query": "^4.16.0",
-    "@trpc/client": "^10.0.0",
-    "@trpc/next": "^10.0.0",
-    "@trpc/react-query": "^10.0.0",
-    "@trpc/server": "^10.0.0",
+    "@trpc/client": "^10.18.0",
+    "@trpc/next": "^10.18.0",
+    "@trpc/react-query": "^10.18.0",
+    "@trpc/server": "^10.18.0",
     "@types/sharp": "^0.31.1",
     "@voire/type-utils": "^1.2.0",
     "@wiiib/check-evm-address": "^1.0.1",

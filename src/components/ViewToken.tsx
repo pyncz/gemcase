@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
 import { LayoutSide } from '../layouts'
 import type { AddressData } from '../models'
-import { getAbsoluteBaseUrl, trpcHooks } from '../utils'
+import { getAbsoluteBaseUrl, trpc } from '../utils'
 import { HeadMeta } from './HeadMeta'
 import { AddressPathRepresentation, ChainRepresentation, CoinContractRepresentation } from './representations'
 import { Skeleton, Tag } from './ui'
@@ -28,7 +28,7 @@ export const ViewToken: FC<Props> = (props) => {
   const {
     isLoading,
     data: metadata,
-  } = trpcHooks.metadata.getCoinContractMetadata.useQuery({ blockchain, chain, address })
+  } = trpc.token.getMetadata.useQuery({ blockchain, chain, address })
 
   const hashtags = useMemo(() => {
     const tags = ['coin', 'token', 'crypto', 'cryptocurrency']

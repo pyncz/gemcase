@@ -19,10 +19,10 @@ specifiers:
   '@tailwindcss/aspect-ratio': ^0.3.0
   '@tailwindcss/line-clamp': ^0.2.1
   '@tanstack/react-query': ^4.16.0
-  '@trpc/client': ^10.0.0
-  '@trpc/next': ^10.0.0
-  '@trpc/react-query': ^10.0.0
-  '@trpc/server': ^10.0.0
+  '@trpc/client': ^10.18.0
+  '@trpc/next': ^10.18.0
+  '@trpc/react-query': ^10.18.0
+  '@trpc/server': ^10.18.0
   '@types/node': ^18.0.0
   '@types/react': ^18.0.14
   '@types/react-dom': ^18.0.5
@@ -56,8 +56,8 @@ specifiers:
   sass: ^1.57.0
   satori: ^0.4.0
   sharp: ^0.31.3
-  simple-git: ^2.47.0
-  simple-git-hooks: ^2.7.0
+  simple-git: ^3.17.0
+  simple-git-hooks: ^2.8.1
   smart-truncate: ^1.0.1
   stylelint: ^14.8.2
   stylelint-config-standard: ^28.0.0
@@ -82,10 +82,10 @@ dependencies:
   '@radix-ui/react-tooltip': 1.0.3_ib3m5ricvtkl2cll7qpr2f6lvq
   '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
   '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
-  '@trpc/client': 10.5.0_@trpc+server@10.5.0
-  '@trpc/next': 10.5.0_pd3elg5u3zlm453dd4mbgdu4mm
-  '@trpc/react-query': 10.5.0_hkttq5uvq7kltri3tppuogqqou
-  '@trpc/server': 10.5.0
+  '@trpc/client': 10.18.0_@trpc+server@10.18.0
+  '@trpc/next': 10.18.0_6yqh75hfo2bzfxlmnsvi3i7cdu
+  '@trpc/react-query': 10.18.0_buwlzgdn7uhr5xrnzzzuldjrt4
+  '@trpc/server': 10.18.0
   '@types/sharp': 0.31.1
   '@voire/type-utils': 1.2.0
   '@wiiib/check-evm-address': 1.0.1
@@ -129,7 +129,7 @@ devDependencies:
   lint-staged: 13.1.0
   postcss: 8.4.20
   prisma: 4.7.1
-  simple-git: 2.48.0
+  simple-git: 3.17.0
   simple-git-hooks: 2.8.1
   stylelint: 14.16.0
   stylelint-config-standard: 28.0.0_stylelint@14.16.0
@@ -1473,53 +1473,53 @@ packages:
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
-  /@trpc/client/10.5.0_@trpc+server@10.5.0:
-    resolution: {integrity: sha512-ULRL6YUi/4sMzZnqS3VCe/VduPZgY24wdC4canpwWZfHj+O0kHz3KR260DzEw0QrpLrOwmkIWOlQKzVBn2lLgQ==}
+  /@trpc/client/10.18.0_@trpc+server@10.18.0:
+    resolution: {integrity: sha512-2d+6r2C/xygTjDWX9jT66defgHzbQP0Z8vrvyT3XtPjqU6JNlRNuS2ZtB8xDPdOQUUVnndzZ43BMr+Zu49K0OQ==}
     peerDependencies:
-      '@trpc/server': 10.5.0
+      '@trpc/server': 10.18.0
     dependencies:
-      '@trpc/server': 10.5.0
+      '@trpc/server': 10.18.0
     dev: false
 
-  /@trpc/next/10.5.0_pd3elg5u3zlm453dd4mbgdu4mm:
-    resolution: {integrity: sha512-beWvrdHZTV7kx4XeLlHKB29EC6VWkkPykWN1eoPkSTeAYMqEIpl46Xgdj6UfiLmuq8yjAi888BahGNdmTMqFZQ==}
+  /@trpc/next/10.18.0_6yqh75hfo2bzfxlmnsvi3i7cdu:
+    resolution: {integrity: sha512-GftAMy3K9AEATmsVTdc5zhCTLzSYpZ9bene7+sTlCF7QX/AMxIsd0ZUFrRnF6yg3jnxN+SvdNcF9IXeETXtGUw==}
     peerDependencies:
-      '@tanstack/react-query': ^4.3.8
-      '@trpc/client': 10.5.0
-      '@trpc/react-query': ^10.0.0-proxy-beta.21
-      '@trpc/server': 10.5.0
+      '@tanstack/react-query': ^4.18.0
+      '@trpc/client': 10.18.0
+      '@trpc/react-query': 10.18.0
+      '@trpc/server': 10.18.0
       next: '*'
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
       '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
-      '@trpc/client': 10.5.0_@trpc+server@10.5.0
-      '@trpc/react-query': 10.5.0_hkttq5uvq7kltri3tppuogqqou
-      '@trpc/server': 10.5.0
+      '@trpc/client': 10.18.0_@trpc+server@10.18.0
+      '@trpc/react-query': 10.18.0_buwlzgdn7uhr5xrnzzzuldjrt4
+      '@trpc/server': 10.18.0
       next: 13.0.7_ufbfruihzbho6n4jkpynvghrd4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-ssr-prepass: 1.5.0_react@18.2.0
     dev: false
 
-  /@trpc/react-query/10.5.0_hkttq5uvq7kltri3tppuogqqou:
-    resolution: {integrity: sha512-MBjgssZBy1ZRZVRE4uvnVu7AGcdOhL47Y1NIPGd5WG5ZisNrV6imf7yZ62uNDemnekwTuJT/Lad9r14swvmvzQ==}
+  /@trpc/react-query/10.18.0_buwlzgdn7uhr5xrnzzzuldjrt4:
+    resolution: {integrity: sha512-5IxlvBh+KY/zOYCekBXzZUHtOrURQyXNnpQg9ZlEZTiyZmivGjIyH2VQIsFsGrK8IU99GAmIReQCw6uWgQrEcQ==}
     peerDependencies:
-      '@tanstack/react-query': ^4.3.8
-      '@trpc/client': 10.5.0
-      '@trpc/server': 10.5.0
+      '@tanstack/react-query': ^4.18.0
+      '@trpc/client': 10.18.0
+      '@trpc/server': 10.18.0
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
       '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
-      '@trpc/client': 10.5.0_@trpc+server@10.5.0
-      '@trpc/server': 10.5.0
+      '@trpc/client': 10.18.0_@trpc+server@10.18.0
+      '@trpc/server': 10.18.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@trpc/server/10.5.0:
-    resolution: {integrity: sha512-AJ4ckDpnN8xuqWBox68KDTFpG12ZxKkW7fi9XJ+TLtyyNyqOMVUvKH9070CdxhqBZjebTASryE+/6lntkDFQxA==}
+  /@trpc/server/10.18.0:
+    resolution: {integrity: sha512-nVMqdDIF9YLOeC3g6RdAvdCPqkHFjpshSqZGThZ+fyjiWSUXj2ZKCduhJFnY77TjtgODojeaaghmzcnjxb+Onw==}
     dev: false
 
   /@types/bn.js/5.1.1:
@@ -5894,8 +5894,8 @@ packages:
     requiresBuild: true
     dev: true
 
-  /simple-git/2.48.0:
-    resolution: {integrity: sha512-z4qtrRuaAFJS4PUd0g+xy7aN4y+RvEt/QTJpR184lhJguBA1S/LsVlvE/CM95RsYMOFJG3NGGDjqFCzKU19S/A==}
+  /simple-git/3.17.0:
+    resolution: {integrity: sha512-JozI/s8jr3nvLd9yn2jzPVHnhVzt7t7QWfcIoDcqRIGN+f1IINGv52xoZti2kkYfoRhhRvzMSNPfogHMp97rlw==}
     dependencies:
       '@kwsites/file-exists': 1.1.1
       '@kwsites/promise-deferred': 1.1.1

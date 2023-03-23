@@ -11,12 +11,10 @@ import { z } from 'zod'
 import { useRouter } from 'next/router'
 import type { ChainPath, Web3PublicConfig } from '../models'
 import { useValidValue } from '../hooks'
-import { trpcClient } from '../utils'
+import { trpc } from '../utils'
 import { positiveNumberLike } from '../models'
 import { ControlledField, ErrorMessage, Input, Select } from './ui'
-import { BlockchainRepresentation } from './representations/BlockchainRepresentation'
-import { ChainRepresentation } from './representations/ChainRepresentation'
-import { Web3EntityRepresentation } from './representations'
+import { BlockchainRepresentation, ChainRepresentation, Web3EntityRepresentation } from './representations'
 import { RenderWeb3Metadata } from './RenderWeb3Metadata'
 
 type Props = Partial<ChainPath> & Web3PublicConfig
@@ -53,7 +51,7 @@ export const ExploreForm: FC<Props> = (props) => {
       async ({ blockchain, chain, address }) => {
         // TODO: Validate on client too?
         return blockchain && chain && address
-          ? trpcClient.validate.validateAddress.query({ blockchain, chain, address })
+          ? trpc.useContext().validate.validateAddress.fetch({ blockchain, chain, address })
           : false
       },
       ({ blockchain }) => ({

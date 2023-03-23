@@ -3,7 +3,7 @@ import type { FC, ReactElement, ReactNode } from 'react'
 import { useAsync } from 'react-use'
 import type { z } from 'zod'
 import type { MetadataWithContext, optionalTokenSchema } from '../models'
-import { debounce, trpcClient } from '../utils'
+import { debounce, trpc } from '../utils'
 import { Skeleton } from './ui'
 
 type Props = z.infer<typeof optionalTokenSchema> & {
@@ -18,7 +18,7 @@ export const RenderWeb3Metadata: FC<Props> = (props) => {
   // When address is set try to figure out what contract / account this is
   const fetchMetadata = () => {
     if (blockchain && chain && address) {
-      return trpcClient.metadata.getMetadata.query({
+      return trpc.useContext().getMetadata.fetch({
         blockchain,
         chain,
         address,

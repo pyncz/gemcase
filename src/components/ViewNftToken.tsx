@@ -7,7 +7,7 @@ import { Icon } from '@iconify-icon/react'
 import openIcon from '@iconify/icons-ion/open-outline'
 import { LayoutSide } from '../layouts'
 import type { TokenData } from '../models'
-import { formatTokenName, getAbsoluteBaseUrl, trpcHooks } from '../utils'
+import { formatTokenName, getAbsoluteBaseUrl, trpc } from '../utils'
 import { AddressPathRepresentation, ChainRepresentation, NftContractRepresentation } from './representations'
 import { HeadMeta } from './HeadMeta'
 import { ButtonLink, Markdown, Skeleton, Tag } from './ui'
@@ -36,7 +36,7 @@ export const ViewNftToken: FC<Props> = (props) => {
   const {
     isLoading,
     data: metadata,
-  } = trpcHooks.metadata.getNftTokenMetadata.useQuery({ blockchain, chain, address, tokenId })
+  } = trpc.nftToken.getMetadata.useQuery({ blockchain, chain, address, tokenId })
 
   const { name: collectionName, metadata: tokenMetadata } = metadata ?? {}
   const { name: tokenName } = tokenMetadata ?? {}
