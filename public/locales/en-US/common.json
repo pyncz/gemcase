@@ -46,6 +46,7 @@
   "index": {
     "title": "Explore <0>web3</0> world"
   },
+  "loadMore": "Load more",
   "locale": {
     "_": "Language"
   },
@@ -99,6 +100,7 @@
   "refresh": "Refresh page",
   "share": "Share",
   "shareMessage": {
+    "nftContract": "Check this {{name}} NFT collection on gemcase!",
     "nftToken": "What a fabulous {{name}} NFT token on gemcase!",
     "token": "Check {{name}} on gemcase."
   },

@@ -1,16 +1,22 @@
 import { useTranslation } from 'next-i18next'
 import type { FC } from 'react'
+import { useMemo } from 'react'
 import { LayoutSide } from '../layouts'
-import type { AddressData } from '../models'
-import { getAbsoluteBaseUrl, stringify, trpcHooks } from '../utils'
-import { AddressPathRepresentation } from './representations/AddressPathRepresentation'
+import type { AddressData, NftTokenMetadata } from '../models'
+import { getAbsoluteBaseUrl, trpc } from '../utils'
 import { HeadMeta } from './HeadMeta'
+import { Skeleton, Tag } from './ui'
+import { Profile } from './Profile'
+import { ExplorerLink } from './ExplorerLink'
+import { ShareButton } from './share'
+import { Attribute } from './Attribute'
+import { ChainRepresentation } from './representations'
+import { InfiniteList } from './utils'
 
 type Props = AddressData
 
 export const ViewNftContract: FC<Props> = (props) => {
   const {
-    isCollectibleNFT,
     blockchain,
     chain,
     chainMetadata,
@@ -23,7 +29,15 @@ export const ViewNftContract: FC<Props> = (props) => {
   const {
     isLoading,
     data: metadata,
-  } = trpcHooks.metadata.getNftContractMetadata.useQuery({ blockchain, chain, address })
+  } = trpc.nftContract.getMetadata.useQuery({ blockchain, chain, address })
+
+  const hashtags = useMemo(() => {
+    const tags = ['NFT', 'token', 'crypto']
+    if (metadata) {
+      tags.push(metadata.symbol, metadata.name)
+    }
+    return tags
+  }, [metadata])
 
   const ogImage = `${getAbsoluteBaseUrl()}/api/og/${blockchain}/${chain}/${address}`
 
@@ -40,16 +54,78 @@ export const ViewNftContract: FC<Props> = (props) => {
         image={ogImage}
       />
 
-      <LayoutSide>
-        <h1>An NFT address</h1>
-        {isCollectibleNFT ? <small>collectible</small> : null}
-        <AddressPathRepresentation {...props} />
+      <Skeleton.Root loaded={!isLoading}>
+        <LayoutSide details={
+          <>
+            <Profile.Header label={metadata?.name} />
 
-        {isLoading
-          ? <div>Loading...</div>
-          : <code>{stringify(metadata)}</code>
+            <Profile.Body>
+              <Profile.Summary
+                heading={
+                  <Skeleton.Element width={120}>
+                    {metadata?.name}
+                  </Skeleton.Element>
+                }
+              />
+
+              <Profile.Actions>
+                {chainMetadata.explorer
+                  ? <ExplorerLink
+                      explorer={chainMetadata.explorer}
+                      getHref={resolver => resolver.nftContract({
+                        address,
+                      })}
+                    />
+                  : null
+                }
+                <ShareButton
+                  url={`/view/${blockchain}/${chain}/${address}`}
+                  message={i18n.t('shareMessage.nftContract', {
+                    name: metadata?.name ?? standard,
+                  })}
+                  hashtags={hashtags}
+                />
+              </Profile.Actions>
+
+              <Profile.Attributes>
+                {/* Network */}
+                <Attribute label={i18n.t('chain')} textValue={chainMetadata.label}>
+                  <ChainRepresentation
+                    className="tw-overflow-hidden tw-text-sm"
+                    {...chainMetadata}
+                  />
+                </Attribute>
+
+                {/* Type of the token */}
+                {standard
+                  ? (
+                    <Attribute label={i18n.t('standard')} textValue={standard}>
+                      <Tag className="tw-font-mono">{standard}</Tag>
+                    </Attribute>
+                    )
+                  : null
+                }
+
+                {/* TODO: Add stats, e.g. total supply, floor price etc */}
+              </Profile.Attributes>
+
+              {/* TODO: Fetch descriotion too (use Alchemy instead of / along with Moralis?) */}
+            </Profile.Body>
+          </>
         }
-      </LayoutSide>
+        >
+          <InfiniteList<NftTokenMetadata>
+            className="tw-grid tw-gap-4 tw-grid-cols-cards"
+            query={() => trpc.nftContract.getTokens.useInfiniteQuery(
+              { blockchain, chain, address },
+              { getNextPageParam: lastPage => lastPage.cursor },
+            )}
+            render={data => (
+              <div key={data.tokenId}>{data.metadata?.name}</div>
+            )}
+          />
+        </LayoutSide>
+      </Skeleton.Root>
     </>
   )
 }

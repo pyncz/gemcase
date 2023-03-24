@@ -1,7 +1,7 @@
 import { resolveIpfs } from '@wiiib/check-evm-address'
 import { z } from 'zod'
-import { intLike } from '../../rules'
-import { mapped } from '../../utils'
+import { intLike, numberLike } from '../../rules'
+import { fromJSON, mapped } from '../../utils'
 import { nftContractSchema } from './nftContract'
 
 export const tokenTraitSchema = z.object({
@@ -13,29 +13,35 @@ export const tokenTraitSchema = z.object({
   order: z.number().nullish(),
 })
 
-const nftTokenMetadataSchema = mapped(
+const nftTokenMetadataSchema = (
   mapped(
-    z.object({
-      name: z.string(),
-      description: z.string().nullish(),
-      image: z.string(),
-      animation_url: z.string().nullish(),
-      external_url: z.string().nullish(),
-      attributes: z.array(z.union([tokenTraitSchema, z.string()])).nullish().default([]),
-    }),
-    'animation_url', 'animationUrl',
-  ),
-  'external_url', 'externalUrl',
+    mapped(
+      z.object({
+        name: z.string(),
+        description: z.string().nullish(),
+        image: z.string(),
+        animation_url: z.string().nullish(),
+        external_url: z.string().nullish(),
+        attributes: z.array(z.union([tokenTraitSchema, z.string()])).nullish().default([]),
+      }),
+      'animation_url', 'animationUrl',
+    ),
+    'external_url', 'externalUrl',
+  )
 ).transform(data => resolveIpfs(data))
 
 export const nftTokenSchema = nftContractSchema.and(
   mapped(
-    z.object({
-      amount: intLike.nullish().default(1),
-      token_uri: z.string().nullish(),
-      metadata: nftTokenMetadataSchema.nullish(),
-    }),
-    'token_uri', 'tokenUri',
+    mapped(
+      z.object({
+        token_id: numberLike,
+        amount: intLike.nullish().default(1),
+        token_uri: z.string().nullish(),
+        metadata: fromJSON(nftTokenMetadataSchema).nullish(),
+      }),
+      'token_uri', 'tokenUri',
+    ),
+    'token_id', 'tokenId',
   ),
 )
 

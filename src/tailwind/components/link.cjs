@@ -16,7 +16,7 @@ module.exports = ({ addComponents, addUtilities, theme }) => {
       '--tw-text-opacity': '1',
       '--tw-border-opacity': '1',
 
-      'display': 'inline-flex',
+      'display': 'inline-block',
       'cursor': 'pointer',
       'color': c('--link-text', 'var(--tw-text-opacity)'),
       'border-bottom': `${theme('borderWidth.DEFAULT')} solid ${c('--link-border', 'var(--tw-border-opacity)')}`,

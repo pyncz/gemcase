@@ -28,9 +28,7 @@ export const Header: FC<WithClassName<Props>> = (props) => {
 
   const avatarSize = 48
   const avatarOffset = 8
-  const avatarShift = avatar
-    ? `calc(${avatarSize}px * 0.5 + ${avatarOffset}px)`
-    : undefined
+  const avatarShift = `calc(${avatarSize}px * 0.5 + ${avatarOffset}px)`
 
   const coverAlt = label
     ? i18n.t('coverOf', { name: label })

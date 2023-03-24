@@ -196,7 +196,7 @@ module.exports = {
       },
       spacing: {
         // for height / width
-        sidebar: 'var(--h-sidebar)',
+        sidebar: 'var(--sidebar-size)',
         // for spacing
         list: '1.25rem',
         title: '2.5rem',
@@ -269,6 +269,21 @@ module.exports = {
       })
 
       addUtilities({
+        '.h-viewport': {
+          'height': 'calc(100vh - var(--sidebar-size))',
+          '@screen sm': {
+            height: '100vh',
+          },
+        },
+        '.min-h-viewport': {
+          'minHeight': 'calc(100vh - var(--sidebar-size))',
+          '@screen sm': {
+            minHeight: '100vh',
+          },
+        },
+      })
+
+      addUtilities({
         '.py-section': {
           'paddingTop': '6rem',
           'paddingBottom': '4rem',
@@ -276,6 +291,10 @@ module.exports = {
             paddingTop: '5rem',
             paddingBottom: '6rem',
           },
+        },
+        '.py-container': {
+          paddingTop: '2rem',
+          paddingBottom: '2rem',
         },
         '.px-container': {
           'paddingLeft': '1rem',

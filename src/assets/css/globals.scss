@@ -76,7 +76,7 @@
     --r-xl: 0.75rem;
     --r-navlink: var(--r-lg);
 
-    --h-sidebar: 80px;
+    --sidebar-size: 80px;
 
     // Default: light mode
     @include light-mode;

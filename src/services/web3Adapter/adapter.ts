@@ -164,27 +164,30 @@ export const adapterConfig = {
             address,
             tokenId: tokenId.toString(),
             normalizeMetadata: true,
+            // mediaItems: true,
           })
           const data = result?.toJSON() ?? null
-          return nftTokenSchema.nullable().parse({
-            ...data,
-            metadata: data?.metadata ? JSON.parse(data.metadata) : undefined,
-          })
+          return nftTokenSchema.nullable().parse(data)
         }
         throw new Error('Chain not found')
       },
 
-      async getNftContractTokens(chain, address) {
+      async getNftContractTokens(chain, address, options?) {
         const [_, nwConfig] = findByKeyOrAlias(evmChains, chain) ?? []
         if (nwConfig) {
           await startMoralis()
+          const { limit, cursor } = options ?? {}
           const result = await Moralis.EvmApi.nft.getContractNFTs({
             chain: nwConfig.id,
             address,
             normalizeMetadata: true,
+            // pagination
+            limit,
+            cursor,
+            // mediaItems: true,
           })
           const data = result?.toJSON() ?? null
-          return paginated(nftTokenSchema).nullable().parse(data)
+          return paginated(nftTokenSchema).parse(data)
         }
         throw new Error('Chain not found')
       },

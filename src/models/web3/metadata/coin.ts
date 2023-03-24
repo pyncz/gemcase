@@ -13,7 +13,7 @@ const coinMarketDataSchema = z.object({
 })
 
 const coinContractSchema = z.object({
-  decimals: numberLike.transform(Number),
+  decimals: numberLike,
   logo: z.string(),
   thumbnail: z.string(),
 }).transform(data => resolveIpfs(data)).and(contractSchema)
