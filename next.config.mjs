@@ -17,14 +17,9 @@ const config = {
   images: {
     remotePatterns: [
       {
-        // Images within the responses from the tokens' / contracts' metadata index
+        // Images from the responses of the tokens' / contracts' metadata API indecies
         protocol: 'https',
-        hostname: 'cdn.moralis.io',
-      },
-      {
-        // Default ipfs links' resolver
-        protocol: 'https',
-        hostname: 'gateway.pinata.cloud',
+        hostname: '**',
       },
     ],
   },

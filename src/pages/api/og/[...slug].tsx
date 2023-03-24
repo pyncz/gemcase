@@ -18,7 +18,7 @@ const getOgpengraphImageByConfig = async (config: Web3Data): Promise<Nullable<Bu
 
       if (metadata) {
         // Show the NFT image as the og-image for this token
-        if (metadata.metadata) {
+        if (metadata.metadata?.image) {
           // A *significantly big* file may be stored on ipfs (or anywhere)
           // so we'll come up with just a regular preview as a fallback
           try {

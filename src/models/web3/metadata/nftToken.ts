@@ -6,7 +6,7 @@ import { nftContractSchema } from './nftContract'
 
 export const tokenTraitSchema = z.object({
   trait_type: z.string().nullish(),
-  value: z.string(),
+  value: z.any().transform(v => JSON.stringify(v)),
   display_type: z.enum(['string', 'number']).nullish(),
   max_value: z.number().nullish(),
   trait_count: z.number().nullish(),
@@ -17,9 +17,9 @@ const nftTokenMetadataSchema = (
   mapped(
     mapped(
       z.object({
-        name: z.string(),
+        name: z.string().nullish(),
         description: z.string().nullish(),
-        image: z.string(),
+        image: z.string().nullish(),
         animation_url: z.string().nullish(),
         external_url: z.string().nullish(),
         attributes: z.array(z.union([tokenTraitSchema, z.string()])).nullish().default([]),

@@ -73,7 +73,7 @@ module.exports = {
       },
     },
     gridTemplateColumns: {
-      cards: 'repeat(auto-fill, minmax(14rem, 1fr))',
+      cards: 'repeat(auto-fill, minmax(10rem, 1fr))',
     },
     colors: {
       black: co('--c-black'),
@@ -140,6 +140,7 @@ module.exports = {
       0: '0',
       50: '0.5',
       click: '0.975',
+      zoom: '1.05',
       normal: '1',
     },
     fill: theme => ({
@@ -179,6 +180,7 @@ module.exports = {
     transitionDuration: {
       fast: '150ms',
       normal: '300ms',
+      slow: '600ms',
     },
     zIndex: {
       muted: '-1',
@@ -203,6 +205,7 @@ module.exports = {
         field: '0.25rem',
         fields: '0.75rem',
         form: '1.5rem',
+        grid: '0.75rem',
         // for offset
         ch: '1ch',
         em: '1em',
@@ -311,13 +314,26 @@ module.exports = {
         '.navlink-bg': {
           background: 'radial-gradient(50% 50% at center, rgb(var(--c-navlink)), transparent)',
         },
-        '.duration-nobg-fast': {
-          transition: 'all 150ms, background 0s',
-        },
-        '.duration-nobg-normal': {
-          transition: 'all 300ms, background 0s',
+      })
+
+      // Add no-bg transition durations
+      addUtilities(Object.entries(theme('transitionDuration')).reduce((config, [durationKey, value]) => {
+        config[`.duration-nobg-${durationKey}`] = {
+          transition: `all ${value}, background 0s`,
+        }
+        return config
+      }, {}))
+
+      addUtilities({
+        '.transition-fancy': {
+          'transitionTimingFunction': 'cubic-bezier(0.4, 0, 0.2, 1)',
+          'transitionDuration': theme('transitionDuration.fast'),
+          '&:hover': {
+            transitionDuration: theme('transitionDuration.normal'),
+          },
         },
       })
+
       addComponents({
         '.border-avatar': {
           '--tw-border-opacity': theme('opacity.muted'),

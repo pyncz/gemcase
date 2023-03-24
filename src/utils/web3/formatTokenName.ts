@@ -1,8 +1,8 @@
-import type { NumberLike } from '@voire/type-utils'
+import type { Nullable, NumberLike } from '@voire/type-utils'
 
 export const formatTokenName = (
   tokenId: NumberLike,
-  tokenName?: string,
+  tokenName?: Nullable<string>,
   collectionName?: string,
 ) => {
   return tokenName ?? `${collectionName ? `${collectionName} ` : ''}#${+tokenId}`

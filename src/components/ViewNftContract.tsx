@@ -11,6 +11,7 @@ import { ExplorerLink } from './ExplorerLink'
 import { ShareButton } from './share'
 import { Attribute } from './Attribute'
 import { ChainRepresentation } from './representations'
+import { NftTokenCard } from './NftTokenCard'
 import { InfiniteList } from './utils'
 
 type Props = AddressData
@@ -115,13 +116,19 @@ export const ViewNftContract: FC<Props> = (props) => {
         }
         >
           <InfiniteList<NftTokenMetadata>
-            className="tw-grid tw-gap-4 tw-grid-cols-cards"
+            className="tw-grid tw-gap-grid tw-grid-cols-cards"
             query={() => trpc.nftContract.getTokens.useInfiniteQuery(
               { blockchain, chain, address },
               { getNextPageParam: lastPage => lastPage.cursor },
             )}
             render={data => (
-              <div key={data.tokenId}>{data.metadata?.name}</div>
+              <NftTokenCard
+                key={data.tokenId}
+                blockchain={blockchain}
+                chain={chain}
+                address={address}
+                {...data}
+              />
             )}
           />
         </LayoutSide>

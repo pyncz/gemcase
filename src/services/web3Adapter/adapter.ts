@@ -75,7 +75,6 @@ export const adapterConfig = {
                       is: 'nft',
                       ...addressPath,
                       ...addressMetadata,
-                      tokenId,
                       ...metadata,
                     }
                   } // -> fallback down to 'nftContract' if there's no metadata
@@ -163,7 +162,7 @@ export const adapterConfig = {
             chain: nwConfig.id,
             address,
             tokenId: tokenId.toString(),
-            normalizeMetadata: true,
+            // normalizeMetadata: true,
             // mediaItems: true,
           })
           const data = result?.toJSON() ?? null
@@ -180,11 +179,12 @@ export const adapterConfig = {
           const result = await Moralis.EvmApi.nft.getContractNFTs({
             chain: nwConfig.id,
             address,
-            normalizeMetadata: true,
+            // normalizeMetadata: true,
+            // mediaItems: true,
+
             // pagination
             limit,
             cursor,
-            // mediaItems: true,
           })
           const data = result?.toJSON() ?? null
           return paginated(nftTokenSchema).parse(data)
