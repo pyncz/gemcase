@@ -6,7 +6,10 @@ import { nftContractSchema } from './nftContract'
 
 export const tokenTraitSchema = z.object({
   trait_type: z.string().nullish(),
-  value: z.any().transform(v => JSON.stringify(v)),
+  value: z.any().transform(v => typeof v === 'string'
+    ? v.replace(/(^\")|(\"$)/g, '') // remove leading / trailed quotes
+    : JSON.stringify(v),
+  ),
   display_type: z.enum(['string', 'number']).nullish(),
   max_value: z.number().nullish(),
   trait_count: z.number().nullish(),
