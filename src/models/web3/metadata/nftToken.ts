@@ -35,7 +35,7 @@ export const nftTokenSchema = nftContractSchema.and(
     mapped(
       z.object({
         token_id: numberLike,
-        amount: intLike.nullish().default(1),
+        amount: intLike.nullish().default(1).transform(String),
         token_uri: z.string().nullish(),
         metadata: fromJSON(nftTokenMetadataSchema).nullish(),
       }),
