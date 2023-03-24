@@ -50,6 +50,8 @@ export const Avatar: FC<Props> = (props) => {
         height={size}
         style={{
           borderRadius: avatarInnerRadius,
+          width: `${size}px`,
+          height: `${size}px`,
         }}
       />
     </div>

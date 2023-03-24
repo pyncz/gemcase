@@ -197,7 +197,7 @@ export const ViewNftToken: FC<Props> = (props) => {
           <ViewPort
             className="tw-group/viewport"
             overlay={
-              <div className="tw-opacity-muted tw-duration-normal group-hover/viewport:tw-opacity-full tw-flex tw-items-center tw-justify-between tw-gap-3 tw-p-6">
+              <div className="tw-opacity-muted tw-duration-normal group-hover/viewport:tw-opacity-soft tw-flex tw-items-center tw-justify-between tw-gap-3 tw-p-6">
                 <div className="tw-inline-block tw-px-2">
                   <AddressPathRepresentation {...props} />
                 </div>

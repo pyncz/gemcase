@@ -45,7 +45,7 @@ export const LayoutBase: FC<PropsWithChildren> = ({ children }) => {
         <Tooltip
           position={tooltipPosition}
           trigger={
-            <span className="tw-duration-normal tw-ml-auto sm:tw-ml-0 sm:tw-mt-auto tw-inline-flex tw-rounded-full hover:tw-scale-[1.1]">
+            <span className="tw-duration-normal tw-ml-auto sm:tw-ml-0 sm:tw-mt-auto tw-inline-flex tw-rounded-full hover:tw-scale-zoom">
               <Button
                 scale="xl"
                 disabled

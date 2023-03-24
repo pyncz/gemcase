@@ -2,13 +2,14 @@ import classNames from 'classnames'
 import Image from 'next/image'
 import type { FC } from 'react'
 import { useTranslation } from 'next-i18next'
+import type { Nullable } from '@voire/type-utils'
 import type { AvatarShape, WithClassName } from '../../models'
 import { Skeleton } from '../ui'
 import { Avatar } from './Avatar'
 
 interface Props {
-  cover?: string
-  avatar?: string
+  cover?: Nullable<string>
+  avatar?: Nullable<string>
   avatarShape?: AvatarShape
   label?: string
   blur?: number

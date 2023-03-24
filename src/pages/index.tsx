@@ -46,7 +46,7 @@ const Home: NextPageWithLayout<InferGetStaticPropsType<typeof getStaticProps>> =
             components={[
               <span
                 key="1"
-                className="tw-drop-shadow-glow tw-inline-flex tw-scale-[1.05] tw-origin-[center_90%]"
+                className="tw-drop-shadow-glow tw-inline-flex tw-scale-zoom tw-origin-[center_90%]"
                 style={{
                   WebkitTextStroke: '1px',
                   WebkitTextStrokeColor: 'rgb(var(--c-emphasize))',
