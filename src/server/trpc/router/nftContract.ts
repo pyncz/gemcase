@@ -1,5 +1,5 @@
 import { publicProcedure, router } from '../trpc'
-import { addressPathSchema } from '../../../models'
+import { addressPathSchema, withPagination } from '../../../models'
 import { withValidAddress } from '../helpers'
 
 export const nftContractRouter = router({
@@ -11,7 +11,7 @@ export const nftContractRouter = router({
       })
     }),
   getTokens: publicProcedure
-    .input(addressPathSchema)
+    .input(withPagination(addressPathSchema))
     .query(({ input }) => {
       return withValidAddress(input, ({ blockchainConfig, chain, address }) => {
         return blockchainConfig.getNftContractTokens(chain, address)

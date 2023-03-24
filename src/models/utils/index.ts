@@ -1,2 +1,2 @@
-export * from './paginated'
-export * from './mapped'
+export * from './pagination'
+export * from './mapping'
