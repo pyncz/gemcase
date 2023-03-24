@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from 'react'
 import type { Nullable, SizeExtra } from '@voire/type-utils'
 import type { CoinContractMarketMetadata, WithClassName } from '../../models'
-import { Price } from '../Price'
+import { Price } from '../utils'
 import { Skeleton } from '../ui'
 import { Representation, RepresentationImage } from './base'
 

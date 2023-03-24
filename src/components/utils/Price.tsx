@@ -1,7 +1,7 @@
 import { formatUnits } from 'ethers'
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import type { PriceData } from '../models'
+import type { PriceData } from '../../models'
 
 type Props = PriceData & {
   fixTo?: number

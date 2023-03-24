@@ -8,7 +8,7 @@ import type { Explorer } from '../services/exploreAdapter'
 import { exploreAdapter } from '../services/exploreAdapter'
 import type { ExplorerConfig } from '../models'
 import { ButtonLink } from './ui'
-import { Adjusted } from './colorUtils'
+import { Adjusted } from './utils'
 
 interface Props {
   explorer: ExplorerConfig
