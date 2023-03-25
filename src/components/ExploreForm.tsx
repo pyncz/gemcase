@@ -53,7 +53,7 @@ export const ExploreForm: FC<Props> = (props) => {
       async ({ blockchain, chain, address }) => {
         // TODO: Validate on client too?
         return blockchain && chain && address
-          ? trpcUtils.validate.validateAddress.fetch({ blockchain, chain, address })
+          ? await trpcUtils.validate.validateAddress.fetch({ blockchain, chain, address })
           : false
       },
       ({ blockchain }) => ({
@@ -69,7 +69,7 @@ export const ExploreForm: FC<Props> = (props) => {
     control,
     watch,
     resetField,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<ExploreFormInput>({
     /**
      * Check how to debug resolver:
@@ -90,36 +90,36 @@ export const ExploreForm: FC<Props> = (props) => {
   const blockchainOptions = useMemo(() => Object.keys(blockchains), [blockchains])
 
   // Valid blockchain selected
-  const blockchain = useValidValue(control, watch, 'blockchain')
+  const validBlockchain = useValidValue(control, watch, 'blockchain')
 
   // Reset related fields on the selected blockchain's change
   useEffect(() => {
     resetField('chain')
     resetField('address')
     resetField('tokenId')
-  }, [blockchain, resetField])
+  }, [validBlockchain, resetField])
 
   /**
    * Chain
    */
   // Select blockchain's chain options / value
   const chains = useMemo(() => {
-    return blockchain ? blockchains[blockchain]?.chains ?? {} : {}
-  }, [blockchains, blockchain])
+    return validBlockchain ? blockchains[validBlockchain]?.chains ?? {} : {}
+  }, [blockchains, validBlockchain])
   const chainOptions = useMemo(() => Object.keys(chains), [chains])
 
   // Valid chain selected
-  const chain = useValidValue(control, watch, 'chain')
+  const validChain = useValidValue(control, watch, 'chain')
 
   // Current selected chain's metadata
-  const chainConfig = useMemo(() => chain ? chains[chain] : null, [chains, chain])
+  const chainConfig = useMemo(() => validChain ? chains[validChain] : null, [chains, validChain])
 
   /**
    * Address / token
    */
   // Valid address / tokenId provided
-  const address = useValidValue(control, watch, 'address')
-  const tokenId = useValidValue(control, watch, 'tokenId') ?? undefined
+  const validAddress = useValidValue(control, watch, 'address')
+  const validTokenId = useValidValue(control, watch, 'tokenId') ?? undefined
 
   /**
    * UI stuff
@@ -178,7 +178,7 @@ export const ExploreForm: FC<Props> = (props) => {
             <Select
               id={id}
               {...field}
-              disabled={!blockchain}
+              disabled={!validBlockchain}
               className={formElementClassName}
               placeholder={i18n.t('exploreForm.chainId.placeholder')}
               options={chainOptions}
@@ -199,7 +199,7 @@ export const ExploreForm: FC<Props> = (props) => {
             <Input
               id={id}
               {...field}
-              disabled={!chain}
+              disabled={!validChain}
               className={formElementClassName}
               placeholder={addressPlaceholder}
             />
@@ -213,7 +213,7 @@ export const ExploreForm: FC<Props> = (props) => {
             <Input
               id={id}
               {...field}
-              disabled={!address}
+              disabled={!validAddress}
               className={classNames(formElementClassName, 'xs:tw-max-w-[6rem]')}
               placeholder={i18n.t('exploreForm.tokenId.placeholder')}
             />
@@ -228,12 +228,12 @@ export const ExploreForm: FC<Props> = (props) => {
         className="tw-group/submit tw-h-auto tw-p-3 tw-flex-center-y tw-shadow-highlight disabled:tw-shadow-none tw-duration-fast tw-rounded tw-w-full tw-max-w-sm tw-border tw-border-separator hover:tw-border-accent-primary focus:tw-border-accent-primary focus-within:tw-border-accent-primary"
       >
         {/* Preview */}
-        {blockchain && chain && address
+        {isValid && validBlockchain && validChain && validAddress
           ? <RenderWeb3Metadata
-              blockchain={blockchain}
-              chain={chain}
-              address={address}
-              tokenId={tokenId}
+              blockchain={validBlockchain}
+              chain={validChain}
+              address={validAddress}
+              tokenId={validTokenId}
               delay={1000}
               render={metadata => metadata
                 ? <Web3EntityRepresentation {...metadata} />

@@ -6,7 +6,7 @@ import { hex } from './hex'
 
 const stringifiedNumber: ZodType<StringifiedNumber, ZodTypeDef, string> = z.custom<StringifiedNumber>(isStringifiedNumber)
 const positiveStringifiedNumber: ZodType<StringifiedNumber, ZodTypeDef, string> = z.custom<StringifiedNumber>(
-  (value: any) => value && isStringifiedNumber(value) && Number(value) > 0,
+  (value: unknown) => value && isStringifiedNumber(value) && Number(value) > 0,
 )
 
 export const numberLike = z.union(
