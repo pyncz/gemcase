@@ -15,10 +15,12 @@ type Props = z.infer<typeof optionalTokenSchema> & {
 export const RenderWeb3Metadata: FC<Props> = (props) => {
   const { blockchain, chain, address, tokenId, delay, placeholder, render } = props
 
+  const trpcUtils = trpc.useContext()
+
   // When address is set try to figure out what contract / account this is
   const fetchMetadata = () => {
     if (blockchain && chain && address) {
-      return trpc.useContext().getMetadata.fetch({
+      return trpcUtils.getMetadata.fetch({
         blockchain,
         chain,
         address,

@@ -27,6 +27,8 @@ export const ExploreForm: FC<Props> = (props) => {
   } = props
   const { i18n } = useTranslation()
 
+  const trpcUtils = trpc.useContext()
+
   const exploreFormSchema = z
     .object({
       blockchain: z.string().refine(
@@ -51,7 +53,7 @@ export const ExploreForm: FC<Props> = (props) => {
       async ({ blockchain, chain, address }) => {
         // TODO: Validate on client too?
         return blockchain && chain && address
-          ? trpc.useContext().validate.validateAddress.fetch({ blockchain, chain, address })
+          ? trpcUtils.validate.validateAddress.fetch({ blockchain, chain, address })
           : false
       },
       ({ blockchain }) => ({
