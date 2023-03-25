@@ -81,6 +81,7 @@ export const ExploreForm: FC<Props> = (props) => {
       blockchain: initBlockchain,
       chain: initChain,
     },
+    mode: 'onChange',
   })
 
   /**
