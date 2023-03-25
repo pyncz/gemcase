@@ -39,6 +39,7 @@ export const SharePopup: FC<PropsWithChildren<Props>> = (props) => {
         {sharingPlatforms.map(platform => (
           <ButtonLink
             key={platform}
+            targetBlank
             appearance="secondary"
             scale="sm"
             href={sharer[platform]({
