@@ -1,16 +1,22 @@
 import classNames from 'classnames'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { FC } from 'react'
+import type { CSSProperties, FC, PropsWithChildren } from 'react'
 import type { AddressPath, NftTokenMetadata, WithClassName } from '../models'
 import { formatTokenName } from '../utils'
 
 type Props = NftTokenMetadata & AddressPath
 
-export const NftTokenCard: FC<WithClassName<Props>> = (props) => {
-  const { blockchain, chain, address, tokenId, className } = props
+export const NftTokenCard: FC<PropsWithChildren<WithClassName<Props>>> = (props) => {
+  const { blockchain, chain, address, tokenId, className, children } = props
+
+  const { i18n } = useTranslation()
 
   const tokenName = formatTokenName(tokenId, props.metadata?.name, props.name)
+  const style = {
+    '--e-load-failed': `"${i18n.t('errors.failedToLoad')}"`,
+  } as CSSProperties
 
   return (
     <div className={classNames(
@@ -26,11 +32,17 @@ export const NftTokenCard: FC<WithClassName<Props>> = (props) => {
           ? <Image
               src={props.metadata.image}
               alt={tokenName}
-              className="tw-object-contain"
+              className={classNames(
+                'tw-object-contain tw-text-3/4 tw-rounded tw-overflow-hidden tw-text-dim-3',
+                'data-[error]:before:tw-flex-center data-[error]:tw-p-2 data-[error]:tw-rounded data-[error]:before:tw-absolute data-[error]:before:tw-inset-0 data-[error]:before:tw-bg-dim-2 data-[error]:before:tw-content-[var(--e-load-failed)]',
+              )}
               fill
+              style={style}
+              onError={e => e.currentTarget.setAttribute('data-error', '')}
+              onLoad={e => e.currentTarget.removeAttribute('data-error')}
             />
           : (
-            <div className="tw-w-full tw-h-full tw-flex-center tw-p-2 tw-rounded tw-bg-dim-1 tw-text-dim-2">
+            <div className="tw-absolute tw-inset-0 tw-flex-center tw-p-2 tw-bg-dim-2 tw-text-dim-2">
               #{tokenId}
             </div>
             )
@@ -41,6 +53,8 @@ export const NftTokenCard: FC<WithClassName<Props>> = (props) => {
         <span className="tw-font-bold">{props.metadata?.name ?? props.name}</span>{' '}
         <span className="tw-text-dim-2">#{tokenId}</span>
       </p>
+
+      {children}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { optionalTokenSchema } from '../../../models'
 import { withValidAddress } from '../helpers'
 import { publicProcedure, router } from '../trpc'
+import { accountRouter } from './account'
 import { nftContractRouter } from './nftContract'
 import { nftTokenRouter } from './nftToken'
 import { tokenRouter } from './token'
@@ -21,6 +22,7 @@ export const appRouter = router({
     }),
 
   // Specific-entity routes
+  account: accountRouter,
   token: tokenRouter,
   nftContract: nftContractRouter,
   nftToken: nftTokenRouter,

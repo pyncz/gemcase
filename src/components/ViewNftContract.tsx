@@ -33,7 +33,7 @@ export const ViewNftContract: FC<Props> = (props) => {
   } = trpc.nftContract.getMetadata.useQuery({ blockchain, chain, address })
 
   const hashtags = useMemo(() => {
-    const tags = ['NFT', 'token', 'crypto']
+    const tags = ['web3', 'NFT', 'token', 'crypto']
     if (metadata) {
       tags.push(metadata.symbol, metadata.name)
     }
@@ -121,18 +121,17 @@ export const ViewNftContract: FC<Props> = (props) => {
         }
         >
           <InfiniteList<NftTokenMetadata>
-            className="tw-grid tw-gap-grid tw-grid-cols-cards"
+            containerClassName="tw-cards-grid"
             query={() => trpc.nftContract.getTokens.useInfiniteQuery(
               { blockchain, chain, address },
               { getNextPageParam: lastPage => lastPage.cursor },
             )}
-            render={data => (
+            render={token => (
               <NftTokenCard
-                key={data.tokenId}
+                key={token.tokenId}
                 blockchain={blockchain}
                 chain={chain}
-                address={address}
-                {...data}
+                {...token}
               />
             )}
           />

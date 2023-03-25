@@ -69,33 +69,36 @@ export const evmAdapter = createBlockchainAdapter(
               if (isTokenId(tokenId)) {
                 const metadata = await this.getNftTokenMetadata(chain, address, tokenId)
                 if (metadata) {
+                  const { address: _address, ...nftMetadata } = metadata
                   return {
                     is: 'nft',
                     ...addressPath,
                     ...addressMetadata,
-                    ...metadata,
+                    ...nftMetadata,
                   }
                 } // -> fallback down to 'nftContract' if there's no metadata
               }
               // NFT Contract Address
               const metadata = await this.getNftContractMetadata(chain, address)
               if (metadata) {
+                const { address: _address, ...nftMetadata } = metadata
                 return {
                   is: 'nftContract',
                   ...addressPath,
                   ...addressMetadata,
-                  ...metadata,
+                  ...nftMetadata,
                 }
               } // -> fallback down to 'account' if there's no metadata
             } else {
               // Coin contract address
               const metadata = await this.getCoinContractMetadata(chain, address)
               if (metadata) {
+                const { address: _address, ...coinMetadata } = metadata
                 return {
                   is: 'coinContract',
                   ...addressPath,
                   ...addressMetadata,
-                  ...metadata,
+                  ...coinMetadata,
                 }
               } // -> fallback down to 'account' if there's no metadata
             }

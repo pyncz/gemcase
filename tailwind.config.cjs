@@ -205,7 +205,6 @@ module.exports = {
         field: '0.25rem',
         fields: '0.75rem',
         form: '1.5rem',
-        grid: '0.75rem',
         // for offset
         ch: '1ch',
         em: '1em',
@@ -420,6 +419,14 @@ module.exports = {
         '.mirror-y': {
           '--tw-scale-y': '-1',
           'transform': 'translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))',
+        },
+      })
+
+      addComponents({
+        '.cards-grid': {
+          display: 'grid',
+          gap: '0.75rem',
+          gridTemplateColumns: theme('gridTemplateColumns.cards'),
         },
       })
 

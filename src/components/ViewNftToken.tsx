@@ -44,7 +44,7 @@ export const ViewNftToken: FC<Props> = (props) => {
   const name = formatTokenName(tokenId, tokenName, collectionName)
 
   const hashtags = useMemo(() => {
-    const tags = ['NFT', 'token', 'crypto']
+    const tags = ['web3', 'NFT', 'token', 'crypto']
     if (metadata) {
       tags.push(metadata.symbol, metadata.name)
     }

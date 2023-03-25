@@ -13,6 +13,7 @@
   "coverOf": "Cover of \"{{name}}\"",
   "errors": {
     "_": "{{error}} Error",
+    "failedToLoad": "Failed to load",
     "invalidAddress": "Invalid {{blockchain}} address",
     "invalidBlockchain": "Blockchain not found",
     "invalidChain": "Invalid {{blockchain}} chain",
@@ -101,6 +102,7 @@
   "refresh": "Refresh page",
   "share": "Share",
   "shareMessage": {
+    "account": "Check this account on gemcase!",
     "nftContract": "Check this {{name}} NFT collection on gemcase!",
     "nftToken": "What a fabulous {{name}} NFT token on gemcase!",
     "token": "Check {{name}} on gemcase."

@@ -16,6 +16,7 @@ const coinContractSchema = z.object({
   decimals: numberLike,
   logo: z.string(),
   thumbnail: z.string(),
+  address: z.string(),
 }).transform(data => resolveIpfs(data)).and(contractSchema)
 
 export const coinContractMarketSchema = coinContractSchema.and(z.object({

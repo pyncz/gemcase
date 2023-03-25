@@ -15,7 +15,8 @@
       "error",
       {
         "argsIgnorePattern": "^_",
-        "destructuredArrayIgnorePattern": "^_"
+        "destructuredArrayIgnorePattern": "^_",
+        "ignoreRestSiblings": true
       }
     ],
     "@typescript-eslint/array-type": [
