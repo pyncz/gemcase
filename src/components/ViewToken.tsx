@@ -5,7 +5,7 @@ import { LayoutSide } from '../layouts'
 import type { AddressData } from '../models'
 import { getAbsoluteBaseUrl, trpc } from '../utils'
 import { HeadMeta } from './HeadMeta'
-import { AddressPathRepresentation, ChainRepresentation, CoinContractRepresentation } from './representations'
+import { AddressPathRepresentation, AddressRepresentation, ChainRepresentation, CoinContractRepresentation } from './representations'
 import { Skeleton, Tag } from './ui'
 import { Profile } from './Profile'
 import { ExplorerLink } from './ExplorerLink'
@@ -102,11 +102,17 @@ export const ViewToken: FC<Props> = (props) => {
                 </Profile.Actions>
 
                 <Profile.Attributes>
+                  {/* Network */}
                   <Attribute label={i18n.t('chain')} textValue={chainMetadata.label}>
                     <ChainRepresentation
                       className="tw-overflow-hidden tw-text-sm"
                       {...chainMetadata}
                     />
+                  </Attribute>
+
+                  {/* Address */}
+                  <Attribute label={i18n.t('address')}>
+                    <AddressRepresentation className="tw-text-sm" {...props} />
                   </Attribute>
 
                   {standard

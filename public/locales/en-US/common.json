@@ -1,5 +1,6 @@
 {
   "about": "About",
+  "address": "Address",
   "amount": "Amount",
   "avatar": "Avatar",
   "avatarOf": "Avatar of \"{{name}}\"",

@@ -10,7 +10,7 @@ import { Profile } from './Profile'
 import { ExplorerLink } from './ExplorerLink'
 import { ShareButton } from './share'
 import { Attribute } from './Attribute'
-import { ChainRepresentation } from './representations'
+import { AddressRepresentation, ChainRepresentation } from './representations'
 import { NftTokenCard } from './NftTokenCard'
 import { InfiniteList } from './utils'
 
@@ -95,6 +95,11 @@ export const ViewNftContract: FC<Props> = (props) => {
                     className="tw-overflow-hidden tw-text-sm"
                     {...chainMetadata}
                   />
+                </Attribute>
+
+                {/* Address */}
+                <Attribute label={i18n.t('address')}>
+                  <AddressRepresentation className="tw-text-sm" {...props} />
                 </Attribute>
 
                 {/* Type of the token */}

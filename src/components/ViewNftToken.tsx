@@ -8,7 +8,7 @@ import openIcon from '@iconify/icons-ion/open-outline'
 import { LayoutSide } from '../layouts'
 import type { TokenData } from '../models'
 import { formatTokenName, getAbsoluteBaseUrl, trpc } from '../utils'
-import { AddressPathRepresentation, ChainRepresentation, NftContractRepresentation } from './representations'
+import { AddressPathRepresentation, AddressRepresentation, ChainRepresentation, NftContractRepresentation } from './representations'
 import { HeadMeta } from './HeadMeta'
 import { ButtonLink, Markdown, Skeleton, Tag } from './ui'
 import { ViewPort } from './ViewPort'
@@ -152,6 +152,11 @@ export const ViewNftToken: FC<Props> = (props) => {
                     className="tw-overflow-hidden tw-text-sm"
                     {...chainMetadata}
                   />
+                </Attribute>
+
+                {/* Address */}
+                <Attribute label={i18n.t('address')}>
+                  <AddressRepresentation className="tw-text-sm" {...props} />
                 </Attribute>
 
                 {/* Type of the token */}
