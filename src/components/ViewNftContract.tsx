@@ -121,18 +121,21 @@ export const ViewNftContract: FC<Props> = (props) => {
         }
         >
           <InfiniteList<NftTokenMetadata>
-            containerClassName="tw-cards-grid"
             query={() => trpc.nftContract.getTokens.useInfiniteQuery(
               { blockchain, chain, address },
               { getNextPageParam: lastPage => lastPage.cursor },
             )}
-            render={token => (
-              <NftTokenCard
-                key={token.tokenId}
-                blockchain={blockchain}
-                chain={chain}
-                {...token}
-              />
+            render={pages => (
+              <div className="tw-cards-grid tw-px-container tw-py-container">
+                {pages?.map(page => page.result.map(token => (
+                  <NftTokenCard
+                    key={token.tokenId}
+                    blockchain={blockchain}
+                    chain={chain}
+                    {...token}
+                  />
+                )))}
+              </div>
             )}
           />
         </LayoutSide>

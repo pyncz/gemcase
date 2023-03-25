@@ -88,26 +88,32 @@ export const ViewAccount: FC<Props> = (props) => {
       }
       >
         <InfiniteList<NftTokenMetadata>
-          containerClassName="tw-cards-grid"
           query={() => trpc.account.getTokens.useInfiniteQuery(
             { blockchain, chain, address },
             { getNextPageParam: lastPage => lastPage.cursor },
           )}
-          render={token => (
-            <NftTokenCard
-              key={token.tokenId}
-              blockchain={blockchain}
-              chain={chain}
-              {...token}
-            >
-              {/* Collection */}
-              <Link
-                className="tw-opacity-muted tw-link tw-link-regular tw-text-xs tw-truncate tw-max-w-full"
-                href={`/view/${blockchain}/${chain}/${token.address}`}
-              >
-                {token.name}
-              </Link>
-            </NftTokenCard>
+          render={pages => (
+            <div className="tw-px-container tw-py-container">
+              <h2>{i18n.t('tokens.owned')}</h2>
+              <div className="tw-cards-grid">
+                {pages?.map(page => page.result.map(token => (
+                  <NftTokenCard
+                    key={token.tokenId}
+                    blockchain={blockchain}
+                    chain={chain}
+                    {...token}
+                  >
+                    {/* Collection */}
+                    <Link
+                      className="tw-opacity-muted tw-link tw-link-regular tw-text-xs tw-truncate tw-max-w-full"
+                      href={`/view/${blockchain}/${chain}/${token.address}`}
+                    >
+                      {token.name}
+                    </Link>
+                  </NftTokenCard>
+                )))}
+              </div>
+            </div>
           )}
         />
       </LayoutSide>

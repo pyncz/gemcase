@@ -116,6 +116,9 @@
     "light": "Light",
     "system": "System"
   },
+  "tokens": {
+    "owned": "Owned"
+  },
   "view": "View",
   "viewOn": "View on {{name}}"
 }
