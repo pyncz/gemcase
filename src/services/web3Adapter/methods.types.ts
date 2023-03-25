@@ -21,8 +21,17 @@ export interface Methods<
   getNftContractMetadata(chain: Chain, address: Address): MaybePromise<Nullable<NftContractMetadata>>
   getNftTokenMetadata(chain: Chain, address: Address, tokenId: NumberLike): MaybePromise<Nullable<NftTokenMetadata>>
 
-  // Fetch
+  // Fetchers
   getNftContractTokens(
+    chain: Chain,
+    address: Address,
+    options?: {
+      limit?: number
+      cursor?: string
+    },
+  ): MaybePromise<Paginated<NftTokenMetadata>>
+
+  getAccountNFTs(
     chain: Chain,
     address: Address,
     options?: {

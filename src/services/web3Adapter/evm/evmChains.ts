@@ -1,9 +1,9 @@
-import type { EvmChainID } from '../../models'
-import type { Explorer } from '../exploreAdapter'
+import type { Explorer } from '../../exploreAdapter'
+import type { EvmChainId } from './models'
 
 export const evmChains = {
   eth: {
-    id: 1 as EvmChainID,
+    id: 1 as EvmChainId,
     label: 'Ethereum Mainnet',
     rpcDomain: 'mainnet',
     aliases: ['0x1', 'ethereum', 'mainnet', 'ethereum-mainnet', 1] as const,
@@ -15,7 +15,7 @@ export const evmChains = {
     test: false,
   },
   goerli: {
-    id: 5 as EvmChainID,
+    id: 5 as EvmChainId,
     label: 'Goerli Testnet',
     rpcDomain: 'goerli',
     aliases: ['0x5', 'testnet', 'goerli-testnet', 5] as const,
@@ -27,7 +27,7 @@ export const evmChains = {
     test: true,
   },
   sepolia: {
-    id: 11155111 as EvmChainID,
+    id: 11155111 as EvmChainId,
     label: 'Sepolia Testnet',
     rpcDomain: 'sepolia',
     aliases: ['0xaa36a7', 'sepolia-testnet', 11155111] as const,
@@ -39,7 +39,7 @@ export const evmChains = {
     test: true,
   },
   polygon: {
-    id: 137 as EvmChainID,
+    id: 137 as EvmChainId,
     label: 'Polygon',
     rpcDomain: 'polygon-mainnet',
     aliases: ['0x89', 'matic', 'polygon-mainnet', 'matic-mainnet', 137] as const,
@@ -51,7 +51,7 @@ export const evmChains = {
     test: false,
   },
   mumbai: {
-    id: 80001 as EvmChainID,
+    id: 80001 as EvmChainId,
     label: 'Matic Mumbai Testnet',
     rpcDomain: 'polygon-mumbai',
     aliases: ['0x13881', 'polygon-mumbai', 80001] as const,
@@ -63,7 +63,7 @@ export const evmChains = {
     test: true,
   },
   avalanche: {
-    id: 43114 as EvmChainID,
+    id: 43114 as EvmChainId,
     label: 'Avalanche C-Chain',
     rpcDomain: 'avalanche-mainnet',
     aliases: ['0xa86a', 'avalanche-mainnet', 43114] as const,
@@ -75,7 +75,7 @@ export const evmChains = {
     test: false,
   },
   avalancheTestnet: {
-    id: 43113 as EvmChainID,
+    id: 43113 as EvmChainId,
     label: 'Avalanche Fuji Testnet',
     rpcDomain: 'avalanche-fuji',
     aliases: ['0xa869', 'avalanche-fuji', 'fuji', 43113] as const,
@@ -87,7 +87,7 @@ export const evmChains = {
     test: true,
   },
   palm: {
-    id: 11297108109 as EvmChainID,
+    id: 11297108109 as EvmChainId,
     label: 'Palm',
     rpcDomain: 'palm-mainnet',
     aliases: ['0x2a15c308d', 'palm-mainnet', 11297108109] as const,
@@ -99,7 +99,7 @@ export const evmChains = {
     test: false,
   },
   arbitrum: {
-    id: 42161 as EvmChainID,
+    id: 42161 as EvmChainId,
     label: 'Arbitrum One',
     rpcDomain: 'arbitrum-mainnet',
     aliases: ['0xa4b1', 'arbitrum-mainnet', 42161] as const,
