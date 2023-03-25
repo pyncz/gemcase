@@ -6,9 +6,8 @@ import type { Paginated, WithClassName } from '../../models'
 import { Button } from '../ui'
 
 interface Props<T = unknown> {
-  render: (data: T) => ReactNode
+  render: (data?: Paginated<T>[]) => ReactNode
   query: () => UseTRPCInfiniteQueryResult<Paginated<T>, any>
-  containerClassName?: string
 }
 
 export const InfiniteList = <
@@ -18,7 +17,6 @@ export const InfiniteList = <
     render,
     query,
     className,
-    containerClassName,
   } = props
 
   const { i18n } = useTranslation()
@@ -32,13 +30,7 @@ export const InfiniteList = <
     )}
     >
       <div className="tw-flex-1">
-        <div className={classNames(
-          'tw-flex-1 tw-px-container tw-py-container',
-          containerClassName,
-        )}
-        >
-          {data?.pages.map(page => page.result.map(render))}
-        </div>
+        {render(data?.pages)}
       </div>
 
       {hasNextPage
