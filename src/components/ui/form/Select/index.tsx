@@ -72,14 +72,14 @@ export const Select = forwardRef<HTMLButtonElement, WithClassName<Props>>((props
         ref={ref}
         title={selectedOption ? getTextValue?.(selectedOption) : undefined}
         className={classNames(
-          'tw-input tw-pr-[2em] tw-relative child:tw-max-w-full child:tw-inline-flex',
+          'tw-group/trigger tw-input tw-pr-[2em] tw-relative child:tw-max-w-full child:tw-inline-flex',
           `tw-ui-${size}`,
           className,
         )}
         aria-label={ariaLabel}
       >
         <RadixSelect.Value placeholder={placeholder} className="tw-inline-flex tw-flex-1" />
-        <RadixSelect.Icon className="tw-text-[rgba(var(--c-select-icon),_var(--tw-text-opacity))] tw-inline-flex tw-absolute tw-right-2">
+        <RadixSelect.Icon className="tw-duration-fast group-disabled/trigger:tw-opacity-muted tw-text-[rgba(var(--c-select-icon),_var(--tw-text-opacity))] tw-inline-flex tw-absolute tw-right-2">
           <Icon icon={chevronDownIcon} />
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
