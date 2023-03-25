@@ -8,7 +8,6 @@ export * from './colorMode'
 export * from './getYearsFrom'
 export * from './stringify'
 export * from './capitalize'
-export * from './debounce'
 
 export * from './isHexString'
 export * from './isNumberLike'
