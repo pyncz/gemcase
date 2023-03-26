@@ -9,7 +9,7 @@ export * from './utils'
 export * from './HeadMeta'
 
 export * from './Profile'
-export * from './PromoCardT'
+export * from './PromoCard'
 
 export * from './ViewNftContract'
 export * from './ViewNftToken'
