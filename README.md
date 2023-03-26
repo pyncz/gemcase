@@ -3,7 +3,7 @@
 
 ![gemcase cover](./public/img/cover.jpg)
 
-### What I can view exactly?
+### What can I view exactly?
 
 - addresses
 - tokens (i.e. coins)
