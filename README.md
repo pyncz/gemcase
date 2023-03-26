@@ -1,4 +1,28 @@
 # gemcase
+💎 A multichain NFT viewer
+
+![gemcase cover](./public/img/cover.jpg)
+
+### What I can view exactly?
+
+- addresses
+- tokens (i.e. coins)
+- NFT collections
+- NFTs
+
+Now only EVM chains are supported, but the plan is to add several blockchains (Aptos, Solana, NEAR) in the future. Viewing blocks and transactions may also appear in the future.
+
+The list of currently supported chains:
+- Ethereum Mainnet
+- Goerli Testnet
+- sepolia testnet
+- Polygon
+- Matic Mumbai Testnet
+- Avalanche C-Chain
+- Avalanche Fuji Testnet
+- Palm
+- Arbitrum One
+
 
 ### Tech stack
 
@@ -31,11 +55,7 @@
   <img alt="zod" src="https://img.shields.io/badge/Zod-%233068b7.svg?logo=zod" />
 </div>
 
-###### db
-<div style="display: flex; gap: 6px;">
-  <img alt="Prisma" src="https://img.shields.io/badge/Prisma-%235967d8.svg?logo=prisma&logoColor=white" />
-  <img alt="SQLite" src="https://img.shields.io/badge/SQLite-%23034a64.svg?logo=sqlite&logoColor=white" />
-</div><!-- TODO: Use mongo? -->
+---
 
 ### etc
 

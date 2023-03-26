@@ -1,5 +1,6 @@
 {
   "name": "gemcase",
+  "description": "💎 A multichain NFT viewer",
   "version": "0.1.0",
   "author": "Pau Yankovski <https://github.com/pyncz>",
   "license": "MIT",
