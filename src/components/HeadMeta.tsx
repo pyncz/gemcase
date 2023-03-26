@@ -22,7 +22,7 @@ export const HeadMeta: FC<PropsWithChildren<Props>> = (props) => {
     description,
     type = 'website',
     image,
-    summary = 'summary',
+    summary = 'summary_large_image',
     creator,
 
     children,
