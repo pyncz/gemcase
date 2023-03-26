@@ -1,11 +1,11 @@
 import type { InferValue } from '@voire/type-utils'
 import type { Web3PublicConfig } from '../../models'
 import { adapterConfig } from './adapter'
-import type { BlockchainAdapterConfig, BlockchainKey, ChainAdapterConfig, ChainKey } from './types'
+import type { ChainAdapterConfig, ChainKey } from './types'
 
 export const web3PublicConfig: Web3PublicConfig = {
   blockchains: Object.entries(adapterConfig).reduce((bcOptions, bcEntry) => {
-    const [bc, bcConfig] = bcEntry as [BlockchainKey, BlockchainAdapterConfig]
+    const [bc, bcConfig] = bcEntry
     bcOptions[bc] = {
       label: bcConfig.label ?? null,
       logo: bcConfig.logo ?? null,
@@ -23,5 +23,5 @@ export const web3PublicConfig: Web3PublicConfig = {
     }
 
     return bcOptions
-  }, {} as InferValue<Web3PublicConfig>),
+  }, {} as Web3PublicConfig['blockchains']),
 }

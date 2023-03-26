@@ -1,8 +1,9 @@
+import type { Nullable } from '@voire/type-utils'
 import type { FC } from 'react'
 
 interface Props {
   value: number
-  max?: number
+  max?: Nullable<number>
 }
 
 export const TraitNumber: FC<Props> = ({ value, max }) => {
