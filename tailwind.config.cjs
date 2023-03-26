@@ -94,7 +94,6 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: sansSerif, // without any loaded font
       header: ['var(--font-mulish)', 'Mulish', ...sansSerif],
       main: ['var(--font-roboto)', 'Roboto', ...sansSerif],
       mono: ['var(--font-dm-mono)', '"DM Mono"', 'monospace'],
