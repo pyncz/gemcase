@@ -17,7 +17,7 @@ class MyDocument extends Document<Props> {
       = this.props.__NEXT_DATA__.locale
       ?? i18nextConfig.i18n.defaultLocale
 
-    const ogImage = `${getAbsoluteBaseUrl()}/img/og/default.jpg`
+    const ogImage = `${getAbsoluteBaseUrl()}/img/cover.jpg`
 
     return (
       <Html lang={currentLocale}>
