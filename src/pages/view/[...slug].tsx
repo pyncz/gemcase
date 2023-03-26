@@ -13,17 +13,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ params, lo
   const { slug } = params ?? {}
   const slugParams = getParamsArray(slug)
 
-  const translations = serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
-    'common',
-  ])
-
   const pageWeb3Data = await getValidWeb3Data(...slugParams)
   if (pageWeb3Data) {
     return {
       props: {
         ...web3PublicConfig,
         ...pageWeb3Data,
-        ...(await translations),
+        ...(await serverSideTranslations(locale ?? i18nextConfig.i18n.defaultLocale, [
+          'common',
+        ])),
       } satisfies Props,
     }
   }
