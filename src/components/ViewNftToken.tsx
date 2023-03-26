@@ -5,8 +5,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Icon } from '@iconify-icon/react'
 import openIcon from '@iconify/icons-ion/open-outline'
+import classNames from 'classnames'
 import { LayoutSide } from '../layouts'
-import type { TokenData } from '../models'
+import type { NftTokenMetadata, Paginated, TokenData } from '../models'
 import { formatTokenName, getAbsoluteBaseUrl, trpc } from '../utils'
 import { AddressPathRepresentation, AddressRepresentation, ChainRepresentation, NftContractRepresentation } from './representations'
 import { HeadMeta } from './HeadMeta'
@@ -17,6 +18,8 @@ import { Attribute } from './Attribute'
 import { Trait } from './trait/Trait'
 import { Profile } from './Profile'
 import { ExplorerLink } from './ExplorerLink'
+import { Fetcher } from './utils'
+import { NftTokenCard } from './NftTokenCard'
 
 type Props = TokenData
 
@@ -180,21 +183,28 @@ export const ViewNftToken: FC<Props> = (props) => {
               </Profile.Attributes>
 
               {/* Description */}
-              <Skeleton.Element width={60} className="tw-h-5">
-                {tokenMetadata?.description
-                  ? <h5>{i18n.t('about')}</h5>
-                  : null
-                }
-              </Skeleton.Element>
-              <Skeleton.Element width={280} height={200}>
-                {tokenMetadata?.description
-                  ? <Markdown
-                      className="tw-text-ellipsis tw-max-w-md tw-mx-auto tw-overflow-hidden tw-text-sm tw-text-dim-1"
-                      content={tokenMetadata.description}
-                    />
-                  : null
-                }
-              </Skeleton.Element>
+              {isLoading || tokenMetadata?.description
+                ? (
+                  <div className="tw-flex tw-flex-col tw-items-center tw-flex-nowrap tw-gap-2">
+                    <Skeleton.Element width={60} className="tw-h-5">
+                      {tokenMetadata?.description
+                        ? <h5>{i18n.t('about')}</h5>
+                        : null
+                      }
+                    </Skeleton.Element>
+                    <Skeleton.Element width={280} height={200}>
+                      {tokenMetadata?.description
+                        ? <Markdown
+                            className="tw-text-ellipsis tw-max-w-md tw-mx-auto tw-overflow-hidden tw-text-sm tw-text-dim-1"
+                            content={tokenMetadata.description}
+                          />
+                        : null
+                      }
+                    </Skeleton.Element>
+                  </div>
+                  )
+                : null
+              }
             </Profile.Body>
           </>
         }
@@ -217,7 +227,7 @@ export const ViewNftToken: FC<Props> = (props) => {
                         icon={<Icon icon={openIcon} />}
                       />
                     : null
-                }
+                  }
                 </Skeleton.Element>
               </div>
             }
@@ -231,9 +241,63 @@ export const ViewNftToken: FC<Props> = (props) => {
                     fill
                   />
                 : null
-            }
+              }
             </Skeleton.Element>
           </ViewPort>
+
+          <Fetcher<Paginated<NftTokenMetadata>>
+            query={() => trpc.nftContract.getTokens.useQuery(
+              { blockchain, chain, address },
+            )}
+            render={(pages, isLoading) => (
+              isLoading || pages?.result.length
+                ? (
+                  <div className="tw-overflow-hidden tw-py-container tw-px-container">
+                    <h3>{i18n.t('tokens.otherFromCollection')}</h3>
+
+                    {isLoading
+                      ? (
+                        <div className="tw-flex tw-flex-nowrap tw-gap-cards">
+                          <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card tw-min-w-card" />
+                          <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card tw-min-w-card" />
+                          <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card tw-min-w-card" />
+                          <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card tw-min-w-card" />
+                        </div>
+                        )
+                      : (
+                        <div className="tw-relative">
+                          <div className={classNames(
+                            'tw-flex tw-pointer-events-none tw-flex-nowrap tw-gap-cards tw-pb-[2rem] md:tw-pb-0',
+                            'tw-mask-linear tw-mask-dir-to-t md:tw-mask-dir-to-l tw-mask-from-0 tw-mask-via-[0.04] tw-mask-to-muted tw-mask-point-via-[4rem] md:tw-mask-point-via-[10rem] lg:tw-mask-point-via-[20%]',
+                          )}
+                          >
+                            {pages?.result.map(token => (
+                              <NftTokenCard
+                                className="tw-min-w-card"
+                                key={token.tokenId}
+                                blockchain={blockchain}
+                                chain={chain}
+                                {...token}
+                              />
+                            ))}
+                          </div>
+
+                          <div className="tw-absolute tw-flex-center tw-px-2 tw-py-4 tw-w-full md:tw-w-[10rem] lg:tw-w-[20%] tw-bottom-0 md:tw-right-0 md:tw-bottom-1/2 md:tw-translate-y-1/2">
+                            <ButtonLink
+                              className="tw-w-full sm:tw-w-auto tw-link tw-link-regular"
+                              href={`/view/${blockchain}/${chain}/${address}`}
+                            >
+                              {i18n.t('view')}
+                            </ButtonLink>
+                          </div>
+                        </div>
+                        )
+                    }
+                  </div>
+                  )
+                : null // don't render the section at all if there's no data
+            )}
+          />
         </LayoutSide>
       </Skeleton.Root>
     </>

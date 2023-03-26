@@ -9,7 +9,7 @@ specifiers:
   '@iconify/icons-ion': ^1.2.4
   '@next/font': ^13.0.7
   '@prisma/client': ^4.5.0
-  '@pyncz/tailwind-mask-image': ^1.0.1
+  '@pyncz/tailwind-mask-image': ^1.1.0
   '@radix-ui/react-label': ^2.0.0
   '@radix-ui/react-popover': ^1.0.5
   '@radix-ui/react-radio-group': ^1.1.1
@@ -74,7 +74,7 @@ dependencies:
   '@iconify/icons-ion': 1.2.7
   '@next/font': 13.0.7
   '@prisma/client': 4.7.1_prisma@4.7.1
-  '@pyncz/tailwind-mask-image': 1.0.1
+  '@pyncz/tailwind-mask-image': 1.1.0
   '@radix-ui/react-label': 2.0.0_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-popover': 1.0.5_ib3m5ricvtkl2cll7qpr2f6lvq
   '@radix-ui/react-radio-group': 1.1.1_biqbaboplfbrettd7655fr4n2y
@@ -904,8 +904,8 @@ packages:
     resolution: {integrity: sha512-zWabHosTdLpXXlMefHmnouhXMoTB1+SCbUU3t4FCmdrtIOZcarPKU3Alto7gm/pZ9vHlGOXHCfVZ1G7OIrSbog==}
     requiresBuild: true
 
-  /@pyncz/tailwind-mask-image/1.0.1:
-    resolution: {integrity: sha512-bOhOv3sSQExEI7f2dixu6wc5aFCAYV/p6dul5JBpKadDtTDsRt0eSnnj/gCSl2re2YO1TV1ib1vH8u79OsNKJg==}
+  /@pyncz/tailwind-mask-image/1.1.0:
+    resolution: {integrity: sha512-mbz0FwsFpaWKJYDpxuhu3II/nYmfJxPotmR88pXqQqNX/yPrCwgyHatb22+w8w3QGn8dlGRWdX0e5b1Q2jzMRQ==}
     dev: false
 
   /@radix-ui/number/1.0.0:

@@ -1,8 +1,6 @@
 import { createAdapter } from './createAdapter'
 import { evmAdapter } from './evm'
 
-console.log('HERE I AM')
-
 export const adapterConfig = {
   evm: evmAdapter,
 

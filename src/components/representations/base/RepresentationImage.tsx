@@ -10,8 +10,8 @@ type Props = {
   size?: number | SizeExtra
 } | {
   image: ReactElement
-  alt?: undefined
-  size?: undefined
+  alt?: never
+  size?: never
 }
 
 export const RepresentationImage: FC<WithClassName<Props>> = (props) => {

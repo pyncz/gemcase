@@ -44,6 +44,9 @@
     }
   },
   "externalUrl": "External URL",
+  "fallback": {
+    "noTokens": "No tokens"
+  },
   "hi": "Hello",
   "index": {
     "title": "Explore <0>web3</0> world"
@@ -117,6 +120,7 @@
     "system": "System"
   },
   "tokens": {
+    "otherFromCollection": "Other tokens from this collection",
     "owned": "Owned"
   },
   "view": "View",

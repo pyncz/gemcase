@@ -209,6 +209,15 @@ module.exports = {
         ch: '1ch',
         em: '1em',
       },
+      gap: {
+        cards: '0.75rem',
+      },
+      minWidth: {
+        card: '9rem',
+      },
+      minHeight: {
+        card: '12rem',
+      },
       backgroundSize: {
         full: '100%',
         x2: '200%',
@@ -425,7 +434,7 @@ module.exports = {
       addComponents({
         '.cards-grid': {
           display: 'grid',
-          gap: '0.75rem',
+          gap: theme('gap.cards'),
           gridTemplateColumns: theme('gridTemplateColumns.cards'),
         },
       })

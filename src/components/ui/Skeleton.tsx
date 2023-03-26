@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import type { FC, PropsWithChildren, ReactElement } from 'react'
+import type { FC, PropsWithChildren, ReactNode } from 'react'
 import { createContext, useContext } from 'react'
 import type { WithClassName } from '../../models'
 
@@ -7,12 +7,15 @@ interface SkeletonContextType {
   loaded?: boolean
 }
 
-interface SkeletonElementProps {
-  placeholder?: ReactElement
+interface SkeletonPlaceholderProps {
+  as?: keyof JSX.IntrinsicElements
   size?: string | number
   height?: string | number
   width?: string | number
-  as?: keyof JSX.IntrinsicElements
+}
+
+interface SkeletonElementProps extends SkeletonPlaceholderProps {
+  placeholder?: ReactNode
 }
 
 type SkeletonRootProps = SkeletonContextType
@@ -21,15 +24,27 @@ const SkeletonContext = createContext<SkeletonContextType>({
   loaded: undefined,
 })
 
-const Element: FC<PropsWithChildren<WithClassName<SkeletonElementProps>>> = (props) => {
+const Placeholder: FC<WithClassName<SkeletonPlaceholderProps>> = (props) => {
   const {
     as: Wrapper = 'span',
-    placeholder,
     size,
     height = size ?? '1em',
     width = size ?? '100%',
-    children,
     className,
+  } = props
+
+  return (
+    <Wrapper
+      className={classNames('tw-animate-pulse tw-inline-flex tw-rounded tw-bg-dim-2', className)}
+      style={{ width, height }}
+    />
+  )
+}
+
+const Element: FC<PropsWithChildren<WithClassName<SkeletonElementProps>>> = (props) => {
+  const {
+    placeholder,
+    children,
   } = props
 
   const loaded = useContext(SkeletonContext).loaded ?? true
@@ -38,12 +53,9 @@ const Element: FC<PropsWithChildren<WithClassName<SkeletonElementProps>>> = (pro
     return <>{children}</>
   }
 
-  return placeholder ?? (
-    <Wrapper
-      className={classNames('tw-animate-pulse tw-inline-flex tw-rounded tw-bg-dim-2', className)}
-      style={{ width, height }}
-    />
-  )
+  return placeholder
+    ? <>placeholder</>
+    : <Placeholder {...props} />
 }
 
 const Root: FC<PropsWithChildren<Required<SkeletonRootProps>>> = (props) => {
@@ -56,4 +68,4 @@ const Root: FC<PropsWithChildren<Required<SkeletonRootProps>>> = (props) => {
   )
 }
 
-export const Skeleton = { Root, Element }
+export const Skeleton = { Root, Element, Placeholder }

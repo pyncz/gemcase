@@ -247,7 +247,7 @@ export const ExploreForm: FC<Props> = (props) => {
         <Icon icon={viewIcon} className="tw-duration-fast tw-text-5/4 tw-p-2 sm:tw-hidden tw-ml-auto tw-text-accent-primary group-hover/submit:tw-text-accent-primary-vivid" />
         <div className="tw-button tw-button-primary tw-hidden sm:tw-inline-flex tw-ml-auto group-hover/submit:tw-bg-[rgba(var(--button-bg--hover),_var(--tw-bg-opacity))]">
           {i18n.t('view')}{' '}
-          <Icon icon={viewIcon} />
+          <Icon icon={viewIcon} className="tw-duration-slow tw-relative tw-left-0 group-hover/submit:tw-left-0.5" />
         </div>
       </button>
     </form>

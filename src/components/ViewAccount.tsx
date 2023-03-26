@@ -12,6 +12,7 @@ import { ShareButton } from './share'
 import { Attribute } from './Attribute'
 import { InfiniteList } from './utils'
 import { NftTokenCard } from './NftTokenCard'
+import { Skeleton } from './ui'
 
 type Props = AddressData
 
@@ -87,16 +88,18 @@ export const ViewAccount: FC<Props> = (props) => {
         </>
       }
       >
-        <InfiniteList<NftTokenMetadata>
-          query={() => trpc.account.getTokens.useInfiniteQuery(
-            { blockchain, chain, address },
-            { getNextPageParam: lastPage => lastPage.cursor },
-          )}
-          render={pages => (
-            <div className="tw-px-container tw-py-container">
-              <h2>{i18n.t('tokens.owned')}</h2>
+        <div className="tw-min-h-viewport tw-px-container tw-py-container">
+          <h2>{i18n.t('tokens.owned')}</h2>
+
+          <InfiniteList<NftTokenMetadata>
+            className="tw-h-full"
+            query={() => trpc.account.getTokens.useInfiniteQuery(
+              { blockchain, chain, address },
+              { getNextPageParam: lastPage => lastPage.cursor },
+            )}
+            renderData={pages => (
               <div className="tw-cards-grid">
-                {pages?.map(page => page.result.map(token => (
+                {pages.map(page => page.result.map(token => (
                   <NftTokenCard
                     key={token.tokenId}
                     blockchain={blockchain}
@@ -113,9 +116,22 @@ export const ViewAccount: FC<Props> = (props) => {
                   </NftTokenCard>
                 )))}
               </div>
-            </div>
-          )}
-        />
+            )}
+            placeholder={
+              <div className="tw-cards-grid">
+                <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card" />
+                <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card" />
+                <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card" />
+                <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card" />
+              </div>
+            }
+            fallback={
+              <div className="tw-h-full tw-flex-center tw-text-dim-2">
+                <p>{i18n.t('fallback.noTokens')}</p>
+              </div>
+            }
+          />
+        </div>
       </LayoutSide>
     </>
   )

@@ -121,13 +121,14 @@ export const ViewNftContract: FC<Props> = (props) => {
         }
         >
           <InfiniteList<NftTokenMetadata>
+            className="tw-min-h-viewport tw-px-container tw-py-container"
             query={() => trpc.nftContract.getTokens.useInfiniteQuery(
               { blockchain, chain, address },
               { getNextPageParam: lastPage => lastPage.cursor },
             )}
-            render={pages => (
-              <div className="tw-cards-grid tw-px-container tw-py-container">
-                {pages?.map(page => page.result.map(token => (
+            renderData={pages => (
+              <div className="tw-cards-grid">
+                {pages.map(page => page.result.map(token => (
                   <NftTokenCard
                     key={token.tokenId}
                     blockchain={blockchain}
@@ -137,6 +138,19 @@ export const ViewNftContract: FC<Props> = (props) => {
                 )))}
               </div>
             )}
+            placeholder={
+              <div className="tw-cards-grid">
+                <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card" />
+                <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card" />
+                <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card" />
+                <Skeleton.Placeholder className="tw-rounded-lg tw-min-h-card" />
+              </div>
+            }
+            fallback={
+              <div className="tw-h-full tw-flex-center tw-text-dim-2">
+                <p>{i18n.t('fallback.noTokens')}</p>
+              </div>
+            }
           />
         </LayoutSide>
       </Skeleton.Root>
