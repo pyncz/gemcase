@@ -30,7 +30,7 @@ The list of currently supported chains:
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-%232f74c0.svg?&logo=typescript&logoColor=white" />
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-%23242431.svg?logo=next.js&logoColor=white" />
   <img alt="React" src="https://img.shields.io/badge/React-%236bb9e6.svg?logo=react&logoColor=white" />
-  <img alt="radix" src="https://img.shields.io/badge/Radix-%23242431.svg" />
+  <img alt="radix" src="https://img.shields.io/badge/Radix%20UI-%23242431.svg" />
   <img alt="react-hook-form" src="https://img.shields.io/badge/react--hook--form-%23ec5990.svg" />
   <img alt="zod" src="https://img.shields.io/badge/Zod-%233068b7.svg?logo=zod" />
 </div>
@@ -56,6 +56,10 @@ The list of currently supported chains:
 </div>
 
 ---
+
+### hi, btw
+
+If you like what you've seen in this repo and want to build something significant together, feel free to contact me on any link from [my profile](https://github.com/pyncz).
 
 ### etc
 
