@@ -1,4 +1,5 @@
 // @ts-check
+const path = require('path')
 
 /**
  * @type {import('next-i18next').UserConfig}
@@ -8,4 +9,6 @@ module.exports = {
     defaultLocale: 'en-US',
     locales: ['en-US'],
   },
+
+  localePath: path.resolve('./public/locales'),
 }
