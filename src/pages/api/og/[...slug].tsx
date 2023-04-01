@@ -91,11 +91,13 @@ const genOpengraphImage = async (req: NextApiRequest, res: NextApiResponse) => {
       if (buffer) {
         res.setHeader('Content-Type', 'image/png')
         res.send(buffer)
+        return
       }
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e)
       res.status(500).send('Failed to generate the image')
+      return
     }
   }
 
