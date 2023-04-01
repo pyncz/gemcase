@@ -3,11 +3,11 @@ import fs from 'fs'
 import sharp from 'sharp'
 import satori from 'satori'
 
-const fetchBuffer = async (filepath: string) => {
+const fetchBuffer = async (assetPath: string) => {
   // Find the absolute path of the file directory
-  const fullPath = path.join(process.cwd(), filepath)
+  const fullAssetPath = path.resolve('./src/assets', assetPath)
   // Read the file data
-  return fs.readFileSync(fullPath)
+  return fs.readFileSync(fullAssetPath)
 }
 
 export const generateOpengraphImage = async (config: {
@@ -16,10 +16,10 @@ export const generateOpengraphImage = async (config: {
 }): Promise<Buffer> => {
   const { title, description } = config
 
-  const mulishFontData = await fetchBuffer('src/assets/fonts/Mulish/Mulish-Bold.ttf')
-  const robotoFontData = await fetchBuffer('src/assets/fonts/Roboto/Roboto-Regular.ttf')
+  const mulishFontData = await fetchBuffer('./fonts/Mulish/Mulish-Bold.ttf')
+  const robotoFontData = await fetchBuffer('./fonts/Roboto/Roboto-Regular.ttf')
 
-  const bgData = await fetchBuffer('src/assets/img/og-bg.png')
+  const bgData = await fetchBuffer('./img/og-bg.png')
 
   const contentSvg = await satori(
     <div style={{
