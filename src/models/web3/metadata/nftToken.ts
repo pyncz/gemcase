@@ -1,7 +1,8 @@
 import { resolveIpfs } from '@wiiib/check-evm-address'
 import { z } from 'zod'
+import { mapped } from '@pyncz/zod-key-mapper'
 import { intLike, numberLike } from '../../rules'
-import { fromJSON, mapped } from '../../utils'
+import { fromJSON } from '../../utils'
 import { nftContractSchema } from './nftContract'
 
 export const tokenTraitSchema = z.object({
@@ -18,33 +19,33 @@ export const tokenTraitSchema = z.object({
 
 const nftTokenMetadataSchema = (
   mapped(
-    mapped(
-      z.object({
-        name: z.string().nullish(),
-        description: z.string().nullish(),
-        image: z.string().nullish(),
-        animation_url: z.string().nullish(),
-        external_url: z.string().nullish(),
-        attributes: z.array(z.union([tokenTraitSchema, z.string()])).nullish().default([]),
-      }),
-      'animation_url', 'animationUrl',
-    ),
-    'external_url', 'externalUrl',
+    z.object({
+      name: z.string().nullish(),
+      description: z.string().nullish(),
+      image: z.string().nullish(),
+      animation_url: z.string().nullish(),
+      external_url: z.string().nullish(),
+      attributes: z.array(z.union([tokenTraitSchema, z.string()])).nullish().default([]),
+    }),
+    {
+      animation_url: 'animationUrl',
+      external_url: 'externalUrl',
+    },
   )
 ).transform(data => resolveIpfs(data))
 
 export const nftTokenSchema = nftContractSchema.and(
   mapped(
-    mapped(
-      z.object({
-        token_id: numberLike,
-        amount: intLike.nullish().default(1).transform(String),
-        token_uri: z.string().nullish(),
-        metadata: fromJSON(nftTokenMetadataSchema).nullish(),
-      }),
-      'token_uri', 'tokenUri',
-    ),
-    'token_id', 'tokenId',
+    z.object({
+      token_id: numberLike,
+      amount: intLike.nullish().default(1).transform(String),
+      token_uri: z.string().nullish(),
+      metadata: fromJSON(nftTokenMetadataSchema).nullish(),
+    }),
+    {
+      token_uri: 'tokenUri',
+      token_id: 'tokenId',
+    },
   ),
 )
 

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { mapped } from '../../utils'
+import { mapped } from '@pyncz/zod-key-mapper'
 import { contractSchema } from './contract'
 
 export const nftContractSchema = contractSchema.and(
@@ -7,7 +7,7 @@ export const nftContractSchema = contractSchema.and(
     z.object({
       token_address: z.string(),
     }),
-    'token_address', 'address',
+    { token_address: 'address' },
   ),
 )
 

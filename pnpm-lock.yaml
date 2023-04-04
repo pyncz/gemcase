@@ -10,6 +10,7 @@ specifiers:
   '@next/font': ^13.0.7
   '@prisma/client': ^4.5.0
   '@pyncz/tailwind-mask-image': ^1.1.0
+  '@pyncz/zod-key-mapper': ^1.0.1
   '@radix-ui/react-label': ^2.0.0
   '@radix-ui/react-popover': ^1.0.5
   '@radix-ui/react-radio-group': ^1.1.1
@@ -75,6 +76,7 @@ dependencies:
   '@next/font': 13.0.7
   '@prisma/client': 4.7.1_prisma@4.7.1
   '@pyncz/tailwind-mask-image': 1.1.0
+  '@pyncz/zod-key-mapper': 1.0.1
   '@radix-ui/react-label': 2.0.0_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-popover': 1.0.5_ib3m5ricvtkl2cll7qpr2f6lvq
   '@radix-ui/react-radio-group': 1.1.1_biqbaboplfbrettd7655fr4n2y
@@ -906,6 +908,12 @@ packages:
 
   /@pyncz/tailwind-mask-image/1.1.0:
     resolution: {integrity: sha512-mbz0FwsFpaWKJYDpxuhu3II/nYmfJxPotmR88pXqQqNX/yPrCwgyHatb22+w8w3QGn8dlGRWdX0e5b1Q2jzMRQ==}
+    dev: false
+
+  /@pyncz/zod-key-mapper/1.0.1:
+    resolution: {integrity: sha512-pi7ojgbb3O/G40oZirn4diOlswDLSzCMGhOzYWQxDV7rpojOrdVkzvqVEfdG07Un+1XJj1b1BVLptl9oqFhzrA==}
+    dependencies:
+      zod: 3.21.0
     dev: false
 
   /@radix-ui/number/1.0.0:
